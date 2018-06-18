@@ -1,6 +1,6 @@
 package utils;
 
-public class ValidadorCenario extends Validador {
+public class Validador extends Validador {
 
     /**
      * Valida a descrição do Cenário. Valida se não é nulo e se não é vazio.

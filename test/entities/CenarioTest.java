@@ -1,9 +1,19 @@
 package entities;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class CenarioTest {
+    private Cenario cenario;
+
+    /**
+     * Cria um objeto Cenario para servir de base para os testes unitários.
+     */
+    @Before
+    public void criaCenario(){
+        this.cenario = new Cenario("O Brasil vai ser hexa.");
+    }
 
     /**
      * Testa a criação do objeto Cenário.
@@ -36,5 +46,13 @@ public class CenarioTest {
     @Test (expected = IllegalArgumentException.class)
     public void testCenarioDescricaoVazia(){
         new Cenario("");
+    }
+
+    /**
+     * Testa a método toString do Cenario.
+     */
+    @Test
+    public void testToString(){
+        Assert.assertEquals("O Brasil vai ser hexa. - Não finalizado", this.cenario.toString());
     }
 }

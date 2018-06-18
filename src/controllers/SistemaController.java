@@ -4,10 +4,9 @@ import entities.Cenario;
 import utils.ValidadorCenario;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class SistemaController {
-    private Collection<Cenario> cenarios;
+    private ArrayList<Cenario> cenarios;
     private ValidadorCenario validadorCenario;
 
     public SistemaController(){
@@ -24,5 +23,14 @@ public class SistemaController {
         this.validadorCenario.validaDescricao(descricao);
         this.cenarios.add(new Cenario(descricao));
         return this.cenarios.size();
+    }
+
+    /**
+     * Exibe o cenário.
+     * @param cenario Localiza um Cenario pelo número.
+     * @return Retorna a String formatada DESCRICAO - ESTADO.
+     */
+    public String consultaCenario(int cenario) {
+        return this.cenarios.get(cenario + 1).toString();
     }
 }
