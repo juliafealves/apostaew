@@ -1,17 +1,14 @@
 package controllers;
 
 import entities.Cenario;
-import utils.ValidadorCenario;
 
 import java.util.ArrayList;
 
 public class SistemaController {
     private ArrayList<Cenario> cenarios;
-    private ValidadorCenario validadorCenario;
 
     public SistemaController(){
         this.cenarios = new ArrayList<>();
-        this.validadorCenario = new ValidadorCenario();
     }
 
     /**
@@ -20,7 +17,6 @@ public class SistemaController {
      * @return Retorna a numeração do cenário.
      */
     public int cadastraCenario(String descricao) {
-        this.validadorCenario.validaDescricao(descricao);
         this.cenarios.add(new Cenario(descricao));
         return this.cenarios.size();
     }

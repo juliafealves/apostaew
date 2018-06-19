@@ -3,16 +3,15 @@ package utils;
 import java.util.ArrayList;
 
 public class Validador {
-    protected boolean validaNaoNulo(Object objeto, String descricao){
-        String mensagem = String.format("%s não poderá ser nulo.", descricao);
 
+    public static boolean validaNaoNulo(Object objeto, String mensagem){
         if(objeto == null)
             throw new NullPointerException(mensagem);
 
         return true;
     }
 
-    protected boolean validaNaoVazio(String valor, String campo){
+    public static boolean validaNaoVazio(String valor, String campo){
         String mensagem = String.format("%s não poderá ser nulo.", campo);
 
         if(valor.isEmpty())
