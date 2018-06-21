@@ -61,4 +61,12 @@ public class SistemaController {
 
         return cenarios.toString();
     }
+
+    /**
+     * Retorna o valor atual do caixa do sistema.
+     * @return Caixa em centavos.
+     */
+    public int getCaixa() {
+        return this.caixa;
+    }
 }

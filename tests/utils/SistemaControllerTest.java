@@ -41,6 +41,14 @@ public class SistemaControllerTest {
     }
 
     /**
+     * Testa o retorno do caixa do sistema.
+     */
+    @Test
+    public void testGetCaixa(){
+        Assert.assertEquals(1000, this.sistemaController.getCaixa());
+    }
+
+    /**
      * Testa o cadastra Cenario, deve retorna um valor númerico único.
      */
     @Test
@@ -57,7 +65,7 @@ public class SistemaControllerTest {
     }
 
     /**
-     * Testa se gera uma exceção caso descrição seja vazia.
+     * Testa se gera uma exceção caso descrição seja nula.
      */
     @Test (expected = NullPointerException.class)
     public void testCadastraCenarioDescricaoNula(){

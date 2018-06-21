@@ -11,7 +11,7 @@ public class Facade {
                 "facades.Facade",
                 "tests/acceptance/us1_test.txt",
                 "tests/acceptance/us2_test.txt",
-//                "tests/acceptance/us3_test.txt",
+                "tests/acceptance/us3_test.txt",
 //                "tests/acceptance/use4_test.txt"
         };
 
@@ -25,6 +25,13 @@ public class Facade {
      */
     public void inicializa(int caixa, double taxa){
         this.sistemaController = new SistemaController(caixa, taxa);
+    }
+
+    /**
+     * Retorna o valor do caixa atual.
+     */
+    public int getCaixa(){
+        return this.sistemaController.getCaixa();
     }
 
     /**
