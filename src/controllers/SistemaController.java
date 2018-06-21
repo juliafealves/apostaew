@@ -7,8 +7,19 @@ import java.util.ArrayList;
 
 public class SistemaController {
     private ArrayList<Cenario> cenarios;
+    private double taxa;
+    private int caixa;
 
-    public SistemaController(){
+    /**
+     * Inicializa o sistema, definindo o valor do caixa (em centavos) e a taxa.
+     * @param caixa Valor em centavos.
+     * @param taxa Taxa das apostas.
+     */
+    public SistemaController(int caixa, double taxa) {
+        Validador.validaNumeroPositivo(caixa, "Erro na inicializacao: Caixa nao pode ser inferior a 0", true);
+        Validador.validaNumeroPositivo(taxa, "Erro na inicializacao: Taxa nao pode ser inferior a 0", true);
+        this.caixa = caixa;
+        this.taxa = taxa;
         this.cenarios = new ArrayList<>();
     }
 

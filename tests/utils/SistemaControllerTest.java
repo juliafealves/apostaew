@@ -13,7 +13,31 @@ public class SistemaControllerTest {
      */
     @Before
     public void criaSistemaController(){
-        this.sistemaController = new SistemaController();
+        this.sistemaController = new SistemaController(1000, 0.1);
+    }
+
+    /**
+     * Testa a inicialização do sistema.
+     */
+    @Test
+    public void testInicializaSistema(){
+       new SistemaController(1000, 0.1);
+    }
+
+    /**
+     * Testa se gera uma exceção caso caixa seja negativo.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testInicializaSistemaCaixaNegativo(){
+        new SistemaController(-1, 0.1);
+    }
+
+    /**
+     * Testa se gera uma exceção caso taxa seja negativo.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testInicializaSistemaTaxaNegativa(){
+        new SistemaController(1000, -0.1);
     }
 
     /**
@@ -52,7 +76,7 @@ public class SistemaControllerTest {
     /**
      * Testa se gera uma exceção caso numeração do cenário seja negativo.
      */
-    @Test (expected = NumberFormatException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void testConsulaCenarioNegativo(){
         this.sistemaController.consultaCenario(-1);
     }

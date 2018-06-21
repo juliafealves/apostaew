@@ -47,6 +47,20 @@ public class Validador {
     }
 
     /**
+     * Valida um numero positivo.
+     * @param numero Numero a ser validado.
+     * @param mensagem Mensagem personalizada.
+     * @param inclueZero Caso inclua o 0 como número válido (true), caso contrário false.
+     * @return Retorna true caso o número é positivo (incluindo zero ou não).
+     */
+    public static boolean validaNumeroPositivo(double numero, String mensagem, boolean inclueZero){
+        if ((numero <= 0 && !inclueZero) || (numero < 0 && inclueZero))
+            throw new NumberFormatException(mensagem);
+
+        return true;
+    }
+
+    /**
      * Verifica o índice da coleção é válido.
      *
      * @param indice Indice do ArrayList

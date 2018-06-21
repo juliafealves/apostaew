@@ -6,20 +6,25 @@ import controllers.SistemaController;
 public class Facade {
     private SistemaController sistemaController;
 
-    public Facade(){
-        this.sistemaController = new SistemaController();
-    }
-
     public static void main(String args[]){
         args = new String[]{
                 "facades.Facade",
-//                "tests/acceptance/us1_test.txt",
+                "tests/acceptance/us1_test.txt",
                 "tests/acceptance/us2_test.txt",
 //                "tests/acceptance/us3_test.txt",
 //                "tests/acceptance/use4_test.txt"
         };
 
         EasyAccept.main(args);
+    }
+
+    /**
+     * Inicializa o sistema de apostas.
+     * @param caixa Caixa valor em centavos.
+     * @param taxa Taxa de cobrança.
+     */
+    public void inicializa(int caixa, double taxa){
+        this.sistemaController = new SistemaController(caixa, taxa);
     }
 
     /**
