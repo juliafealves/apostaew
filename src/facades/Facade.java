@@ -31,4 +31,13 @@ public class Facade {
     public int cadastrarCenario(String descricao){
         return this.sistemaController.cadastraCenario(descricao);
     }
+
+    /**
+     * Exibe um cenário correspondente a numeração informada.
+     * @param cenario Numeração do Cenário de Aposta.
+     * @return Retorna formatação textual: Numeracao - Descricao - Estado
+     */
+    public String exibirCenario(int cenario){
+        return this.sistemaController.consultaCenario(cenario);
+    }
 }

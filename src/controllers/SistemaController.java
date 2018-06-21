@@ -33,6 +33,8 @@ public class SistemaController {
      * @return Retorna a String formatada DESCRICAO - ESTADO.
      */
     public String consultaCenario(int cenario) {
-        return this.cenarios.get(cenario + 1).toString();
+        Validador.validaNumeroPositivo(cenario, "Erro na consulta de cenario: Cenario invalido", false);
+        Validador.validaIndiceColecao(cenario - 1, this.cenarios.size(), "Erro na consulta de cenario: Cenario nao cadastrado");
+        return this.cenarios.get(cenario - 1).toString();
     }
 }

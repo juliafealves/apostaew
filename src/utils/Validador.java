@@ -1,6 +1,8 @@
 package utils;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class Validador {
 
@@ -31,18 +33,30 @@ public class Validador {
     }
 
     /**
-     * Verifica se existe um elemento na coleção a partir do índice.
-     * @param colecao
-     * @param indice
-     * @param campo
-     * @return
+     * Valida um numero positivo.
+     * @param numero Numero a ser validado.
+     * @param mensagem Mensagem personalizada.
+     * @param inclueZero Caso inclua o 0 como número válido (true), caso contrário false.
+     * @return Retorna true caso o número é positivo (incluindo zero ou não).
      */
-    public boolean validaElementoInexistente(ArrayList<Object> colecao, int indice, String campo) {
-        try{
-            colecao.get(indice);
-            return true;
-        } catch (IndexOutOfBoundsException exception){
-            throw new IndexOutOfBoundsException(String.format("%s não existe na coleção.", campo));
-        }
+    public static boolean validaNumeroPositivo(int numero, String mensagem, boolean inclueZero){
+        if ((numero <= 0 && !inclueZero) || (numero < 0 && inclueZero))
+            throw new NumberFormatException(mensagem);
+
+        return true;
+    }
+
+    /**
+     * Verifica o índice da coleção é válido.
+     *
+     * @param indice Indice do ArrayList
+     * @param mensagem Mensagem personalizada.
+     * @return Retorna true caso o índice seja maior ou igual a 0, ou menor que o tamanho.
+     */
+    public static boolean validaIndiceColecao(int indice, int tamanho, String mensagem) {
+        if (indice >= tamanho || indice < 0)
+            throw new IndexOutOfBoundsException(mensagem);
+
+        return true;
     }
 }

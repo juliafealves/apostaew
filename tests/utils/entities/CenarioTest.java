@@ -30,7 +30,7 @@ public class CenarioTest {
     @Test
     public void testCenarioIniciaNaoFinalizado(){
         Cenario cenario = new Cenario("O Brasil vai ser hexa.", 1);
-        Assert.assertEquals("1 - O Brasil vai ser hexa. - Não finalizado", cenario.toString());
+        Assert.assertEquals("1 - O Brasil vai ser hexa. - Nao finalizado", cenario.toString());
     }
 
     /**
@@ -98,6 +98,6 @@ public class CenarioTest {
      */
     @Test
     public void testToString(){
-        Assert.assertEquals("1 - O Brasil vai ser hexa. - Não finalizado", this.cenario.toString());
+        Assert.assertEquals("1 - O Brasil vai ser hexa. - Nao finalizado", this.cenario.toString());
     }
 }

@@ -45,14 +45,22 @@ public class SistemaControllerTest {
      */
     @Test
     public void testConsulaCenario(){
-        int cenario = this.sistemaController.cadastraCenario("O Brasil var ser hexa");
-        Assert.assertEquals("O Brasil vai ser hexa - Não finalizado", this.sistemaController.consultaCenario(cenario));
+        int cenario = this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        Assert.assertEquals("1 - O Brasil vai ser hexa - Nao finalizado", this.sistemaController.consultaCenario(cenario));
     }
 
     /**
-     * Testa se gera uma exceção caso descrição seja vazia.
+     * Testa se gera uma exceção caso numeração do cenário seja negativo.
      */
-    @Test (expected = IllegalArgumentException.class)
+    @Test (expected = NumberFormatException.class)
+    public void testConsulaCenarioNegativo(){
+        this.sistemaController.consultaCenario(-1);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o número do Cenário não foi cadastrado ainda.
+     */
+    @Test (expected = IndexOutOfBoundsException.class)
     public void testConsulaCenarioInexistente(){
         this.sistemaController.consultaCenario(1);
     }
