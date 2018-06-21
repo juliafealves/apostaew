@@ -40,4 +40,12 @@ public class Facade {
     public String exibirCenario(int cenario){
         return this.sistemaController.consultaCenario(cenario);
     }
+
+    /**
+     * Exibe todos os cenários cadastrados.
+     * @return Retorna formatação textual: Numeracao - Descricao - Estado
+     */
+    public String exibirCenarios(){
+        return this.sistemaController.listaCenarios();
+    }
 }

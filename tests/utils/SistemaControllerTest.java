@@ -64,4 +64,16 @@ public class SistemaControllerTest {
     public void testConsulaCenarioInexistente(){
         this.sistemaController.consultaCenario(1);
     }
+
+    /**
+     * Testa a listagem de cenários cadastrados.
+     */
+    @Test
+    public void testListaCenarios(){
+        this.sistemaController.cadastraCenario("Cenario1");
+        this.sistemaController.cadastraCenario("Cenario2");
+        String cenarios = "1 - Cenario1 - Nao finalizado" + System.lineSeparator() +
+                "2 - Cenario2 - Nao finalizado" + System.lineSeparator();
+        Assert.assertEquals(cenarios, this.sistemaController.listaCenarios());
+    }
 }

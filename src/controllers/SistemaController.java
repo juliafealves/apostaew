@@ -37,4 +37,17 @@ public class SistemaController {
         Validador.validaIndiceColecao(cenario - 1, this.cenarios.size(), "Erro na consulta de cenario: Cenario nao cadastrado");
         return this.cenarios.get(cenario - 1).toString();
     }
+
+    /**
+     * Lista todos os cenários da coleção.
+     * @return String com todos os cenários cadastrados.
+     */
+    public String listaCenarios() {
+        StringBuilder cenarios = new StringBuilder();
+
+        for(Cenario cenario : this.cenarios)
+            cenarios.append(cenario).append(System.lineSeparator());
+
+        return cenarios.toString();
+    }
 }
