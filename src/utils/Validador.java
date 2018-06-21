@@ -4,6 +4,12 @@ import java.util.ArrayList;
 
 public class Validador {
 
+    /**
+     * Valida se um objeto é não nulo.
+     * @param objeto Objeto que não deve ser nulo.
+     * @param mensagem Mensagem gerada na exceção.
+     * @return Returna true caso o objeto seja não nulo.
+     */
     public static boolean validaNaoNulo(Object objeto, String mensagem){
         if(objeto == null)
             throw new NullPointerException(mensagem);
@@ -11,9 +17,13 @@ public class Validador {
         return true;
     }
 
-    public static boolean validaNaoVazio(String valor, String campo){
-        String mensagem = String.format("%s não poderá ser nulo.", campo);
-
+    /**
+     * Valida se uma String não é vazia.
+     * @param valor String que não deve ser nulo.
+     * @param mensagem Mensagem gerada na exceção.
+     * @return Returna true caso o objeto seja não nulo.
+     */
+    public static boolean validaStringNaoVazia(String valor, String mensagem){
         if(valor.isEmpty())
             throw new IllegalArgumentException(mensagem);
 

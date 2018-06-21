@@ -1,6 +1,7 @@
 package controllers;
 
 import entities.Cenario;
+import utils.Validador;
 
 import java.util.ArrayList;
 
@@ -17,8 +18,13 @@ public class SistemaController {
      * @return Retorna a numeração do cenário.
      */
     public int cadastraCenario(String descricao) {
-        this.cenarios.add(new Cenario(descricao));
-        return this.cenarios.size();
+        Validador.validaNaoNulo(descricao, "Erro no cadastro de cenario: Descricao nao pode ser nula");
+        Validador.validaStringNaoVazia(descricao, "Erro no cadastro de cenario: Descricao nao pode ser vazia");
+
+        int numeracao = this.cenarios.size() + 1;
+        this.cenarios.add(new Cenario(descricao, numeracao));
+
+        return numeracao;
     }
 
     /**

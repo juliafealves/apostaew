@@ -1,11 +1,11 @@
-package controllers;
+package utils;
 
+import controllers.SistemaController;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 public class SistemaControllerTest {
-    private String descricao;
     private SistemaController sistemaController;
 
     /**
@@ -13,7 +13,6 @@ public class SistemaControllerTest {
      */
     @Before
     public void criaSistemaController(){
-        this.descricao = "O Brasil vai ser hexacampeão";
         this.sistemaController = new SistemaController();
     }
 
