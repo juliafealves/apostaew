@@ -74,4 +74,25 @@ public class Cenario {
     public int obtemTotalApostas() {
         return this.apostas.size();
     }
+
+    /**
+     * Retorna a soma do valor total das apostas.
+     * @return Total das apostas realizadas.
+     */
+    public int obtemValorTotalApostas(){
+        return apostas.stream().mapToInt(Aposta::getValor).sum();
+    }
+
+    /**
+     * Listas as apostas de um cenário.
+     * @return Representação textual: Nome - Valor - Previsão.
+     */
+    public String listaApostas(){
+        StringBuilder apostas = new StringBuilder();
+
+        for(Aposta aposta : this.apostas)
+            apostas.append(aposta).append(System.lineSeparator());
+
+        return apostas.toString();
+    }
 }

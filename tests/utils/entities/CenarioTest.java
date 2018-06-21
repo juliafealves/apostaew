@@ -198,4 +198,27 @@ public class CenarioTest {
         this.cenario.cadastraAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
         Assert.assertEquals(1, this.cenario.obtemTotalApostas());
     }
+
+    /**
+     * Testa o retorno do valor total de apostas feitas.
+     */
+    @Test
+    public void testObtemValorTotalApostas(){
+        this.cenario.cadastraAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.cenario.cadastraAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
+        Assert.assertEquals(2000, this.cenario.obtemValorTotalApostas());
+    }
+
+    /**
+     * Testa o lista apostas.
+     * Formato: Apostador - Valor (em reais) - Previsão
+     */
+    @Test
+    public void testListaApostas(){
+        this.cenario.cadastraAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.cenario.cadastraAposta("Maria da Sorte", 199, "VAI ACONTECER");
+        String apostas = "Jose da Sorte - R$10,00 - N VAI ACONTECER" + System.lineSeparator() +
+                "Maria da Sorte - R$1,99 - VAI ACONTECER" + System.lineSeparator();
+        Assert.assertEquals(apostas, this.cenario.listaApostas());
+    }
 }

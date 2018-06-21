@@ -1,6 +1,7 @@
 package utils.entities;
 
 import entities.Aposta;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,6 +22,14 @@ public class ApostaTest {
     @Test
     public void testAposta(){
         new Aposta("José da Sorte", 1000, "N VAI ACONTECER");
+    }
+
+    /**
+     * Testa o método que retorna o valor da aposta.
+     */
+    @Test
+    public void testGetValor(){
+        Assert.assertEquals(1000, this.aposta.getValor());
     }
 
     /**
@@ -93,5 +102,14 @@ public class ApostaTest {
     @Test (expected = IllegalArgumentException.class)
     public void testApostaPrevisaoInvalida(){
         new Aposta("Jose da Sorte", 1000, "NAO EXITE ESSA PREVISAO");
+    }
+
+    /**
+     * Testa o método toString da Aposta.
+     * Formato: Apostador - Valor (em reais) - Previsão
+     */
+    @Test
+    public void testToString(){
+        Assert.assertEquals("José da Sorte - R$10,00 - N VAI ACONTECER", this.aposta.toString());
     }
 }

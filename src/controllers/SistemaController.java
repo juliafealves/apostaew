@@ -85,6 +85,16 @@ public class SistemaController {
     }
 
     /**
+     * Listas as apostas de um cenário.
+     * @param cenario Numeração do cenário.
+     * @return Representação textual: Nome - Valor - Previsão.
+     */
+    public String listaApostas(int cenario) {
+        this.validaCenario(cenario, "Erro no exibe apostas");
+        return this.cenarios.get(cenario - 1).listaApostas();
+    }
+
+    /**
      * Retorna o total de apostas cadastradas em um cenário.
      * @param cenario Numeracão do cenário.
      * @return Total de apostas realizadas.
@@ -92,6 +102,16 @@ public class SistemaController {
     public int obtemTotalApostas(int cenario) {
         this.validaCenario(cenario, "Erro na consulta do total de apostas");
         return this.cenarios.get(cenario - 1).obtemTotalApostas();
+    }
+
+    /**
+     * Retorna o total de apostas cadastradas em um cenário.
+     * @param cenario Numeracão do cenário.
+     * @return Total de apostas realizadas.
+     */
+    public int obtemValorTotalApostas(int cenario) {
+        this.validaCenario(cenario, "Erro na consulta do valor total de apostas");
+        return this.cenarios.get(cenario - 1).obtemValorTotalApostas();
     }
 
     /**

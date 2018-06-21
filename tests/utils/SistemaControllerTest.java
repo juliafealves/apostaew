@@ -268,4 +268,79 @@ public class SistemaControllerTest {
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         this.sistemaController.obtemTotalApostas(2);
     }
+
+    /**
+     * Testa o retorno do valor total de apostas feitas.
+     */
+    @Test
+    public void testObtemValorTotalApostas(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1, "Jose da Sorte", 1000, "N VAI ACONTECER");
+        Assert.assertEquals(2000, this.sistemaController.obtemValorTotalApostas(1));
+    }
+
+    /**
+     * Testa se gera uma exceção caso numeração do cenário seja negativo.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testObtemValorTotalApostasCenarioNegativo(){
+        this.sistemaController.obtemValorTotalApostas(-1);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o número do Cenário não foi cadastrado ainda.
+     */
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testObtemValorTotalApostasCenarioInexistente(){
+        this.sistemaController.obtemValorTotalApostas(1);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o número do Cenário acima do tamanho da coleção.
+     */
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testObtemValorTotalApostasCenarioAcimaDoLimite(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.obtemValorTotalApostas(2);
+    }
+
+    /**
+     * Testa o lista apostas.
+     * Formato: Apostador - Valor (em reais) - Previsão
+     */
+    @Test
+    public void testListaApostas(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,"Maria da Sorte", 199, "VAI ACONTECER");
+        String apostas = "Jose da Sorte - R$10,00 - N VAI ACONTECER" + System.lineSeparator() +
+                "Maria da Sorte - R$1,99 - VAI ACONTECER" + System.lineSeparator();
+        Assert.assertEquals(apostas, this.sistemaController.listaApostas(1));
+    }
+
+    /**
+     * Testa se gera uma exceção caso numeração do cenário seja negativo.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testListaApostasCenarioNegativo(){
+        this.sistemaController.listaApostas(-1);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o número do Cenário não foi cadastrado ainda.
+     */
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testListaApostasCenarioInexistente(){
+        this.sistemaController.listaApostas(1);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o número do Cenário acima do tamanho da coleção.
+     */
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testListaApostasCenarioAcimaDoLimite(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.listaApostas(2);
+    }
 }

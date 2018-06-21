@@ -77,4 +77,21 @@ public class Facade {
     public int totalDeApostas(int cenario){
         return this.sistemaController.obtemTotalApostas(cenario);
     }
+
+    /**
+     * Retorna o número de apostas feitas em um cenário.
+     * @param cenario Numeração do cenário de Aposta.
+     * @return
+     */
+    public int valorTotalDeApostas(int cenario){
+        return this.sistemaController.obtemValorTotalApostas(cenario);
+    }
+
+    /**
+     * Exibe todos os cenários cadastrados.
+     * @return Retorna formatação textual: Numeracao - Descricao - Estado
+     */
+    public String exibeApostas(int cenario){
+        return this.sistemaController.listaApostas(cenario);
+    }
 }
