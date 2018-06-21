@@ -1,31 +1,30 @@
 package entities;
 
 import enums.EstadoEnum;
+import utils.Validador;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Cenario {
     private String descricao;
     private EstadoEnum estado;
     private int numeracao;
+    private ArrayList<Aposta> apostas;
 
     /**
      * Cria um objeto Cenario.
      * @param descricao A descrição não pode ser vazia ou nula.
      */
     public Cenario(String descricao, int numeracao){
-        if(descricao == null)
-            throw new NullPointerException("Descrição não deve ser nula.");
-
-        if(descricao.isEmpty())
-            throw new IllegalArgumentException("Descrição não deve ser vazia.");
-
-        if(numeracao <= 0)
-            throw new NumberFormatException("A numeração deve ser um inteiro positivo.");
+        Validador.validaNaoNulo(descricao, "Erro no cadastro de cenario: Descricao nao pode ser nula");
+        Validador.validaStringNaoVazia(descricao, "Erro no cadastro de cenario: Descricao nao pode ser vazia");
+        Validador.validaNumeroPositivo(numeracao, "Erro no cadastro de cenario: Numeracao nao pode ser inferior ou igual a 0", false);
 
         this.descricao = descricao;
         this.numeracao = numeracao;
         this.estado = EstadoEnum.NAO_FINALIZADO;
+        this.apostas = new ArrayList<>();
     }
 
     /**
@@ -56,5 +55,23 @@ public class Cenario {
      */
     public String toString(){
         return this.numeracao + " - " + this.descricao + " - " + this.estado.getEstado();
+    }
+
+    /**
+     * Cadastra uma aposta no cenário.
+     * @param apostador Nome do apostador
+     * @param valor Valor da Aposta.
+     * @param previsao Previsão da aposta.
+     */
+    public void cadastraAposta(String apostador, int valor, String previsao) {
+        this.apostas.add(new Aposta(apostador, valor, previsao));
+    }
+
+    /**
+     * Retorna o total das apostas cadastradas em um cenário.
+     * @return Total de apostas feitas.
+     */
+    public int obtemTotalApostas() {
+        return this.apostas.size();
     }
 }

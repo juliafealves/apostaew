@@ -1,6 +1,7 @@
 package controllers;
 
 import entities.Cenario;
+import enums.PrevisaoEnum;
 import utils.Validador;
 
 import java.util.ArrayList;
@@ -44,8 +45,7 @@ public class SistemaController {
      * @return Retorna a String formatada DESCRICAO - ESTADO.
      */
     public String consultaCenario(int cenario) {
-        Validador.validaNumeroPositivo(cenario, "Erro na consulta de cenario: Cenario invalido", false);
-        Validador.validaIndiceColecao(cenario - 1, this.cenarios.size(), "Erro na consulta de cenario: Cenario nao cadastrado");
+        this.validaCenario(cenario, "Erro na consulta de cenario");
         return this.cenarios.get(cenario - 1).toString();
     }
 
@@ -68,5 +68,60 @@ public class SistemaController {
      */
     public int getCaixa() {
         return this.caixa;
+    }
+
+    /**
+     * Cadastra uma aposta em um cenário.
+     * @param cenario Numeração do cenário
+     * @param apostador Nome do apostador.
+     * @param valor Valor da aposta.
+     * @param previsao Previsão da Aposta: N VAI ACONTECER ou VAI ACONTECER
+     */
+    public void cadastraAposta(int cenario, String apostador, int valor, String previsao) {
+        this.validaCenario(cenario, "Erro no cadastro de aposta");
+        this.validaAposta(apostador, valor, previsao, "Erro no cadastro de aposta");
+
+        this.cenarios.get(cenario - 1).cadastraAposta(apostador, valor, previsao);
+    }
+
+    /**
+     * Retorna o total de apostas cadastradas em um cenário.
+     * @param cenario Numeracão do cenário.
+     * @return Total de apostas realizadas.
+     */
+    public int obtemTotalApostas(int cenario) {
+        this.validaCenario(cenario, "Erro na consulta do total de apostas");
+        return this.cenarios.get(cenario - 1).obtemTotalApostas();
+    }
+
+    /**
+     * Valida os dados da aposta.
+     * @param apostador Nome do apostador.
+     * @param valor Valor da aposta.
+     * @param previsao Previsão da Aposta: N VAI ACONTECER ou VAI ACONTECER
+     * @param localErro Localização onde ocorreu o erro. Ex.: "Erro no cadastro de aposta".
+     */
+    private void validaAposta(String apostador, int valor, String previsao, String localErro) {
+        // Valida apostador
+        Validador.validaNaoNulo(apostador, localErro + ": Apostador nao pode ser vazio ou nulo");
+        Validador.validaStringNaoVazia(apostador, localErro + ": Apostador nao pode ser vazio ou nulo");
+        // Valida Valor
+        Validador.validaNumeroPositivo(valor, localErro + ": Valor nao pode ser menor ou igual a zero", false);
+        // Valida Previsao
+        Validador.validaNaoNulo(previsao, localErro + ": Previsao nao pode ser vazia ou nula");
+        Validador.validaStringNaoVazia(previsao, localErro + ": Previsao nao pode ser vazia ou nula");
+        String[] previsoes = {PrevisaoEnum.NAO_VAI_ACONTECER.getPrevisao(), PrevisaoEnum.VAI_ACONTECER.getPrevisao()};
+        Validador.validaStringIguais(previsao, previsoes, localErro + ": Previsao invalida");
+    }
+
+    /**
+     * Valida a numeração do cenário.
+     *
+     * @param cenario Numeração do cenário.
+     * @param localErro Localização onde ocorreu o erro. Ex.: "Erro no cadastro de aposta".
+     */
+    private void validaCenario(int cenario, String localErro){
+        Validador.validaNumeroPositivo(cenario, localErro + ": Cenario invalido", false);
+        Validador.validaIndiceColecao(cenario - 1, this.cenarios.size(),  localErro + ": Cenario nao cadastrado");
     }
 }

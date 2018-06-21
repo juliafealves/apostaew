@@ -52,7 +52,7 @@ public class ValidadorTest {
     /**
      * Testa se é lançada exceção caso envie um número zero quando não é permitido.
      */
-    @Test (expected = NumberFormatException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void testValidaNumeroPositivoSemZeroNumeroSendoZero(){
         Assert.assertTrue(Validador.validaNumeroPositivo(0, "Mensagem", false));
     }
@@ -60,7 +60,7 @@ public class ValidadorTest {
     /**
      * Testa se é lançada exceção caso envie um numero negativo quando não é permitido.
      */
-    @Test (expected = NumberFormatException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void testValidaNumeroPositivoComNumeroNegativo(){
         Assert.assertTrue(Validador.validaNumeroPositivo(-1, "Mensagem", false));
     }

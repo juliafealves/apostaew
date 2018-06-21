@@ -12,7 +12,7 @@ public class Facade {
                 "tests/acceptance/us1_test.txt",
                 "tests/acceptance/us2_test.txt",
                 "tests/acceptance/us3_test.txt",
-//                "tests/acceptance/use4_test.txt"
+                "tests/acceptance/us4_test.txt"
         };
 
         EasyAccept.main(args);
@@ -46,7 +46,7 @@ public class Facade {
 
     /**
      * Exibe um cenário correspondente a numeração informada.
-     * @param cenario Numeração do Cenário de Aposta.
+     * @param cenario Numeração do cenário de Aposta.
      * @return Retorna formatação textual: Numeracao - Descricao - Estado
      */
     public String exibirCenario(int cenario){
@@ -59,5 +59,22 @@ public class Facade {
      */
     public String exibirCenarios(){
         return this.sistemaController.listaCenarios();
+    }
+
+    /**
+     * Cadastra um cenário para apostas no sistema.
+     *
+     */
+    public void cadastrarAposta(int cenario, String apostador, int valor, String previsao){
+        this.sistemaController.cadastraAposta(cenario, apostador, valor, previsao);
+    }
+
+    /**
+     * Retorna o número de apostas feitas em um cenário.
+     * @param cenario Numeração do cenário de Aposta.
+     * @return
+     */
+    public int totalDeApostas(int cenario){
+        return this.sistemaController.obtemTotalApostas(cenario);
     }
 }

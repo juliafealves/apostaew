@@ -76,7 +76,7 @@ public class SistemaControllerTest {
      * Testa a consulta do cenário pela numeração em forma textual.
      */
     @Test
-    public void testConsulaCenario(){
+    public void testConsultaCenario(){
         int cenario = this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         Assert.assertEquals("1 - O Brasil vai ser hexa - Nao finalizado", this.sistemaController.consultaCenario(cenario));
     }
@@ -85,7 +85,7 @@ public class SistemaControllerTest {
      * Testa se gera uma exceção caso numeração do cenário seja negativo.
      */
     @Test (expected = IllegalArgumentException.class)
-    public void testConsulaCenarioNegativo(){
+    public void testConsultaCenarioNegativo(){
         this.sistemaController.consultaCenario(-1);
     }
 
@@ -93,8 +93,17 @@ public class SistemaControllerTest {
      * Testa se gera uma exceção caso o número do Cenário não foi cadastrado ainda.
      */
     @Test (expected = IndexOutOfBoundsException.class)
-    public void testConsulaCenarioInexistente(){
+    public void testConsultaCenarioInexistente(){
         this.sistemaController.consultaCenario(1);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o número do Cenário acima do tamanho da coleção.
+     */
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testConsultaApostaCenarioAcimaDoLimite(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.consultaCenario(2);
     }
 
     /**
@@ -107,5 +116,156 @@ public class SistemaControllerTest {
         String cenarios = "1 - Cenario1 - Nao finalizado" + System.lineSeparator() +
                 "2 - Cenario2 - Nao finalizado" + System.lineSeparator();
         Assert.assertEquals(cenarios, this.sistemaController.listaCenarios());
+    }
+
+    /**
+     * Testa a criação do objeto Aposta.
+     */
+    @Test
+    public void testCadastraAposta(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
+        Assert.assertEquals(1, this.sistemaController.obtemTotalApostas(1));
+    }
+
+    /**
+     * Testa se gera uma exceção caso numeração do cenário seja negativo.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCadastraApostaCenarioNegativo(){
+        this.sistemaController.cadastraAposta(-1,"", 1000, "N VAI ACONTECER");
+    }
+
+    /**
+     * Testa se gera uma exceção caso o número do Cenário não foi cadastrado ainda.
+     */
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testCadastraApostaCenarioInexistente(){
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
+    }
+
+    /**
+     * Testa se gera uma exceção caso o número do Cenário acima do tamanho da coleção.
+     */
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void estCadastraApostaCenarioAcimaDoLimite(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(2,"Jose da Sorte", 1000, "N VAI ACONTECER");
+    }
+
+    /**
+     * Testa se gera uma exceção caso o nome do apostador seja vazio.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCadastraApostaApostadorVazio(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,"", 1000, "N VAI ACONTECER");
+    }
+
+    /**
+     * Testa se gera uma exceção caso o nome do apostador esteja preenchido com caracteres em branco.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCadastraApostaApostadorEmBranco(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1," ", 1000, "N VAI ACONTECER");
+    }
+
+    /**
+     * Testa se gera uma exceção caso o nome do apostador seja nulo.
+     */
+    @Test (expected = NullPointerException.class)
+    public void testCadastraApostaApostadorNulo(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,null, 1000, "N VAI ACONTECER");
+    }
+
+    /**
+     * Testa se gera uma exceção caso o valor seja negativo.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCadastraApostaValorNegativo(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", -1, "N VAI ACONTECER");
+    }
+
+    /**
+     * Testa se gera uma exceção caso o valor seja igual 0.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCadastraApostaValorZero(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 0, "N VAI ACONTECER");
+    }
+
+    /**
+     * Testa se gera uma exceção caso a previsão seja vazia.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCadastraApostaPrevisaoVazio(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "");
+    }
+
+    /**
+     * Testa se gera uma exceção caso a previsão esteja preenchido com caracteres em branco.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCadastraApostaPrevisaoEmBranco(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "  ");
+    }
+
+    /**
+     * Testa se gera uma exceção caso a previsão seja nula.
+     */
+    @Test (expected = NullPointerException.class)
+    public void testCadastraApostaPrevisaoNulo(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, null);
+    }
+
+    /**
+     * Testa se gera uma exceção caso a previsão seja inválida.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCadastraApostaPrevisaoInvalida(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "NAO EXITE ESSA PREVISAO");
+    }
+
+    /**
+     * Testa o retorno do total de apostas feitas.
+     */
+    @Test
+    public void testObtemTotalApostas(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1, "Jose da Sorte", 1000, "N VAI ACONTECER");
+        Assert.assertEquals(1, this.sistemaController.obtemTotalApostas(1));
+    }
+
+    /**
+     * Testa se gera uma exceção caso numeração do cenário seja negativo.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testObtemTotalApostasCenarioNegativo(){
+        this.sistemaController.obtemTotalApostas(-1);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o número do Cenário não foi cadastrado ainda.
+     */
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testObtemTotalApostasCenarioInexistente(){
+        this.sistemaController.obtemTotalApostas(1);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o número do Cenário acima do tamanho da coleção.
+     */
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testObtemTotalApostasCenarioAcimaDoLimite(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.obtemTotalApostas(2);
     }
 }

@@ -1,9 +1,5 @@
 package utils;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 public class Validador {
 
     /**
@@ -26,7 +22,7 @@ public class Validador {
      * @return Returna true caso o objeto seja não nulo.
      */
     public static boolean validaStringNaoVazia(String valor, String mensagem){
-        if(valor.isEmpty())
+        if(valor.trim().isEmpty())
             throw new IllegalArgumentException(mensagem);
 
         return true;
@@ -41,7 +37,7 @@ public class Validador {
      */
     public static boolean validaNumeroPositivo(int numero, String mensagem, boolean inclueZero){
         if ((numero <= 0 && !inclueZero) || (numero < 0 && inclueZero))
-            throw new NumberFormatException(mensagem);
+            throw new IllegalArgumentException(mensagem);
 
         return true;
     }
@@ -55,7 +51,7 @@ public class Validador {
      */
     public static boolean validaNumeroPositivo(double numero, String mensagem, boolean inclueZero){
         if ((numero <= 0 && !inclueZero) || (numero < 0 && inclueZero))
-            throw new NumberFormatException(mensagem);
+            throw new IllegalArgumentException(mensagem);
 
         return true;
     }
@@ -72,5 +68,33 @@ public class Validador {
             throw new IndexOutOfBoundsException(mensagem);
 
         return true;
+    }
+
+    /**
+     * Verifica se duas strings são iguais.
+     * @param string Primeira string.
+     * @param outraString A outra string para comparação.
+     * @param mensagem Mensagem personalizada.
+     * @return Retorna true caso duas strings sejam iguais.
+     */
+    public static boolean validaStringIguais(String string, String outraString, String mensagem) {
+        if (!string.equalsIgnoreCase(outraString))
+            throw new IndexOutOfBoundsException(mensagem);
+
+        return true;
+    }
+
+    /**
+     * Verifica se duas strings são iguais dentro de um conjunto de strings.
+     * @param string Primeira string.
+     * @param outrasStrings Conjunto de strings para comparar.
+     * @param mensagem Mensagem personalizada.
+     * @return Retorna true alguma das strings sejam iguais a string.
+     */
+    public static boolean validaStringIguais(String string, String[] outrasStrings, String mensagem) {
+        for(String outraString : outrasStrings)
+            if (string.equalsIgnoreCase(outraString)) return true;
+
+        throw new IllegalArgumentException(mensagem);
     }
 }
