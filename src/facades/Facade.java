@@ -94,4 +94,20 @@ public class Facade {
     public String exibeApostas(int cenario){
         return this.sistemaController.listaApostas(cenario);
     }
+
+    /**
+     * Exibe todos os cenários cadastrados.
+     * @return Retorna formatação textual: Numeracao - Descricao - Estado
+     */
+    public void fecharAposta(int cenario, boolean ocorreu){
+        this.sistemaController.finalizaCenario(cenario, ocorreu);
+    }
+
+    public int getCaixaCenario(int cenario){
+        return this.sistemaController.calculaCaixaCenario(cenario);
+    }
+
+    public int getTotalRateioCenario(int cenario){
+        return this.sistemaController.calculaCaixaRateioCenario(cenario);
+    }
 }

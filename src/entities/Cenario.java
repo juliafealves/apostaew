@@ -1,6 +1,7 @@
 package entities;
 
 import enums.EstadoEnum;
+import enums.PrevisaoEnum;
 import utils.Validador;
 
 import java.util.ArrayList;
@@ -68,6 +69,44 @@ public class Cenario {
     }
 
     /**
+     * Finaliza um cenário e calcula os valores das apostas.
+     * @param ocorreu
+     * @return
+     */
+    public int finaliza(boolean ocorreu) {
+        if (ocorreu)
+            this.estado = EstadoEnum.FINALIZADO_OCORREU;
+        else
+            this.estado = EstadoEnum.FINALIZADO_NAO_OCORREU;
+
+        return this.calculaApostas();
+    }
+
+    /**
+     * Verifica se um cenário foi finalizado.
+     * @return
+     */
+    public boolean finalizado(){
+        return this.estado.getEstado().equals(EstadoEnum.FINALIZADO_OCORREU) ||
+                this.estado.getEstado().equals(EstadoEnum.FINALIZADO_NAO_OCORREU);
+    }
+
+    /**
+     * Calcula os valores das apostas de acordo com o resultado da previsão.
+     * @return Total de apostas realizadas.
+     */
+    public int calculaApostas() {
+        if(this.finalizado()) {
+            if (this.estado.equals(EstadoEnum.FINALIZADO_OCORREU))
+                return apostas.stream().filter(aposta -> !aposta.getPrevisao().equals(PrevisaoEnum.VAI_ACONTECER)).mapToInt(Aposta::getValor).sum();
+
+            return apostas.stream().filter(aposta -> !aposta.getPrevisao().equals(PrevisaoEnum.NAO_VAI_ACONTECER)).mapToInt(Aposta::getValor).sum();
+        }
+
+        return 0;
+    }
+
+    /**
      * Retorna o total das apostas cadastradas em um cenário.
      * @return Total de apostas feitas.
      */
@@ -94,5 +133,16 @@ public class Cenario {
             apostas.append(aposta).append(System.lineSeparator());
 
         return apostas.toString();
+    }
+
+    public int calculaRateioApostas(double taxa) {
+        if(this.finalizado()) {
+            if (this.estado.equals(EstadoEnum.FINALIZADO_OCORREU))
+                return (int) (apostas.stream().filter(aposta -> !aposta.getPrevisao().equals(PrevisaoEnum.NAO_VAI_ACONTECER)).mapToInt(Aposta::getValor).sum() * taxa);
+
+            return (int) (apostas.stream().filter(aposta -> !aposta.getPrevisao().equals(PrevisaoEnum.VAI_ACONTECER)).mapToInt(Aposta::getValor).sum() * taxa);
+        }
+
+        return 0;
     }
 }

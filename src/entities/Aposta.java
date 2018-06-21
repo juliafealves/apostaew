@@ -30,6 +30,14 @@ public class Aposta {
     }
 
     /**
+     * Retorna a previsão da aposta.
+     * @return
+     */
+    public PrevisaoEnum getPrevisao() {
+        return previsao;
+    }
+
+    /**
      * Retorna a representação textual das informações de Aposta.
      * @return Formatação textual: Apostador - R$ Valor em reais - Previsão.
      */
