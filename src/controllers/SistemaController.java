@@ -27,7 +27,7 @@ public class SistemaController {
     }
 
     /**
-     * Cadastra um cenário no sistema.
+     * Cadastra um cenário de aposta no sistema.
      * @param descricao Descrição não nula e vazia
      * @return Retorna a numeração do cenário.
      */

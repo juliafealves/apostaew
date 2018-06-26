@@ -1,10 +1,14 @@
-package utils.entities;
+package units.entities;
 
 import entities.Cenario;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Classe de teste de Cenario.
+ * @author Júlia Fernandes Alves (julia.alves@ccc.ufcg.edu.br)
+ */
 public class CenarioTest {
     private Cenario cenario;
 
@@ -21,16 +25,16 @@ public class CenarioTest {
      */
     @Test
     public void testCriaCenario(){
-        new Cenario("O Brasil vai ser hexa!", 1);
+        new Cenario("A Alemanha vai ser goleada pelo Brasil.", 1);
     }
 
     /**
-     * Testa se o objeto Cenário inicializa com estado NAO FINALIZADO.
+     * Testa se o objeto Cenario inicializa com estado NAO FINALIZADO.
      */
     @Test
     public void testCenarioIniciaNaoFinalizado(){
-        Cenario cenario = new Cenario("O Brasil vai ser hexa.", 1);
-        Assert.assertEquals("1 - O Brasil vai ser hexa. - Nao finalizado", cenario.toString());
+        Cenario cenario = new Cenario("Joao Milhonario vai ganhar na mega-sena.", 1);
+        Assert.assertEquals("1 - Joao Milhonario vai ganhar na mega-sena. - Nao finalizado", cenario.toString());
     }
 
     /**
@@ -50,7 +54,7 @@ public class CenarioTest {
     }
 
     /**
-     * Testa se gera uma exceção caso descrição seja vazia.
+     * Testa se gera uma exceção caso descrição tenha somente espaços em brancos.
      */
     @Test (expected = IllegalArgumentException.class)
     public void testCenarioDescricaoEspacoEmBranco(){
@@ -62,7 +66,7 @@ public class CenarioTest {
      */
     @Test (expected = IllegalArgumentException.class)
     public void testCenarioNumeracaoNegativa(){
-        new Cenario("O Brasil vai ser hexa.", -1);
+        new Cenario("Popoyer vai salvar a Olívia Palito.", -1);
     }
 
     /**
@@ -70,7 +74,7 @@ public class CenarioTest {
      */
     @Test (expected = IllegalArgumentException.class)
     public void testCenarioNumeracaoIgualAZero(){
-        new Cenario("O Brasil vai ser hexa.", 0);
+        new Cenario("Maurício será promovido.", 0);
     }
 
     /**
