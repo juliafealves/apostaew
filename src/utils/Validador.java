@@ -30,7 +30,8 @@ public class Validador {
 
     /**
      * Valida um numero positivo.
-     * @param numero Numero a ser validado.
+     *
+     * @param numero Número a ser validado.
      * @param mensagem Mensagem personalizada.
      * @param inclueZero Caso inclua o 0 como número válido (true), caso contrário false.
      * @return Retorna true caso o número é positivo (incluindo zero ou não).
@@ -43,8 +44,9 @@ public class Validador {
     }
 
     /**
-     * Valida um numero positivo.
-     * @param numero Numero a ser validado.
+     * Valida um numero de ponto flutuante positivo.
+     *
+     * @param numero Número a ser validado.
      * @param mensagem Mensagem personalizada.
      * @param inclueZero Caso inclua o 0 como número válido (true), caso contrário false.
      * @return Retorna true caso o número é positivo (incluindo zero ou não).

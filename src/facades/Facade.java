@@ -10,9 +10,9 @@ public class Facade {
         args = new String[]{
                 "facades.Facade",
                 "tests/acceptance/us1_test.txt",
-                "tests/acceptance/us2_test.txt",
-                "tests/acceptance/us3_test.txt",
-                "tests/acceptance/us4_test.txt"
+//                "tests/acceptance/us2_test.txt",
+//                "tests/acceptance/us3_test.txt",
+//                "tests/acceptance/us4_test.txt"
         };
 
         EasyAccept.main(args);
@@ -20,8 +20,9 @@ public class Facade {
 
     /**
      * Inicializa o sistema de apostas.
+     *
      * @param caixa Caixa valor em centavos.
-     * @param taxa Taxa de cobrança.
+     * @param taxa Taxa de cobrança do sistema para cada aposta perdedora.
      */
     public void inicializa(int caixa, double taxa){
         this.sistemaController = new SistemaController(caixa, taxa);

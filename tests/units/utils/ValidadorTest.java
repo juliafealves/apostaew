@@ -1,4 +1,4 @@
-package utils.utils;
+package units.utils;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -42,7 +42,7 @@ public class ValidadorTest {
     }
 
     /**
-     * Testa se valida um número positivo sem o zero.
+     * Testa se valida um número inteiro positivo com o zero.
      */
     @Test
     public void testValidaNumeroPositivoComZero(){
@@ -50,7 +50,7 @@ public class ValidadorTest {
     }
 
     /**
-     * Testa se é lançada exceção caso envie um número zero quando não é permitido.
+     * Testa se é lançada exceção caso envie valide um número zero quando não é permitido.
      */
     @Test (expected = IllegalArgumentException.class)
     public void testValidaNumeroPositivoSemZeroNumeroSendoZero(){
@@ -58,7 +58,7 @@ public class ValidadorTest {
     }
 
     /**
-     * Testa se é lançada exceção caso envie um numero negativo quando não é permitido.
+     * Testa se é lançada exceção caso envie um número negativo quando não é permitido.
      */
     @Test (expected = IllegalArgumentException.class)
     public void testValidaNumeroPositivoComNumeroNegativo(){
