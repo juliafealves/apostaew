@@ -41,7 +41,7 @@ public class SistemaControllerTest {
     }
 
     /**
-     * Testa o retorno do caixa do sistema.
+     * Testa o retorno do valor atual do caixa no sistema.
      */
     @Test
     public void testGetCaixa(){
