@@ -55,7 +55,7 @@ public class Cenario {
      * @return String formatada: DESCRICAO - ESTADO
      */
     public String toString(){
-        return this.numeracao + " - " + this.descricao + " - " + this.estado.getEstado();
+        return this.numeracao + " - " + this.descricao + " - " + this.estado;
     }
 
     /**
@@ -87,8 +87,8 @@ public class Cenario {
      * @return
      */
     public boolean finalizado(){
-        return this.estado.getEstado().equals(EstadoEnum.FINALIZADO_OCORREU) ||
-                this.estado.getEstado().equals(EstadoEnum.FINALIZADO_NAO_OCORREU);
+        return this.estado.toString().equals(EstadoEnum.FINALIZADO_OCORREU) ||
+                this.estado.toString().equals(EstadoEnum.FINALIZADO_NAO_OCORREU);
     }
 
     /**
