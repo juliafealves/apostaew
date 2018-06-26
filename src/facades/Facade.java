@@ -10,7 +10,7 @@ public class Facade {
         args = new String[]{
                 "facades.Facade",
                 "tests/acceptance/us1_test.txt",
-//                "tests/acceptance/us2_test.txt",
+                "tests/acceptance/us2_test.txt",
 //                "tests/acceptance/us3_test.txt",
 //                "tests/acceptance/us4_test.txt"
         };
@@ -38,7 +38,7 @@ public class Facade {
     /**
      * Cadastra um cenário para apostas no sistema.
      *
-     * @param descricao Descrição do cenário
+     * @param descricao Descrição do cenário.
      * @return Retorna a numeração única do cenário.
      */
     public int cadastrarCenario(String descricao){
