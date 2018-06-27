@@ -117,8 +117,8 @@ public class CenarioTest {
      * Testa a criação do objeto Aposta.
      */
     @Test
-    public void testCadastraAposta(){
-        this.cenario.cadastraAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
+    public void testAdicionaAposta(){
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
         Assert.assertEquals(1, this.cenario.obtemTotalApostas());
     }
 
@@ -126,81 +126,72 @@ public class CenarioTest {
      * Testa se gera uma exceção caso o nome do apostador seja vazio.
      */
     @Test (expected = IllegalArgumentException.class)
-    public void testCadastraApostaApostadorVazio(){
-        this.cenario.cadastraAposta("", 1000, "N VAI ACONTECER");
+    public void testAdicionaApostaApostadorVazio(){
+        this.cenario.adicionaAposta("", 1000, "N VAI ACONTECER");
     }
 
     /**
      * Testa se gera uma exceção caso o nome do apostador esteja preenchido com caracteres em branco.
      */
     @Test (expected = IllegalArgumentException.class)
-    public void testCadastraApostaApostadorEmBranco(){
-        this.cenario.cadastraAposta(" ", 1000, "N VAI ACONTECER");
+    public void testAdicionaApostaApostadorEmBranco(){
+        this.cenario.adicionaAposta(" ", 1000, "N VAI ACONTECER");
     }
 
     /**
      * Testa se gera uma exceção caso o nome do apostador seja nulo.
      */
     @Test (expected = NullPointerException.class)
-    public void testCadastraApostaApostadorNulo(){
-        this.cenario.cadastraAposta(null, 1000, "N VAI ACONTECER");
+    public void testAdicionaApostaApostadorNulo(){
+        this.cenario.adicionaAposta(null, 1000, "N VAI ACONTECER");
     }
 
     /**
      * Testa se gera uma exceção caso o valor seja negativo.
      */
     @Test (expected = IllegalArgumentException.class)
-    public void testCadastraApostaValorNegativo(){
-        this.cenario.cadastraAposta("Jose da Sorte", -1, "N VAI ACONTECER");
+    public void testAdicionaApostaValorNegativo(){
+        this.cenario.adicionaAposta("Jose da Sorte", -1, "N VAI ACONTECER");
     }
 
     /**
      * Testa se gera uma exceção caso o valor seja igual 0.
      */
     @Test (expected = IllegalArgumentException.class)
-    public void testCadastraApostaValorZero(){
-        this.cenario.cadastraAposta("Jose da Sorte", 0, "N VAI ACONTECER");
+    public void testAdicionaApostaValorZero(){
+        this.cenario.adicionaAposta("Jose da Sorte", 0, "N VAI ACONTECER");
     }
 
     /**
      * Testa se gera uma exceção caso a previsão seja vazia.
      */
     @Test (expected = IllegalArgumentException.class)
-    public void testCadastraApostaPrevisaoVazio(){
-        this.cenario.cadastraAposta("Jose da Sorte", 1000, "");
+    public void testAdicionaApostaPrevisaoVazio(){
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "");
     }
 
     /**
      * Testa se gera uma exceção caso a previsão esteja preenchido com caracteres em branco.
      */
     @Test (expected = IllegalArgumentException.class)
-    public void testCadastraApostaPrevisaoEmBranco(){
-        this.cenario.cadastraAposta("Jose da Sorte", 1000, "  ");
+    public void testAdicionaApostaPrevisaoEmBranco(){
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "  ");
     }
 
     /**
      * Testa se gera uma exceção caso a previsão seja nula.
      */
     @Test (expected = NullPointerException.class)
-    public void testCadastraApostaPrevisaoNulo(){
-        this.cenario.cadastraAposta("Jose da Sorte", 1000, null);
+    public void testAdicionaApostaPrevisaoNulo(){
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, null);
     }
 
     /**
      * Testa se gera uma exceção caso a previsão seja inválida.
      */
     @Test (expected = IllegalArgumentException.class)
-    public void testCadastraApostaPrevisaoInvalida(){
-        this.cenario.cadastraAposta("Jose da Sorte", 1000, "NAO EXITE ESSA PREVISAO");
-    }
-
-    /**
-     * Testa o retorno do total de apostas feitas.
-     */
-    @Test
-    public void testObtemTotalApostas(){
-        this.cenario.cadastraAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
-        Assert.assertEquals(1, this.cenario.obtemTotalApostas());
+    public void testAdicionaApostaPrevisaoInvalida(){
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "NAO EXISTE ESSA PREVISAO");
     }
 
     /**
@@ -208,19 +199,27 @@ public class CenarioTest {
      */
     @Test
     public void testObtemValorTotalApostas(){
-        this.cenario.cadastraAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
-        this.cenario.cadastraAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
         Assert.assertEquals(2000, this.cenario.obtemValorTotalApostas());
     }
 
     /**
-     * Testa o lista apostas.
-     * Formato: Apostador - Valor (em reais) - Previsão
+     * Testa o retorno do total de apostas feitas.
+     */
+    @Test
+    public void testObtemTotalApostas(){
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
+        Assert.assertEquals(1, this.cenario.obtemTotalApostas());
+    }
+
+    /**
+     * Testa a listagem de apostas do cenário. Formato: Apostador - Valor (em reais) - Previsão
      */
     @Test
     public void testListaApostas(){
-        this.cenario.cadastraAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
-        this.cenario.cadastraAposta("Maria da Sorte", 199, "VAI ACONTECER");
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.cenario.adicionaAposta("Maria da Sorte", 199, "VAI ACONTECER");
         String apostas = "Jose da Sorte - R$10,00 - N VAI ACONTECER" + System.lineSeparator() +
                 "Maria da Sorte - R$1,99 - VAI ACONTECER" + System.lineSeparator();
         Assert.assertEquals(apostas, this.cenario.listaApostas());

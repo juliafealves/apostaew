@@ -1,4 +1,4 @@
-package utils.entities;
+package units.entities;
 
 import entities.Aposta;
 import org.junit.Assert;
@@ -44,7 +44,7 @@ public class ApostaTest {
      * Testa se gera uma exceção caso o nome do apostador esteja preenchido com caracteres em branco.
      */
     @Test (expected = IllegalArgumentException.class)
-    public void testApostaApostadorEmBranco(){
+    public void testApostaApostadorEspacoEmBranco(){
         new Aposta(" ", 1000, "N VAI ACONTECER");
     }
 
@@ -101,12 +101,11 @@ public class ApostaTest {
      */
     @Test (expected = IllegalArgumentException.class)
     public void testApostaPrevisaoInvalida(){
-        new Aposta("Jose da Sorte", 1000, "NAO EXITE ESSA PREVISAO");
+        new Aposta("Jose da Sorte", 1000, "NAO EXISTE ESSA PREVISAO");
     }
 
     /**
-     * Testa o método toString da Aposta.
-     * Formato: Apostador - Valor (em reais) - Previsão
+     * Testa o método toString da Aposta. Formato: Apostador - Valor (em reais) - Previsão
      */
     @Test
     public void testToString(){

@@ -77,6 +77,7 @@ public class SistemaController {
 
     /**
      * Cadastra uma aposta em um cenário.
+     *
      * @param cenario Numeração do cenário
      * @param apostador Nome do apostador.
      * @param valor Valor da aposta.
@@ -86,11 +87,12 @@ public class SistemaController {
         this.validaCenario(cenario, "Erro no cadastro de aposta");
         this.validaAposta(apostador, valor, previsao, "Erro no cadastro de aposta");
 
-        this.cenarios.get(cenario - 1).cadastraAposta(apostador, valor, previsao);
+        this.cenarios.get(cenario - 1).adicionaAposta(apostador, valor, previsao);
     }
 
     /**
-     * Listas as apostas de um cenário.
+     * Lista as apostas de um cenário.
+     *
      * @param cenario Numeração do cenário.
      * @return Representação textual: Nome - Valor - Previsão.
      */
@@ -101,6 +103,7 @@ public class SistemaController {
 
     /**
      * Retorna o total de apostas cadastradas em um cenário.
+     *
      * @param cenario Numeracão do cenário.
      * @return Total de apostas realizadas.
      */
@@ -110,9 +113,10 @@ public class SistemaController {
     }
 
     /**
-     * Retorna o total de apostas cadastradas em um cenário.
-     * @param cenario Numeracão do cenário.
-     * @return Total de apostas realizadas.
+     * Retorna o valor total de apostas cadastradas em um cenário.
+     *
+     * @param cenario Numeracão do cenário da aposta.
+     * @return Valor total de apostas realizadas.
      */
     public int obtemValorTotalApostas(int cenario) {
         this.validaCenario(cenario, "Erro na consulta do valor total de apostas");
@@ -166,21 +170,19 @@ public class SistemaController {
 
     /**
      * Valida os dados da aposta.
+     *
      * @param apostador Nome do apostador.
      * @param valor Valor da aposta.
      * @param previsao Previsão da Aposta: N VAI ACONTECER ou VAI ACONTECER
      * @param localErro Localização onde ocorreu o erro. Ex.: "Erro no cadastro de aposta".
      */
     private void validaAposta(String apostador, int valor, String previsao, String localErro) {
-        // Valida apostador
         Validador.validaNaoNulo(apostador, localErro + ": Apostador nao pode ser vazio ou nulo");
         Validador.validaStringNaoVazia(apostador, localErro + ": Apostador nao pode ser vazio ou nulo");
-        // Valida Valor
         Validador.validaNumeroPositivo(valor, localErro + ": Valor nao pode ser menor ou igual a zero", false);
-        // Valida Previsao
         Validador.validaNaoNulo(previsao, localErro + ": Previsao nao pode ser vazia ou nula");
         Validador.validaStringNaoVazia(previsao, localErro + ": Previsao nao pode ser vazia ou nula");
-        String[] previsoes = {PrevisaoEnum.NAO_VAI_ACONTECER.getPrevisao(), PrevisaoEnum.VAI_ACONTECER.getPrevisao()};
+        String[] previsoes = {PrevisaoEnum.NAO_VAI_ACONTECER.toString(), PrevisaoEnum.VAI_ACONTECER.toString()};
         Validador.validaStringIguais(previsao, previsoes, localErro + ": Previsao invalida");
     }
 

@@ -59,12 +59,13 @@ public class Cenario {
     }
 
     /**
-     * Cadastra uma aposta no cenário.
+     * Adiciona uma aposta no cenário.
+     *
      * @param apostador Nome do apostador
      * @param valor Valor da Aposta.
      * @param previsao Previsão da aposta.
      */
-    public void cadastraAposta(String apostador, int valor, String previsao) {
+    public void adicionaAposta(String apostador, int valor, String previsao) {
         this.apostas.add(new Aposta(apostador, valor, previsao));
     }
 
@@ -107,7 +108,8 @@ public class Cenario {
     }
 
     /**
-     * Retorna o total das apostas cadastradas em um cenário.
+     * Retorna o total de apostas cadastradas em um cenário.
+     *
      * @return Total de apostas feitas.
      */
     public int obtemTotalApostas() {
@@ -116,6 +118,7 @@ public class Cenario {
 
     /**
      * Retorna a soma do valor total das apostas.
+     *
      * @return Total das apostas realizadas.
      */
     public int obtemValorTotalApostas(){
@@ -124,7 +127,8 @@ public class Cenario {
 
     /**
      * Listas as apostas de um cenário.
-     * @return Representação textual: Nome - Valor - Previsão.
+     *
+     * @return Representação textual: Apostador - Valor - Previsão.
      */
     public String listaApostas(){
         StringBuilder apostas = new StringBuilder();

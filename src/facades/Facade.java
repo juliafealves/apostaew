@@ -11,7 +11,7 @@ public class Facade {
                 "facades.Facade",
                 "tests/acceptance/us1_test.txt",
                 "tests/acceptance/us2_test.txt",
-//                "tests/acceptance/us3_test.txt",
+                "tests/acceptance/us3_test.txt",
 //                "tests/acceptance/us4_test.txt"
         };
 
@@ -65,7 +65,7 @@ public class Facade {
     }
 
     /**
-     * Cadastra um cenário para apostas no sistema.
+     * Cadastra uma aposta em um determinado cenário existente no sistema.
      *
      */
     public void cadastrarAposta(int cenario, String apostador, int valor, String previsao){
@@ -73,26 +73,28 @@ public class Facade {
     }
 
     /**
-     * Retorna o número de apostas feitas em um cenário.
+     * Retorna o valor total de apostas realizadas em um cenário.
+     *
      * @param cenario Numeração do cenário de Aposta.
-     * @return
-     */
-    public int totalDeApostas(int cenario){
-        return this.sistemaController.obtemTotalApostas(cenario);
-    }
-
-    /**
-     * Retorna o número de apostas feitas em um cenário.
-     * @param cenario Numeração do cenário de Aposta.
-     * @return
+     * @return Quantitativo em centavos de apostas realizadas em um cenário.
      */
     public int valorTotalDeApostas(int cenario){
         return this.sistemaController.obtemValorTotalApostas(cenario);
     }
 
     /**
-     * Exibe todos os cenários cadastrados.
-     * @return Retorna formatação textual: Numeracao - Descricao - Estado
+     * Retorna o número total de apostas feitas em um cenário.
+     *
+     * @param cenario Numeração do cenário de Aposta.
+     * @return Quantitativo total de apostas realizadas.
+     */
+    public int totalDeApostas(int cenario){
+        return this.sistemaController.obtemTotalApostas(cenario);
+    }
+
+    /**
+     * Exibe todas as apostas cadastradas em um cenário.
+     * @return Retorna formatação textual: Apostador - Valor - Previsão
      */
     public String exibeApostas(int cenario){
         return this.sistemaController.listaApostas(cenario);

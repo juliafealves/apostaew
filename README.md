@@ -33,7 +33,7 @@ Cada cenário apresenta uma descrição de uma possível situação futura que p
 Ao encerrar um cenário, deve ser informado ao sistema se o mesmo ocorreu ou não. Todo cenário é identificado por uma numeração inteira. O primeiro cenário recebe a numeração 1, o segundo cenário criado recebe a numeração 2 e assim sucessivamente.
 
 
-Cada cenário tem uma representação textual no formato `NUMERAÇÃO - DESCRIÇÃO - ESTADO`, onde ESTADO pode ser “Finalizado (ocorreu)”, “Finalizado (n ocorreu)” ou “Não finalizado”. Exemplos:
+Cada cenário tem uma representação textual no formato `NUMERAÇÃO - DESCRIÇÃO - ESTADO`, onde ESTADO pode ser `Finalizado (ocorreu)`, `Finalizado (n ocorreu)` ou `Não finalizado`. Exemplos:
 
 ```
 “1 - A maioria irá tirar mais do que 7 na prova! - Não finalizado”
@@ -53,4 +53,35 @@ String exibirCenario(int cenario)
 Retornar a representação textual de todos os cenários cadastrados no sistema (um por linha, em ordem de cadastro)
 ```
 String exibirCenarios()
+```
+
+### 3. Cadastrar e Listar Apostas
+É possível fazer apostas para diferentes cenários. Todas as apostas são diferentes entre si e tem como atributos: nome do apostador, valor da aposta e a previsão (`VAI ACONTECER` ou `N VAI ACONTECER`).
+
+No cenário de exemplo (`A maioria irá tirar mais do que 7 na prova!`) é possível cadastrar uma aposta feita por Matheus, valendo 10000 centavos concordando com o cenário. É importante observar que é possível ter duas apostas diferentes com o mesmo nome do apostador, valor e tipo. Um mesmo apostador pode fazer diferentes apostas, inclusive de tipos diferentes.
+
+
+Cada aposta é representada textualmente pelo formato `NOME - VALOR - PREVISÃO`. Seria um exemplo de representação:
+
+
+`Matheus Gaudencio - R$100,00 - VAI ACONTECER`
+
+
+A Facade deve ter métodos para:
+
+Cadastrar a aposta com nome do apostador, quantia apostada e previsão em um cenário através do número do cenário.
+```
+void cadastrarAposta(int cenario, String apostador, int valor, String previsao)
+```
+Retornar o valor total das apostas feitas em um cenário.
+```
+int valorTotalDeApostas(int cenario)
+```
+Retornar o número de apostas feitas em um cenário.
+```
+int totalDeApostas(int cenario)
+```
+Gerar a representação textual das apostas de um cenário (uma aposta por linha).
+```
+String exibeApostas(int cenario)
 ```

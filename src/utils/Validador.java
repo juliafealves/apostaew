@@ -1,5 +1,8 @@
 package utils;
 
+/**
+ * Classe genérica para validação de dados.
+ */
 public class Validador {
 
     /**
@@ -73,21 +76,8 @@ public class Validador {
     }
 
     /**
-     * Verifica se duas strings são iguais.
-     * @param string Primeira string.
-     * @param outraString A outra string para comparação.
-     * @param mensagem Mensagem personalizada.
-     * @return Retorna true caso duas strings sejam iguais.
-     */
-    public static boolean validaStringIguais(String string, String outraString, String mensagem) {
-        if (!string.equalsIgnoreCase(outraString))
-            throw new IndexOutOfBoundsException(mensagem);
-
-        return true;
-    }
-
-    /**
      * Verifica se duas strings são iguais dentro de um conjunto de strings.
+     *
      * @param string Primeira string.
      * @param outrasStrings Conjunto de strings para comparar.
      * @param mensagem Mensagem personalizada.

@@ -11,8 +11,9 @@ public enum EstadoEnum {
     private String estado;
 
     /**
-     * Construtor privado para instaciar os estados do Enum.
-     * @param estado Estado das apostas.
+     * Construtor privado para instanciar os estados do Enum.
+     *
+     * @param estado Estado dos cenários de aposta.
      */
     EstadoEnum(String estado){
         this.estado = estado;
@@ -20,6 +21,7 @@ public enum EstadoEnum {
 
     /**
      * Retorna o valor do estado.
+     *
      * @return Retorna o valor em String do estado.
      */
     public String toString(){

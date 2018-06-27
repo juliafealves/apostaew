@@ -4,9 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import utils.Validador;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ValidadorTest {
 
     /**
@@ -96,5 +93,32 @@ public class ValidadorTest {
     @Test (expected = IndexOutOfBoundsException.class)
     public void testValidaIndiceColecaoSemElementosAdicionados(){
         Validador.validaIndiceColecao(1, 0, "Mensagem");
+    }
+
+    /**
+     * Testa se existem strings iguais na coleção.
+     */
+    @Test
+    public void testValidaStringIguaisColecao(){
+        String[] strings = {"String Tal", "OUTRA STRING"};
+        Assert.assertTrue(Validador.validaStringIguais("String Tal", strings, "Mensagem"));
+    }
+
+    /**
+     * Testa se existem strings iguais na coleção mesmo com "cases" diferentes.
+     */
+    @Test
+    public void testValidaStringIguaisColecaoCases(){
+        String[] strings = {"String Tal", "OUTRA STRING"};
+        Assert.assertTrue(Validador.validaStringIguais("STRING tal", strings, "Mensagem"));
+    }
+
+    /**
+     * Testa se é lançada exceção caso busque uma string inexistente na lista de strings.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testValidaStringIguaisColecaoStringInexistente(){
+        String[] strings = {"String Tal", "OUTRA STRING"};
+        Assert.assertTrue(Validador.validaStringIguais("Uma terceira string", strings, "Mensagem"));
     }
 }

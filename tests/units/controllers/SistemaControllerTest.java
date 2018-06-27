@@ -1,4 +1,4 @@
-package utils;
+package units.controllers;
 
 import controllers.SistemaController;
 import org.junit.Assert;
@@ -145,7 +145,7 @@ public class SistemaControllerTest {
     }
 
     /**
-     * Testa se gera uma exceção caso o número do Cenário não foi cadastrado ainda.
+     * Testa se gera uma exceção caso o número do cenário não foi cadastrado ainda.
      */
     @Test (expected = IndexOutOfBoundsException.class)
     public void testCadastraApostaCenarioInexistente(){
@@ -153,7 +153,7 @@ public class SistemaControllerTest {
     }
 
     /**
-     * Testa se gera uma exceção caso o número do Cenário acima do tamanho da coleção.
+     * Testa se gera uma exceção caso o número do cenário acima do tamanho da coleção.
      */
     @Test (expected = IndexOutOfBoundsException.class)
     public void estCadastraApostaCenarioAcimaDoLimite(){
@@ -239,7 +239,7 @@ public class SistemaControllerTest {
     @Test (expected = IllegalArgumentException.class)
     public void testCadastraApostaPrevisaoInvalida(){
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
-        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "NAO EXITE ESSA PREVISAO");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "NAO EXISTE ESSA PREVISAO");
     }
 
     /**
@@ -314,8 +314,7 @@ public class SistemaControllerTest {
     }
 
     /**
-     * Testa o lista apostas.
-     * Formato: Apostador - Valor (em reais) - Previsão
+     * Testa o lista apostas. Formato: Apostador - Valor (em reais) - Previsão
      */
     @Test
     public void testListaApostas(){
