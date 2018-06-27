@@ -25,3 +25,32 @@ Recuperar o valor em caixa do sistema (em centavos).
 ```
 int getCaixa()
 ```
+
+### 2. Cadastrar e Listar Cenários
+Cada cenário apresenta uma descrição de uma possível situação futura que poderá (ou não) acontecer. Os cenários iniciam como não finalizados e passam a ser ditos como finalizados quando são encerrados.
+
+
+Ao encerrar um cenário, deve ser informado ao sistema se o mesmo ocorreu ou não. Todo cenário é identificado por uma numeração inteira. O primeiro cenário recebe a numeração 1, o segundo cenário criado recebe a numeração 2 e assim sucessivamente.
+
+
+Cada cenário tem uma representação textual no formato `NUMERAÇÃO - DESCRIÇÃO - ESTADO`, onde ESTADO pode ser “Finalizado (ocorreu)”, “Finalizado (n ocorreu)” ou “Não finalizado”. Exemplos:
+
+```
+“1 - A maioria irá tirar mais do que 7 na prova! - Não finalizado”
+“2 - O professor irá para a aula sobre GRASP com um café! - Finalizado (ocorreu)”
+```
+
+A Facade deve ter métodos para:
+
+Cadastrar cenários e retornar a numeração do cenário cadastrado
+```
+int cadastrarCenario(String descricao)
+```
+Retornar a representação textual de um cenário (a partir da numeração)
+```
+String exibirCenario(int cenario)
+```
+Retornar a representação textual de todos os cenários cadastrados no sistema (um por linha, em ordem de cadastro)
+```
+String exibirCenarios()
+```

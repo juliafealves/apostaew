@@ -46,8 +46,9 @@ public class Facade {
     }
 
     /**
-     * Exibe um cenário correspondente a numeração informada.
-     * @param cenario Numeração do cenário de Aposta.
+     * Exibe um cenário de aposta correspondente a numeração informada.
+     *
+     * @param cenario Numeração única do cenário de aposta.
      * @return Retorna formatação textual: Numeracao - Descricao - Estado
      */
     public String exibirCenario(int cenario){
@@ -55,7 +56,8 @@ public class Facade {
     }
 
     /**
-     * Exibe todos os cenários cadastrados.
+     * Exibe todos os cenários cadastrados no sistema de apostas.
+     *
      * @return Retorna formatação textual: Numeracao - Descricao - Estado
      */
     public String exibirCenarios(){

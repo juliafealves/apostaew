@@ -28,6 +28,7 @@ public class SistemaController {
 
     /**
      * Cadastra um cenário de aposta no sistema.
+     *
      * @param descricao Descrição não nula e vazia
      * @return Retorna a numeração do cenário.
      */
@@ -42,7 +43,8 @@ public class SistemaController {
     }
 
     /**
-     * Exibe o cenário.
+     * Consulta as informações básicas de um cenário de aposta.
+     *
      * @param cenario Localiza um Cenario pelo número.
      * @return Retorna a String formatada DESCRICAO - ESTADO.
      */
@@ -52,7 +54,8 @@ public class SistemaController {
     }
 
     /**
-     * Lista todos os cenários da coleção.
+     * Lista todos os cenários de aposta da coleção.
+     *
      * @return String com todos os cenários cadastrados.
      */
     public String listaCenarios() {
@@ -182,9 +185,9 @@ public class SistemaController {
     }
 
     /**
-     * Valida a numeração do cenário.
+     * Valida a numeração do cenário de aposta.
      *
-     * @param cenario Numeração do cenário.
+     * @param cenario Numeração do cenário de aposta.
      * @param localErro Localização onde ocorreu o erro. Ex.: "Erro no cadastro de aposta".
      */
     private void validaCenario(int cenario, String localErro){

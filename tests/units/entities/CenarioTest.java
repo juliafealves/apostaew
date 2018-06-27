@@ -33,8 +33,8 @@ public class CenarioTest {
      */
     @Test
     public void testCenarioIniciaNaoFinalizado(){
-        Cenario cenario = new Cenario("Joao Milhonario vai ganhar na mega-sena.", 1);
-        Assert.assertEquals("1 - Joao Milhonario vai ganhar na mega-sena. - Nao finalizado", cenario.toString());
+        Cenario cenario = new Cenario("Joao Milionário vai ganhar na mega-sena.", 1);
+        Assert.assertEquals("1 - Joao Milionário vai ganhar na mega-sena. - Nao finalizado", cenario.toString());
     }
 
     /**
@@ -57,8 +57,8 @@ public class CenarioTest {
      * Testa se gera uma exceção caso descrição tenha somente espaços em brancos.
      */
     @Test (expected = IllegalArgumentException.class)
-    public void testCenarioDescricaoEspacoEmBranco(){
-        new Cenario("  ", 1);
+    public void testCenarioDescricaoComEspacoEmBranco(){
+        new Cenario("     ", 1);
     }
 
     /**
@@ -96,7 +96,7 @@ public class CenarioTest {
     }
 
     /**
-     * Testa se o hashCode de objetos iguais é possuem o mesmo hashCode.
+     * Testa se o hashCode de objetos iguais são iguais.
      */
     @Test
     public void testHashCode(){
@@ -106,7 +106,7 @@ public class CenarioTest {
 
     /**
      * Testa o método toString do Cenario.
-     * Formato: Numeracao - Descricao - Estado
+     * Formato textual: Numeracao - Descricao - Estado
      */
     @Test
     public void testToString(){

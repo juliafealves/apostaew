@@ -70,8 +70,6 @@ public class ValidadorTest {
      */
     @Test
     public void testValidaIndiceColecao(){
-        ArrayList<String> colecao = new ArrayList<>();
-        colecao.add("Teste");
         Assert.assertTrue(Validador.validaIndiceColecao(0, 1, "Mensagem"));
     }
 
@@ -81,6 +79,15 @@ public class ValidadorTest {
     @Test (expected = IndexOutOfBoundsException.class)
     public void testValidaIndiceColecaoIndiceAcimaDoTamanho(){
         Validador.validaIndiceColecao(2, 1, "Mensagem");
+    }
+
+    /**
+     * Testa se é lançada exceção caso índice seja igual o tamanho da Collection.
+     * Lembrando que o indice inicia de 0, portanto, não índice e tamanho da coleção nunca será igual.
+     */
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testValidaIndiceColecaoIndiceIgualTamanho(){
+        Validador.validaIndiceColecao(1, 1, "Mensagem");
     }
 
     /**

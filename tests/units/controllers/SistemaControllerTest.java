@@ -65,6 +65,14 @@ public class SistemaControllerTest {
     }
 
     /**
+     * Testa se gera uma exceção caso descrição seja apenas constituída de espaços vazios.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCadastraCenarioDescricaoComEspacoEmBranco(){
+        this.sistemaController.cadastraCenario("  ");
+    }
+
+    /**
      * Testa se gera uma exceção caso descrição seja nula.
      */
     @Test (expected = NullPointerException.class)
@@ -73,7 +81,7 @@ public class SistemaControllerTest {
     }
 
     /**
-     * Testa a consulta do cenário pela numeração em forma textual.
+     * Testa a consulta do cenário de aposta pela numeração em formato textual.
      */
     @Test
     public void testConsultaCenario(){
@@ -90,7 +98,7 @@ public class SistemaControllerTest {
     }
 
     /**
-     * Testa se gera uma exceção caso o número do Cenário não foi cadastrado ainda.
+     * Testa se gera uma exceção caso o número do cenário não foi cadastrado ainda.
      */
     @Test (expected = IndexOutOfBoundsException.class)
     public void testConsultaCenarioInexistente(){
@@ -98,7 +106,7 @@ public class SistemaControllerTest {
     }
 
     /**
-     * Testa se gera uma exceção caso o número do Cenário acima do tamanho da coleção.
+     * Testa se gera uma exceção caso o número do cenário acima do tamanho da coleção.
      */
     @Test (expected = IndexOutOfBoundsException.class)
     public void testConsultaApostaCenarioAcimaDoLimite(){
@@ -107,14 +115,14 @@ public class SistemaControllerTest {
     }
 
     /**
-     * Testa a listagem de cenários cadastrados.
+     * Testa a listagem de cenários de aposta cadastrados.
      */
     @Test
     public void testListaCenarios(){
-        this.sistemaController.cadastraCenario("Cenario1");
-        this.sistemaController.cadastraCenario("Cenario2");
-        String cenarios = "1 - Cenario1 - Nao finalizado" + System.lineSeparator() +
-                "2 - Cenario2 - Nao finalizado" + System.lineSeparator();
+        this.sistemaController.cadastraCenario("O Google vai contratar todos os alunos da UFCG.");
+        this.sistemaController.cadastraCenario("O Facebook vai ser comprado pelo Google.");
+        String cenarios = "1 - O Google vai contratar todos os alunos da UFCG. - Nao finalizado" + System.lineSeparator() +
+                "2 - O Facebook vai ser comprado pelo Google. - Nao finalizado" + System.lineSeparator();
         Assert.assertEquals(cenarios, this.sistemaController.listaCenarios());
     }
 
