@@ -85,3 +85,35 @@ Gerar a representação textual das apostas de um cenário (uma aposta por linha
 ```
 String exibeApostas(int cenario)
 ```
+
+### 4. Fechar Apostas (Concretizar Cenário)
+Em determinado momento o sistema deve encerrar as apostas e fechar o cenário. O sistema deve ter uma operação em que finaliza o cenário indicando se o mesmo ocorreu, ou não. Quando um cenário acontece (cenário ocorreu), as apostas que previram que o cenário `VAI ACONTECER` são consideradas vencedoras e as demais perdedoras. Quando o cenário não acontece (não ocorreu) as apostas que previram que o cenário `N VAI ACONTECER` são consideradas vencedoras e as demais perdedoras.
+
+Quando o sistema concretiza o cenário, o valor de todas as apostas perdedoras é somado. Desse valor, parte é retirado (de acordo com a taxa definida na inicialização do sistema) e acrescentado ao caixa do sistema. Esse valor deve ser sempre inteiro e arredondado para baixo. O resto do dinheiro será usado para ser  rateado igualmente entre os apostadores vencedores.
+
+Considere o exemplo de 6 apostas do cenário discutido anteriormente:
+```
+“Francisco Cisco - R$200,00 - N VAI ACONTECER”
+“Anonimo - R$1,99 - N VAI ACONTECER”
+“Matheus Gaudencio - R$100,00 - VAI ACONTECER”
+“Livia Maria - R$300,00 - VAI ACONTECER”
+“Raquel Lopes- R$200,00 - VAI ACONTECER”
+“Matheus Gaudencio - R$100,00 - VAI ACONTECER”
+```
+
+Se o cenário se concretizar, as apostas de Matheus, Lívia e Raquel são vencedoras. As apostas de Francisco e Anonimo são perdedoras. O sistema então soma R$200,00 com R$1,99 e multiplica pela taxa inicial definida no sistema (por exemplo, 0.01). Isto dá um total de R$2,0199, ou 201 centavos (arredondando para baixo). O sistema acrescenta então 201 centavos ao seu caixa e marca o cenário como encerrado. O sistema deve armazenar também qual o bolo a ser rateado entre os vencedores. No exemplo acima, R$ 199,98 devem ser distribuídos entre os vencedores.
+
+A Facade deve ter métodos para:
+
+Encerrar um cenário (indicando se ocorreu ou não).
+```
+void fecharAposta(int cenario, boolean ocorreu)
+```
+Retornar o valor total de um cenário encerrado que será destinado ao caixa
+```
+int getCaixaCenario(int cenario)
+```
+Retornar o valor total de um cenário encerrado que será destinado a distribuição entre as apostas vencedoras
+```
+int getTotalRateioCenario(int cenario)
+```
