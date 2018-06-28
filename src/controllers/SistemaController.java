@@ -136,18 +136,16 @@ public class SistemaController {
         if(cenarioAtual.finalizado())
             throw new IllegalArgumentException("Erro ao fechar aposta: Cenario ja esta fechado");
 
-        int valor = cenarioAtual.finaliza(ocorreu);
-        this.calculaCaixa(valor);
+        cenarioAtual.finaliza(ocorreu);
+        int valor = cenarioAtual.calculaApostas(false);
+        this.caixa += this.calculaTaxa(valor);
     }
 
     /**
-     * Calcula os valores das apostas de um cenário para o caixa.
-     * @param valor
+     * Calcula o valor total a ser destinado ao caixa das apostas perdedoras.
+     * @param cenario Numeração do cenário de aposta.
+     * @return
      */
-    private void calculaCaixa(int valor){
-        this.caixa += (int) valor * taxa;
-    }
-
     public int calculaCaixaCenario(int cenario){
         this.validaCenario(cenario, "Erro na consulta do caixa do cenario");
         Cenario cenarioAtual = this.cenarios.get(cenario - 1);
@@ -155,7 +153,9 @@ public class SistemaController {
         if(!cenarioAtual.finalizado())
             throw new IllegalArgumentException("Erro na consulta do caixa do cenario: Cenario ainda esta aberto");
 
-        return cenarioAtual.calculaApostas();
+        int valor = cenarioAtual.calculaApostas(false);
+
+        return this.calculaTaxa(valor);
     }
 
     public int calculaCaixaRateioCenario(int cenario){
@@ -165,7 +165,17 @@ public class SistemaController {
         if(!cenarioAtual.finalizado())
             throw new IllegalArgumentException("Erro na consulta do total de rateio do cenario: Cenario ainda esta aberto");
 
-        return cenarioAtual.calculaRateioApostas(taxa);
+        int valor = cenarioAtual.calculaApostas(false);
+
+        return valor - this.calculaTaxa(valor);
+    }
+
+    /**
+     * Calcula os valores das apostas de um cenário para o caixa.
+     * @param valor Valor a ser destinado ao caixa.
+     */
+    private int calculaTaxa(int valor){
+        return (int) (valor * taxa);
     }
 
     /**

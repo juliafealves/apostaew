@@ -224,4 +224,75 @@ public class CenarioTest {
                 "Maria da Sorte - R$1,99 - VAI ACONTECER" + System.lineSeparator();
         Assert.assertEquals(apostas, this.cenario.listaApostas());
     }
+
+    /**
+     * Testa a verificação se um cenário de aposta foi finalizado com ocorreu.
+     */
+    @Test
+    public void testFinalizado(){
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.cenario.finaliza(true);
+        Assert.assertTrue(this.cenario.finalizado());
+    }
+
+    /**
+     * Testa a verificação se um cenário de aposta foi finalizado com não ocorreu.
+     */
+    @Test
+    public void testFinalizadoNaoOcorreu(){
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.cenario.finaliza(false);
+        Assert.assertTrue(this.cenario.finalizado());
+    }
+
+    /**
+     * Testa a verificação se um cenário não encerrado, está não finalizado.
+     */
+    @Test
+    public void testFinalizadoCenarioNaoFinalizado(){
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
+        Assert.assertFalse(this.cenario.finalizado());
+    }
+
+    /**
+     * Testa a finalização do cenário de aposta quando ocorreu.
+     */
+    @Test
+    public void testFinalizaOcorreu(){
+        this.cenario.finaliza(true);
+        Assert.assertEquals("1 - O Brasil vai ser hexa. - Finalizado (ocorreu)", this.cenario.toString());
+    }
+
+    /**
+     * Testa a finalização do cenário de aposta quando não ocorreu.
+     */
+    @Test
+    public void testFinalizaNaoOcorreu(){
+        this.cenario.finaliza(false);
+        Assert.assertEquals("1 - O Brasil vai ser hexa. - Finalizado (nao ocorreu)", this.cenario.toString());
+    }
+
+    /**
+     * Testa o calculo o valor total de apostas vencedoras.
+     */
+    @Test
+    public void testCalculaApostasVencedoras(){
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "VAI ACONTECER");
+        this.cenario.finaliza(false);
+        Assert.assertEquals(2000, this.cenario.calculaApostas(true));
+    }
+
+    /**
+     * Testa o calculo o valor total de apostas perdedoras.
+     */
+    @Test
+    public void testCalculaApostasPerdedoras(){
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "VAI ACONTECER");
+        this.cenario.finaliza(true);
+        Assert.assertEquals(2000, this.cenario.calculaApostas(false));
+    }
 }

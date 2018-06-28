@@ -6,13 +6,17 @@ import controllers.SistemaController;
 public class Facade {
     private SistemaController sistemaController;
 
+    /**
+     * Inicializa todos testes de aceitação com EasyAccept.
+     * @param args
+     */
     public static void main(String args[]){
         args = new String[]{
                 "facades.Facade",
                 "tests/acceptance/us1_test.txt",
                 "tests/acceptance/us2_test.txt",
                 "tests/acceptance/us3_test.txt",
-//                "tests/acceptance/us4_test.txt"
+                "tests/acceptance/us4_test.txt"
         };
 
         EasyAccept.main(args);
@@ -101,8 +105,10 @@ public class Facade {
     }
 
     /**
-     * Exibe todos os cenários cadastrados.
-     * @return Retorna formatação textual: Numeracao - Descricao - Estado
+     * Fecha as apostas do cenário.
+     *
+     * @param cenario Numeração do cenário de aposta.
+     * @param ocorreu Indica se ocorreu (true) ou não ocorreu (false) o cenário.
      */
     public void fecharAposta(int cenario, boolean ocorreu){
         this.sistemaController.finalizaCenario(cenario, ocorreu);

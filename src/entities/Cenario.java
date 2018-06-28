@@ -5,13 +5,14 @@ import enums.PrevisaoEnum;
 import utils.Validador;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Cenario {
     private String descricao;
     private EstadoEnum estado;
     private int numeracao;
-    private ArrayList<Aposta> apostas;
+    private List<Aposta> apostas;
 
     /**
      * Cria um objeto Cenario.
@@ -70,41 +71,44 @@ public class Cenario {
     }
 
     /**
-     * Finaliza um cenário e calcula os valores das apostas.
-     * @param ocorreu
-     * @return
+     * Finaliza um cenário de aposta e calcula os valores das apostas.
+     * @param ocorreu Valor booleano onde diz se ocorreu ou não o cenário de aposta.
      */
-    public int finaliza(boolean ocorreu) {
-        if (ocorreu)
-            this.estado = EstadoEnum.FINALIZADO_OCORREU;
-        else
-            this.estado = EstadoEnum.FINALIZADO_NAO_OCORREU;
-
-        return this.calculaApostas();
+    public void finaliza(boolean ocorreu) {
+        if(!this.finalizado()) {
+            this.estado = ocorreu ? EstadoEnum.FINALIZADO_OCORREU : EstadoEnum.FINALIZADO_NAO_OCORREU;
+        }
     }
 
     /**
-     * Verifica se um cenário foi finalizado.
-     * @return
+     * Verifica se um cenário de aposta foi finalizado.
+     * @return Retorna true caso um cenário foi finalizado.
      */
     public boolean finalizado(){
-        return this.estado.toString().equals(EstadoEnum.FINALIZADO_OCORREU) ||
-                this.estado.toString().equals(EstadoEnum.FINALIZADO_NAO_OCORREU);
+        return this.estado.equals(EstadoEnum.FINALIZADO_OCORREU) || this.estado.equals(EstadoEnum.FINALIZADO_NAO_OCORREU);
     }
 
     /**
      * Calcula os valores das apostas de acordo com o resultado da previsão.
-     * @return Total de apostas realizadas.
+     *
+     * @param apostasVencedoras "Flag" para calcular aposta de acordo com aposta vencedora ou não.
+     * @return Retorna o valor total das apostas caso vencedora ou perdedora.
      */
-    public int calculaApostas() {
-        if(this.finalizado()) {
-            if (this.estado.equals(EstadoEnum.FINALIZADO_OCORREU))
-                return apostas.stream().filter(aposta -> !aposta.getPrevisao().equals(PrevisaoEnum.VAI_ACONTECER)).mapToInt(Aposta::getValor).sum();
+    public int calculaApostas(boolean apostasVencedoras) {
+        int valor = 0;
 
-            return apostas.stream().filter(aposta -> !aposta.getPrevisao().equals(PrevisaoEnum.NAO_VAI_ACONTECER)).mapToInt(Aposta::getValor).sum();
+        if(this.finalizado()) {
+            PrevisaoEnum previsao = this.estado.equals(EstadoEnum.FINALIZADO_OCORREU) ? PrevisaoEnum.VAI_ACONTECER : PrevisaoEnum.NAO_VAI_ACONTECER;
+
+            if(!apostasVencedoras)
+                previsao = this.estado.equals(EstadoEnum.FINALIZADO_OCORREU) ? PrevisaoEnum.NAO_VAI_ACONTECER : PrevisaoEnum.VAI_ACONTECER;
+
+            for(Aposta aposta : this.apostas)
+                if(aposta.getPrevisao().equals(previsao))
+                    valor += aposta.getValor();
         }
 
-        return 0;
+        return valor;
     }
 
     /**
@@ -137,16 +141,5 @@ public class Cenario {
             apostas.append(aposta).append(System.lineSeparator());
 
         return apostas.toString();
-    }
-
-    public int calculaRateioApostas(double taxa) {
-        if(this.finalizado()) {
-            if (this.estado.equals(EstadoEnum.FINALIZADO_OCORREU))
-                return (int) (apostas.stream().filter(aposta -> !aposta.getPrevisao().equals(PrevisaoEnum.NAO_VAI_ACONTECER)).mapToInt(Aposta::getValor).sum() * taxa);
-
-            return (int) (apostas.stream().filter(aposta -> !aposta.getPrevisao().equals(PrevisaoEnum.VAI_ACONTECER)).mapToInt(Aposta::getValor).sum() * taxa);
-        }
-
-        return 0;
     }
 }
