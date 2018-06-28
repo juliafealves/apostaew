@@ -17,7 +17,8 @@ public class Facade {
                 "tests/acceptance/us2_test.txt",
                 "tests/acceptance/us3_test.txt",
                 "tests/acceptance/us4_test.txt",
-                "tests/acceptance/us5_test.txt"
+                "tests/acceptance/us5_test.txt",
+                "tests/acceptance/us6_test.txt"
         };
 
         EasyAccept.main(args);
@@ -85,6 +86,26 @@ public class Facade {
      */
     public void cadastrarAposta(int cenario, String apostador, int valor, String previsao){
         this.sistemaController.cadastraAposta(cenario, apostador, valor, previsao);
+    }
+
+    /**
+     * Cadastra uma aposta em um determinado cenário existente no sistema.
+     *
+     */
+    public int cadastrarApostaSeguraValor(int cenario, String apostador, int valor, String previsao, int valorAssegurado, int custo){
+        return this.sistemaController.cadastraAposta(cenario, apostador, valor, previsao, valorAssegurado, custo);
+    }
+
+    public int cadastrarApostaSeguraTaxa(int cenario, String apostador, int valor, String previsao, double taxa, int custo){
+        return this.sistemaController.cadastraAposta(cenario, apostador, valor, previsao, taxa, custo);
+    }
+
+    public int alterarSeguroValor(int cenario, int apostaAssegurada, int valor){
+        return this.sistemaController.modificaAposta(cenario, apostaAssegurada, valor);
+    }
+
+    public int alterarSeguroTaxa(int cenario, int apostaAssegurada, double taxa){
+        return this.sistemaController.modificaAposta(cenario, apostaAssegurada, taxa);
     }
 
     /**

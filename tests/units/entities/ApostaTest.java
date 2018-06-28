@@ -13,7 +13,7 @@ public class ApostaTest {
      */
     @Before
     public void criaAposta(){
-        this.aposta = new Aposta("José da Sorte", 1000, "N VAI ACONTECER");
+        this.aposta = new Aposta(1,"José da Sorte", 1000, "N VAI ACONTECER");
     }
 
     /**
@@ -21,7 +21,7 @@ public class ApostaTest {
      */
     @Test
     public void testAposta(){
-        new Aposta("José da Sorte", 1000, "N VAI ACONTECER");
+        new Aposta(1, "José da Sorte", 1000, "N VAI ACONTECER");
     }
 
     /**
@@ -37,7 +37,7 @@ public class ApostaTest {
      */
     @Test (expected = IllegalArgumentException.class)
     public void testApostaApostadorVazio(){
-        new Aposta("", 1000, "N VAI ACONTECER");
+        new Aposta(1, "", 1000, "N VAI ACONTECER");
     }
 
     /**
@@ -45,7 +45,7 @@ public class ApostaTest {
      */
     @Test (expected = IllegalArgumentException.class)
     public void testApostaApostadorEspacoEmBranco(){
-        new Aposta(" ", 1000, "N VAI ACONTECER");
+        new Aposta(1, " ", 1000, "N VAI ACONTECER");
     }
 
     /**
@@ -53,7 +53,7 @@ public class ApostaTest {
      */
     @Test (expected = NullPointerException.class)
     public void testApostaApostadorNulo(){
-        new Aposta(null, 1000, "N VAI ACONTECER");
+        new Aposta(1,null, 1000, "N VAI ACONTECER");
     }
 
     /**
@@ -61,7 +61,7 @@ public class ApostaTest {
      */
     @Test (expected = IllegalArgumentException.class)
     public void testApostaValorNegativo(){
-        new Aposta("Jose da Sorte", -1, "N VAI ACONTECER");
+        new Aposta(1,"Jose da Sorte", -1, "N VAI ACONTECER");
     }
 
     /**
@@ -69,7 +69,7 @@ public class ApostaTest {
      */
     @Test (expected = IllegalArgumentException.class)
     public void testApostaValorZero(){
-        new Aposta("Jose da Sorte", 0, "N VAI ACONTECER");
+        new Aposta(1,"Jose da Sorte", 0, "N VAI ACONTECER");
     }
 
     /**
@@ -77,7 +77,7 @@ public class ApostaTest {
      */
     @Test (expected = IllegalArgumentException.class)
     public void testApostaPrevisaoVazio(){
-        new Aposta("Jose da Sorte", 1000, "");
+        new Aposta(1,"Jose da Sorte", 1000, "");
     }
 
     /**
@@ -85,7 +85,7 @@ public class ApostaTest {
      */
     @Test (expected = IllegalArgumentException.class)
     public void testApostaPrevisaoEmBranco(){
-        new Aposta("Jose da Sorte", 1000, "  ");
+        new Aposta(1,"Jose da Sorte", 1000, "  ");
     }
 
     /**
@@ -93,7 +93,7 @@ public class ApostaTest {
      */
     @Test (expected = NullPointerException.class)
     public void testApostaPrevisaoNulo(){
-        new Aposta("Jose da Sorte", 1000, null);
+        new Aposta(1,"Jose da Sorte", 1000, null);
     }
 
     /**
@@ -101,7 +101,7 @@ public class ApostaTest {
      */
     @Test (expected = IllegalArgumentException.class)
     public void testApostaPrevisaoInvalida(){
-        new Aposta("Jose da Sorte", 1000, "NAO EXISTE ESSA PREVISAO");
+        new Aposta(1,"Jose da Sorte", 1000, "NAO EXISTE ESSA PREVISAO");
     }
 
     /**

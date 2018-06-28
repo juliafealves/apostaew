@@ -104,6 +104,46 @@ public class SistemaController {
         this.cenarios.get(cenario - 1).adicionaAposta(apostador, valor, previsao);
     }
 
+    public int cadastraAposta(int cenario, String apostador, int valor, String previsao, int valorAssegurado, int custo) {
+        this.validaCenario(cenario, "Erro no cadastro de aposta assegurada por valor");
+        this.validaAposta(apostador, valor, previsao, "Erro no cadastro de aposta assegurada por valor");
+        this.caixa += custo;
+
+        return  this.cenarios.get(cenario - 1).adicionaAposta(apostador, valor, previsao, valorAssegurado);
+    }
+
+    public int cadastraAposta(int cenario, String apostador, int valor, String previsao, double taxa, int custo) {
+        this.validaCenario(cenario, "Erro no cadastro de aposta assegurada por taxa");
+        this.validaAposta(apostador, valor, previsao, "Erro no cadastro de aposta assegurada por taxa");
+        this.caixa += custo;
+
+        return  this.cenarios.get(cenario - 1).adicionaAposta(apostador, valor, previsao, taxa);
+    }
+
+    /**
+     * Modifica o tipo de aposta.
+     * @param cenario Identificação do cenário.
+     * @param apostaAssegurada Identificador de aposta.
+     * @param valor Valor do seguro.
+     * @return
+     */
+    public int modificaAposta(int cenario, int apostaAssegurada, int valor) {
+        this.validaCenario(cenario, "Erro no exibe apostas");
+        return this.cenarios.get(cenario - 1).modificaTipoAposta(apostaAssegurada, valor);
+    }
+
+    /**
+     * Modifica o tipo de aposta.
+     * @param cenario Identificação do cenário.
+     * @param apostaAssegurada Identificador de aposta.
+     * @param taxa Taxa do seguro.
+     * @return
+     */
+    public int modificaAposta(int cenario, int apostaAssegurada, double taxa) {
+        this.validaCenario(cenario, "Erro no exibe apostas");
+        return this.cenarios.get(cenario - 1).modificaTipoAposta(apostaAssegurada, taxa);
+    }
+
     /**
      * Lista as apostas de um cenário.
      *
@@ -152,6 +192,7 @@ public class SistemaController {
 
         cenarioAtual.finaliza(ocorreu);
         this.caixa += this.calculaTaxa(cenarioAtual.calculaApostas(false));
+        this.caixa -= cenarioAtual.calcularValorAssegurado();
     }
 
     /**

@@ -31,6 +31,7 @@ public class Cenario {
 
     /**
      * Verifica se dois objetos Cenários são iguais, através do atributo numeracao.
+     *
      * @param objeto Objeto a ser analizado.
      * @return Retorna true caso possuam a mesma numeração.
      */
@@ -44,6 +45,7 @@ public class Cenario {
 
     /**
      * Gera o hash através do atributo numeracao.
+     *
      * @return Hash referente a numeracao.
      */
     @Override
@@ -66,8 +68,25 @@ public class Cenario {
      * @param valor Valor da Aposta.
      * @param previsao Previsão da aposta.
      */
-    public void adicionaAposta(String apostador, int valor, String previsao) {
-        this.apostas.add(new Aposta(apostador, valor, previsao));
+    public int adicionaAposta(String apostador, int valor, String previsao) {
+        int id = this.apostas.size() + 1;
+        this.apostas.add(new Aposta(id, apostador, valor, previsao));
+
+        return id;
+    }
+
+    public int adicionaAposta(String apostador, int valor, String previsao, int valorAssegurado) {
+        int id = this.apostas.size() + 1;
+        this.apostas.add(new Aposta(id, apostador, valor, previsao, valorAssegurado));
+
+        return id;
+    }
+
+    public int adicionaAposta(String apostador, int valor, String previsao, double taxa) {
+        int id = this.apostas.size() + 1;
+        this.apostas.add(new Aposta(id, apostador, valor, previsao, taxa));
+
+        return id;
     }
 
     /**
@@ -112,6 +131,17 @@ public class Cenario {
     }
 
     /**
+     * Retorna os valores assegurados pelas apostas.
+     * @return Valor em centavos das apostas asseguradas.
+     */
+    public int calcularValorAssegurado() {
+        return this.apostas
+                .stream()
+                .mapToInt(Aposta::getValorAssegurado)
+                .sum();
+    }
+
+    /**
      * Calcula o rateio do cenário.
      *
      * @param taxa Taxa do caixa.
@@ -153,5 +183,29 @@ public class Cenario {
             apostas.append(aposta).append(System.lineSeparator());
 
         return apostas.toString();
+    }
+
+    /**
+     * Modifica os tipos de apostas.
+     * @param id
+     * @param valorAssegurado
+     * @return
+     */
+    public int modificaTipoAposta(int id, int valorAssegurado) {
+        this.apostas.get(id - 1).modificaSeguro(valorAssegurado);
+
+        return id;
+    }
+
+    /**
+     * Modifica o tipo de aposta.
+     * @param id
+     * @param taxa
+     * @return
+     */
+    public int modificaTipoAposta(int id, double taxa) {
+        this.apostas.get(id - 1).modificaSeguro(taxa);
+
+        return id;
     }
 }
