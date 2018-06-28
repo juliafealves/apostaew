@@ -19,6 +19,10 @@ public class SeguroTaxa extends Seguro {
         return (int)(this.valor * this.taxa);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return " - ASSEGURADA (TAXA) - " + (int) (this.taxa * 100) + "%";
