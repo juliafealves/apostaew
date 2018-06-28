@@ -117,3 +117,18 @@ Retornar o valor total de um cenário encerrado que será destinado a distribui�
 ```
 int getTotalRateioCenario(int cenario)
 ```
+
+### 5. Cadastrar Cenário Bônus
+Alguns cenários precisam dar incentivos aos apostadores. Os cenários que não parecem muito óbvios ou que são puramente aleatórios (ex.: O resultado do dado será maior que três) precisam de um incentivo para que as pessoas apostem. Uma maneira de incentivar apostas em tais cenários é oferecer um bônus aos vencedores.
+
+Seu sistema deve permitir cadastrar agora um novo tipo de cenário que ofereça bônus. Em tais cenários, o bônus é um valor que é imediatamente retirado do caixa do sistema e colocado no cenário quando o mesmo é criado. Esse valor passa a fazer parte da quantidade em dinheiro a ser distribuída entre os vencedores (ou seja, passa a ser parte do valor retornado no getTotalRateioCenario).
+
+A representação de tais cenários será na forma: `NUMERAÇÃO - DESCRIÇÃO - ESTADO - BÔNUS`. Exemplo: `1 - O resultado do dado será maior que três - Não finalizado - R$ 100,00`
+
+
+A Facade deve ter métodos para:
+
+Cadastrar cenários com bônus
+```
+int cadastrarCenario(String descricao, int bonus)
+```
