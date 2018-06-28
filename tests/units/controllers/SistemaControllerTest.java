@@ -49,6 +49,15 @@ public class SistemaControllerTest {
     }
 
     /**
+     * Testa o retorno do valor atual do caixa no sistema após cadastrar um cenário bônus.
+     */
+    @Test
+    public void testGetCaixaAposCenarioBonus(){
+        this.sistemaController.cadastraCenario("O dado vai dar ímpar", 100);
+        Assert.assertEquals(900, this.sistemaController.getCaixa());
+    }
+
+    /**
      * Testa o cadastra Cenario, deve retorna um valor númerico único.
      */
     @Test
@@ -78,6 +87,22 @@ public class SistemaControllerTest {
     @Test (expected = NullPointerException.class)
     public void testCadastraCenarioDescricaoNula(){
         this.sistemaController.cadastraCenario(null);
+    }
+
+    /**
+     * Testa se gera uma exceção caso bônus seja negativo.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCadastraBonusNegativo(){
+        this.sistemaController.cadastraCenario("O dado vai dar par", -100);
+    }
+
+    /**
+     * Testa se gera uma exceção caso bônus seja igual a zero.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCadastraBonusIgualZero(){
+        this.sistemaController.cadastraCenario("O dado vai dar par", 0);
     }
 
     /**
@@ -477,6 +502,19 @@ public class SistemaControllerTest {
         this.sistemaController.cadastraAposta(1,"Maria da Sorte", 1000, "VAI ACONTECER");
         this.sistemaController.finalizaCenario(1, true);
         Assert.assertEquals(1800, this.sistemaController.calculaCaixaRateioCenario(1));
+    }
+
+    /**
+     * Testa o calculo das apostas perdedoras destinadas ao caixa do cenário bônus.
+     */
+    @Test
+    public void testCalculaRateioCenarioBonus(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa", 100);
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,"Maria da Sorte", 1000, "VAI ACONTECER");
+        this.sistemaController.finalizaCenario(1, true);
+        Assert.assertEquals(1900, this.sistemaController.calculaCaixaRateioCenario(1));
     }
 
     /**
