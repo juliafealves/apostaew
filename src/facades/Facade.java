@@ -114,10 +114,21 @@ public class Facade {
         this.sistemaController.finalizaCenario(cenario, ocorreu);
     }
 
+    /**
+     * Retorna o valor total de um cenário encerrado que será destinado ao caixa.
+     *
+     * @param cenario Numeração do cenário de aposta.
+     * @return Valor total do cenário encerrado destinado ao caixa.
+     */
     public int getCaixaCenario(int cenario){
         return this.sistemaController.calculaCaixaCenario(cenario);
     }
 
+    /**
+     * Retorna o valor total de um cenário encerrado que será destinado a distribuição entre as apostas vencedoras
+     * @param cenario Numeração do cenário de aposta.
+     * @return Valor a ser rateado com os vencedores.
+     */
     public int getTotalRateioCenario(int cenario){
         return this.sistemaController.calculaCaixaRateioCenario(cenario);
     }

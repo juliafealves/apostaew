@@ -109,7 +109,7 @@ public class SistemaControllerTest {
      * Testa se gera uma exceção caso o número do cenário acima do tamanho da coleção.
      */
     @Test (expected = IndexOutOfBoundsException.class)
-    public void testConsultaApostaCenarioAcimaDoLimite(){
+    public void testConsultaApostaCenarioForaDoLimite(){
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         this.sistemaController.consultaCenario(2);
     }
@@ -156,7 +156,7 @@ public class SistemaControllerTest {
      * Testa se gera uma exceção caso o número do cenário acima do tamanho da coleção.
      */
     @Test (expected = IndexOutOfBoundsException.class)
-    public void estCadastraApostaCenarioAcimaDoLimite(){
+    public void estCadastraApostaCenarioForaDoLimite(){
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         this.sistemaController.cadastraAposta(2,"Jose da Sorte", 1000, "N VAI ACONTECER");
     }
@@ -272,7 +272,7 @@ public class SistemaControllerTest {
      * Testa se gera uma exceção caso o número do Cenário acima do tamanho da coleção.
      */
     @Test (expected = IndexOutOfBoundsException.class)
-    public void testObtemTotalApostasCenarioAcimaDoLimite(){
+    public void testObtemTotalApostasCenarioForaDoLimite(){
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         this.sistemaController.obtemTotalApostas(2);
     }
@@ -308,7 +308,7 @@ public class SistemaControllerTest {
      * Testa se gera uma exceção caso o número do Cenário acima do tamanho da coleção.
      */
     @Test (expected = IndexOutOfBoundsException.class)
-    public void testObtemValorTotalApostasCenarioAcimaDoLimite(){
+    public void testObtemValorTotalApostasCenarioForaDoLimite(){
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         this.sistemaController.obtemValorTotalApostas(2);
     }
@@ -346,7 +346,7 @@ public class SistemaControllerTest {
      * Testa se gera uma exceção caso o número do Cenário acima do tamanho da coleção.
      */
     @Test (expected = IndexOutOfBoundsException.class)
-    public void testListaApostasCenarioAcimaDoLimite(){
+    public void testListaApostasCenarioForaDoLimite(){
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         this.sistemaController.listaApostas(2);
     }
@@ -384,7 +384,7 @@ public class SistemaControllerTest {
      * Testa se gera uma exceção caso o número do cenário acima do tamanho da coleção.
      */
     @Test (expected = IndexOutOfBoundsException.class)
-    public void testFinalizaCenarioCenarioAcimaDoLimite(){
+    public void testFinalizaCenarioCenarioForaDoLimite(){
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         this.sistemaController.finalizaCenario(2, true);
     }
@@ -426,5 +426,81 @@ public class SistemaControllerTest {
         this.sistemaController.cadastraAposta(1,"Maria da Sorte", 1000, "VAI ACONTECER");
         this.sistemaController.finalizaCenario(1, false);
         Assert.assertEquals(1100, this.sistemaController.getCaixa());
+    }
+
+    /**
+     * Testa o calculo das apostas perdedoras destinadas ao caixa.
+     */
+    @Test
+    public void testCalculaCaixaCenario(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,"Maria da Sorte", 1000, "VAI ACONTECER");
+        this.sistemaController.finalizaCenario(1, true);
+        Assert.assertEquals(200, this.sistemaController.calculaCaixaCenario(1));
+    }
+
+    /**
+     * Testa se gera uma exceção caso numeração do cenário seja negativo.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCalculaCaixaCenarioCenarioNegativo(){
+        this.sistemaController.calculaCaixaCenario(-1);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o número do cenário não foi cadastrado ainda.
+     */
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testCalculaCaixaCenarioCenarioInexistente(){
+        this.sistemaController.calculaCaixaCenario(1);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o número do cenário acima do tamanho da coleção.
+     */
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testCalculaCaixaCenarioCenarioForaDoLimite(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.calculaCaixaCenario(2);
+    }
+
+    /**
+     * Testa o calculo das apostas perdedoras destinadas ao caixa.
+     */
+    @Test
+    public void testCalculaRateioCenario(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,"Maria da Sorte", 1000, "VAI ACONTECER");
+        this.sistemaController.finalizaCenario(1, true);
+        Assert.assertEquals(1800, this.sistemaController.calculaCaixaRateioCenario(1));
+    }
+
+    /**
+     * Testa se gera uma exceção caso numeração do cenário seja negativo.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCalculaRateioCenarioCenarioNegativo(){
+        this.sistemaController.calculaCaixaRateioCenario(-1);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o número do cenário não foi cadastrado ainda.
+     */
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testCalculaRateioCenarioCenarioInexistente(){
+        this.sistemaController.calculaCaixaRateioCenario(1);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o número do cenário acima do tamanho da coleção.
+     */
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testCalculaRateioCenarioCenarioForaDoLimite(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.calculaCaixaRateioCenario(2);
     }
 }
