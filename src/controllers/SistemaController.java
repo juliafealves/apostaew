@@ -1,14 +1,16 @@
 package controllers;
 
 import entities.Cenario;
+import entities.CenarioBonus;
 import enums.PrevisaoEnum;
 import utils.Validador;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SistemaController {
     private int caixa;
-    private ArrayList<Cenario> cenarios;
+    private List<Cenario> cenarios;
     private double taxa;
 
     /**
@@ -38,6 +40,18 @@ public class SistemaController {
 
         int numeracao = this.cenarios.size() + 1;
         this.cenarios.add(new Cenario(descricao, numeracao));
+
+        return numeracao;
+    }
+
+    public int cadastraCenario(String descricao, int bonus){
+        Validador.validaNaoNulo(descricao, "Erro no cadastro de cenario: Descricao nao pode ser nula");
+        Validador.validaStringNaoVazia(descricao, "Erro no cadastro de cenario: Descricao nao pode ser vazia");
+        Validador.validaNumeroPositivo(bonus, "Erro no cadastro de cenario: Bonus invalido", false);
+
+        int numeracao = this.cenarios.size() + 1;
+        this.cenarios.add(new CenarioBonus(descricao, numeracao, bonus));
+        this.caixa -= bonus;
 
         return numeracao;
     }
@@ -169,9 +183,7 @@ public class SistemaController {
         if(!cenarioAtual.finalizado())
             throw new IllegalArgumentException("Erro na consulta do total de rateio do cenario: Cenario ainda esta aberto");
 
-        int valor = cenarioAtual.calculaApostas(false);
-
-        return valor - this.calculaTaxa(valor);
+        return cenarioAtual.calculaRateio(taxa);
     }
 
     /**

@@ -295,4 +295,16 @@ public class CenarioTest {
         this.cenario.finaliza(true);
         Assert.assertEquals(2000, this.cenario.calculaApostas(false));
     }
+
+    /**
+     * Testa o calculo do rateio para as apostas ganhadoras. O valor do rateio remove o valor destinado ao caixa.
+     */
+    @Test
+    public void testCalculaRateio(){
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "VAI ACONTECER");
+        this.cenario.finaliza(true);
+        Assert.assertEquals(1800, this.cenario.calculaRateio(0.1));
+    }
 }

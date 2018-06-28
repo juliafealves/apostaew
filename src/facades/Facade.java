@@ -16,7 +16,8 @@ public class Facade {
                 "tests/acceptance/us1_test.txt",
                 "tests/acceptance/us2_test.txt",
                 "tests/acceptance/us3_test.txt",
-                "tests/acceptance/us4_test.txt"
+                "tests/acceptance/us4_test.txt",
+                "tests/acceptance/us5_test.txt"
         };
 
         EasyAccept.main(args);
@@ -47,6 +48,16 @@ public class Facade {
      */
     public int cadastrarCenario(String descricao){
         return this.sistemaController.cadastraCenario(descricao);
+    }
+
+    /**
+     * Cadastra um cenário com bônus a ser destinado para os vencedores.
+     * @param descricao Descrição do cenário.
+     * @param bonus Valor do bônus em centavos.
+     * @return Retorna a numeração única do cenário.
+     */
+    public int cadastrarCenario(String descricao, int bonus){
+        return this.sistemaController.cadastraCenario(descricao, bonus);
     }
 
     /**

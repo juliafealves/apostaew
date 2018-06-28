@@ -9,19 +9,19 @@ import java.util.List;
 import java.util.Objects;
 
 public class Cenario {
-    private String descricao;
-    private EstadoEnum estado;
-    private int numeracao;
-    private List<Aposta> apostas;
+    protected String descricao;
+    protected EstadoEnum estado;
+    protected int numeracao;
+    protected List<Aposta> apostas;
 
     /**
      * Cria um objeto Cenario.
      * @param descricao A descrição não pode ser vazia ou nula.
      */
     public Cenario(String descricao, int numeracao){
-        Validador.validaNaoNulo(descricao, "Erro no cadastro de cenario: Descricao nao pode ser nula");
-        Validador.validaStringNaoVazia(descricao, "Erro no cadastro de cenario: Descricao nao pode ser vazia");
-        Validador.validaNumeroPositivo(numeracao, "Erro no cadastro de cenario: Numeracao nao pode ser inferior ou igual a 0", false);
+        Validador.validaNaoNulo(descricao, "Descricao nao pode ser nula");
+        Validador.validaStringNaoVazia(descricao, "Descricao nao pode ser vazia");
+        Validador.validaNumeroPositivo(numeracao, "Numeracao nao pode ser inferior ou igual a 0", false);
 
         this.descricao = descricao;
         this.numeracao = numeracao;
@@ -109,6 +109,18 @@ public class Cenario {
         }
 
         return valor;
+    }
+
+    /**
+     * Calcula o rateio do cenário.
+     *
+     * @param taxa Taxa do caixa.
+     * @return Valor das apostas a serem destinadas aos ganhadores.
+     */
+    public int calculaRateio(double taxa){
+        int valor = this.calculaApostas(false);
+
+        return valor - (int) (valor * taxa);
     }
 
     /**

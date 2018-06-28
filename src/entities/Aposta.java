@@ -48,16 +48,7 @@ public class Aposta {
      */
     @Override
     public String toString() {
-        return this.apostador + " - R$" + String.format("%.2f", this.converteValorParaReais()) + " - " + this.previsao;
-    }
-
-    /**
-     * Converte o valor em centavos em reais. 1 Real = 100 centavos.
-     *
-     * @return Valor em reais.
-     */
-    private double converteValorParaReais() {
-        return this.valor / 100.0;
+        return this.apostador + " - R$" + String.format("%.2f", this.valor / 100.0) + " - " + this.previsao;
     }
 
     /**
