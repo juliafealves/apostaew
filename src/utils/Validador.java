@@ -21,6 +21,7 @@ public class Validador {
 
     /**
      * Valida se uma String não é vazia.
+     *
      * @param valor String que não deve ser nulo.
      * @param mensagem Mensagem gerada na exceção.
      * @return Returna true caso o objeto seja não nulo.

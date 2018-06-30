@@ -25,7 +25,7 @@ public class CenarioTest {
      */
     @Test
     public void testCriaCenario(){
-        new Cenario("A Alemanha vai ser goleada pelo Brasil.", 1);
+        new Cenario("A Alemanha vai ser eliminada da Copa 2018.", 1);
     }
 
     /**
@@ -62,23 +62,23 @@ public class CenarioTest {
     }
 
     /**
-     * Testa se gera uma exceção caso a numeração seja um número negativo.
+     * Testa se gera uma exceção caso a identificador seja um número negativo.
      */
     @Test (expected = IllegalArgumentException.class)
-    public void testCenarioNumeracaoNegativa(){
+    public void testCenarioIdNegativo(){
         new Cenario("Popoyer vai salvar a Olívia Palito.", -1);
     }
 
     /**
-     * Testa se gera uma exceção caso a numeração seja igual a zero.
+     * Testa se gera uma exceção caso a identificador seja igual a zero.
      */
     @Test (expected = IllegalArgumentException.class)
-    public void testCenarioNumeracaoIgualAZero(){
+    public void testCenarioIdentificadorIgualAZero(){
         new Cenario("Maurício será promovido.", 0);
     }
 
     /**
-     * Testa se dois objetos são iguais. Dois objetos são iguais caso tenha a mesma numeração.
+     * Testa se dois objetos são iguais. Dois objetos são iguais caso tenha o mesmo identificador.
      */
     @Test
     public void testEquals(){
@@ -87,7 +87,7 @@ public class CenarioTest {
     }
 
     /**
-     * Testa se dois objetos são diferentes. Dois objetos são diferentes caso tenha numeração distintas.
+     * Testa se dois objetos são diferentes. Dois objetos são diferentes caso tenha identificador distintos.
      */
     @Test
     public void testEqualsDiferentes(){

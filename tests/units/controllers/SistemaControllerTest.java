@@ -78,7 +78,7 @@ public class SistemaControllerTest {
      */
     @Test (expected = IllegalArgumentException.class)
     public void testCadastraCenarioDescricaoComEspacoEmBranco(){
-        this.sistemaController.cadastraCenario("  ");
+        this.sistemaController.cadastraCenario("   ");
     }
 
     /**

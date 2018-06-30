@@ -9,48 +9,56 @@ import java.util.List;
 import java.util.Objects;
 
 public class Cenario {
+    /**
+     * Identificador único.
+     */
+    protected int id;
+
+    /**
+     * Descrição do cenário.
+     */
     protected String descricao;
+
     protected EstadoEnum estado;
-    protected int numeracao;
     protected List<Aposta> apostas;
 
     /**
      * Cria um objeto Cenario.
-     * @param descricao A descrição não pode ser vazia ou nula.
+     *
+     * @param descricao Descrição do cenário de aposta.
+     * @param id Identificador único do cenário.
      */
-    public Cenario(String descricao, int numeracao){
-        Validador.validaNaoNulo(descricao, "Descricao nao pode ser nula");
-        Validador.validaStringNaoVazia(descricao, "Descricao nao pode ser vazia");
-        Validador.validaNumeroPositivo(numeracao, "Numeracao nao pode ser inferior ou igual a 0", false);
-
+    public Cenario(String descricao, int id){
+        this.valida(descricao, id);
         this.descricao = descricao;
-        this.numeracao = numeracao;
+        this.id = id;
         this.estado = EstadoEnum.NAO_FINALIZADO;
         this.apostas = new ArrayList<>();
     }
 
     /**
-     * Verifica se dois objetos Cenários são iguais, através do atributo numeracao.
+     * Verifica se dois objetos Cenários são iguais, através do atributo id.
      *
      * @param objeto Objeto a ser analizado.
-     * @return Retorna true caso possuam a mesma numeração.
+     * @return Retorna true caso possuam o mesmo identificador.
      */
     @Override
     public boolean equals(Object objeto) {
         if (this == objeto) return true;
         if (objeto == null || getClass() != objeto.getClass()) return false;
         Cenario cenario = (Cenario) objeto;
-        return numeracao == cenario.numeracao;
+
+        return id == cenario.id;
     }
 
     /**
-     * Gera o hash através do atributo numeracao.
+     * Gera o hash através do atributo id.
      *
-     * @return Hash referente a numeracao.
+     * @return Hash referente a id.
      */
     @Override
     public int hashCode() {
-        return Objects.hash(numeracao);
+        return Objects.hash(id);
     }
 
     /**
@@ -58,7 +66,7 @@ public class Cenario {
      * @return String formatada: DESCRICAO - ESTADO
      */
     public String toString(){
-        return this.numeracao + " - " + this.descricao + " - " + this.estado;
+        return this.id + " - " + this.descricao + " - " + this.estado;
     }
 
     /**
@@ -207,5 +215,17 @@ public class Cenario {
         this.apostas.get(id - 1).modificaSeguro(taxa);
 
         return id;
+    }
+
+    /**
+     * Valida os dados de cenário.
+     *
+     * @param descricao Descrição não deverá ser nula ou vazia.
+     * @param id Identificador não deverá ser menor ou igual a 0.
+     */
+    private void valida(String descricao, int id) {
+        Validador.validaNaoNulo(descricao, "Descricao nao pode ser nula");
+        Validador.validaStringNaoVazia(descricao, "Descricao nao pode ser vazia");
+        Validador.validaNumeroPositivo(id, "Identificador nao pode ser inferior ou igual a 0", false);
     }
 }

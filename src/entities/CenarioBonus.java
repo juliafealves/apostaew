@@ -28,7 +28,7 @@ public class CenarioBonus extends Cenario {
      * @return String formatada: DESCRICAO - ESTADO - BONUS
      */
     public String toString(){
-        return this.numeracao + " - " + this.descricao + " - " + this.estado + " - R$ " + String.format("%.2f", this.bonus / 100.0);
+        return this.id + " - " + this.descricao + " - " + this.estado + " - R$ " + String.format("%.2f", this.bonus / 100.0);
     }
 
     /**

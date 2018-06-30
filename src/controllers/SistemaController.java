@@ -4,6 +4,7 @@ import entities.Cenario;
 import entities.CenarioBonus;
 import enums.PrevisaoEnum;
 import utils.Validador;
+import utils.ValidadorSistema;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,28 +37,24 @@ public class SistemaController {
      * @param taxa Taxa das apostas perdedoras destinadas ao caixa.
      */
     public SistemaController(int caixa, double taxa) {
-        Validador.validaNumeroPositivo(caixa, "Erro na inicializacao: Caixa nao pode ser inferior a 0", true);
-        Validador.validaNumeroPositivo(taxa, "Erro na inicializacao: Taxa nao pode ser inferior a 0", true);
-
+        ValidadorSistema.validaInicializacaoSistema(caixa, taxa, "Erro na inicializacao");
         this.caixa = caixa;
         this.taxa = taxa;
         this.cenarios = new ArrayList<>();
     }
 
     /**
-     * Cadastra um cenário de aposta no sistema.
+     * Cadastra o cenário de aposta no sistema.
      *
-     * @param descricao Descrição não nula e vazia
-     * @return Retorna a numeração do cenário.
+     * @param descricao Descrição do cenário de aposta.
+     * @return Retorna o identificador do cenário.
      */
     public int cadastraCenario(String descricao) {
-        Validador.validaNaoNulo(descricao, "Erro no cadastro de cenario: Descricao nao pode ser nula");
-        Validador.validaStringNaoVazia(descricao, "Erro no cadastro de cenario: Descricao nao pode ser vazia");
+        ValidadorSistema.validaCadastroCenario(descricao, "Erro no cadastro de cenario");
+        int id = this.cenarios.size() + 1;
+        this.cenarios.add(new Cenario(descricao, id));
 
-        int numeracao = this.cenarios.size() + 1;
-        this.cenarios.add(new Cenario(descricao, numeracao));
-
-        return numeracao;
+        return id;
     }
 
     public int cadastraCenario(String descricao, int bonus){
