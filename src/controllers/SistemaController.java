@@ -99,7 +99,8 @@ public class SistemaController {
 
     /**
      * Retorna o valor atual do caixa do sistema.
-     * @return Caixa em centavos.
+     *
+     * @return Valor do caixa em centavos.
      */
     public int getCaixa() {
         return this.caixa;
