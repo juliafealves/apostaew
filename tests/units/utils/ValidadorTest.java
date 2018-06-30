@@ -36,14 +36,16 @@ public class ValidadorTest {
     @Test
     public void testValidaNumeroPositivoSemZero(){
         Assert.assertTrue(Validador.validaNumeroPositivo(1, "Mensagem", false));
+        Assert.assertTrue(Validador.validaNumeroPositivo(0.5, "Mensagem", false));
     }
 
     /**
-     * Testa se valida um número inteiro positivo com o zero.
+     * Testa se valida um número positivo com o zero.
      */
     @Test
     public void testValidaNumeroPositivoComZero(){
         Assert.assertTrue(Validador.validaNumeroPositivo(0, "Mensagem", true));
+        Assert.assertTrue(Validador.validaNumeroPositivo(0.0, "Mensagem", true));
     }
 
     /**
@@ -52,6 +54,7 @@ public class ValidadorTest {
     @Test (expected = IllegalArgumentException.class)
     public void testValidaNumeroPositivoSemZeroNumeroSendoZero(){
         Assert.assertTrue(Validador.validaNumeroPositivo(0, "Mensagem", false));
+        Assert.assertTrue(Validador.validaNumeroPositivo(0.0, "Mensagem", false));
     }
 
     /**
@@ -60,6 +63,7 @@ public class ValidadorTest {
     @Test (expected = IllegalArgumentException.class)
     public void testValidaNumeroPositivoComNumeroNegativo(){
         Assert.assertTrue(Validador.validaNumeroPositivo(-1, "Mensagem", false));
+        Assert.assertTrue(Validador.validaNumeroPositivo(-1.5, "Mensagem", false));
     }
 
     /**

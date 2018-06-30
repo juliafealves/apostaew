@@ -7,6 +7,7 @@ public class Validador {
 
     /**
      * Valida se um objeto é não nulo.
+     *
      * @param objeto Objeto que não deve ser nulo.
      * @param mensagem Mensagem gerada na exceção.
      * @return Returna true caso o objeto seja não nulo.
@@ -32,7 +33,7 @@ public class Validador {
     }
 
     /**
-     * Valida um numero positivo.
+     * Valida se um número inteiro é positivo, incluindo ou não o zero.
      *
      * @param numero Número a ser validado.
      * @param mensagem Mensagem personalizada.
@@ -47,7 +48,7 @@ public class Validador {
     }
 
     /**
-     * Valida um numero de ponto flutuante positivo.
+     * Valida se um número de ponto flutuante é positivo, incluindo ou não o zero.
      *
      * @param numero Número a ser validado.
      * @param mensagem Mensagem personalizada.

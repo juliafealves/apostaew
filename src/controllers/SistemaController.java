@@ -8,10 +8,26 @@ import utils.Validador;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe responsável por gerenciar o sistema de apostas.
+ *
+ * @author Júlia Fernandes Alves (117211383) - juliafealves@gmail.com
+ */
 public class SistemaController {
+    /**
+     * Quantitativo de centavos no caixa do sistema.
+     */
     private int caixa;
-    private List<Cenario> cenarios;
+
+    /**
+     * Taxa a ser repassado para o caixa das apostas perdedoras.
+     */
     private double taxa;
+
+    /**
+     * Coleção de todos os cenários de apostas cadastrados no sistema.
+     */
+    private List<Cenario> cenarios;
 
     /**
      * Inicializa o sistema, definindo o valor do caixa (em centavos) e a taxa.
