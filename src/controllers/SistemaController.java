@@ -205,22 +205,22 @@ public class SistemaController {
         this.caixa += this.calculaTaxa(cenarioAtual.calculaApostas());
 //        this.caixa -= cenarioAtual.calcularValorAssegurado();
     }
-//
-//    /**
-//     * Calcula o valor total a ser destinado ao caixa das apostas perdedoras.
-//     *
-//     * @param cenario Numeração do cenário de aposta.
-//     * @return Valor total do cenário encerrado destinado ao caixa.
-//     */
-//    public int calculaCaixaCenario(int cenario){
-//        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro na consulta do valor total de apostas");
-//        Cenario cenarioAtual = this.cenarios.get(cenario - 1);
-//
-//        if(!cenarioAtual.finalizado())
-//            throw new IllegalArgumentException("Erro na consulta do caixa do cenario: Cenario ainda esta aberto");
-//
-//        return this.calculaTaxa(cenarioAtual.calculaApostas(false));
-//    }
+
+    /**
+     * Calcula o valor total a ser destinado ao caixa das apostas perdedoras.
+     *
+     * @param cenario Numeração do cenário de aposta.
+     * @return Valor total do cenário encerrado destinado ao caixa.
+     */
+    public int calculaCaixaCenario(int cenario){
+        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro na consulta do caixa do cenario");
+        Cenario cenarioAtual = this.cenarios.get(cenario - 1);
+
+        if(!cenarioAtual.finalizado())
+            throw new IllegalArgumentException("Erro na consulta do caixa do cenario: Cenario ainda esta aberto");
+
+        return this.calculaTaxa(cenarioAtual.calculaApostas());
+    }
 //
 //    /**
 //     * Calcula o valor a ser rateado para os ganhadoras das apostas, é retirado o valor destinado ao caixa.

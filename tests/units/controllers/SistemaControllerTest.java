@@ -417,44 +417,37 @@ public class SistemaControllerTest {
         this.sistemaController.finalizaCenario(1, false);
         Assert.assertEquals(1100, this.sistemaController.getCaixa());
     }
-//
-//    /**
-//     * Testa o calculo das apostas perdedoras destinadas ao caixa.
-//     */
-//    @Test
-//    public void testCalculaCaixaCenario(){
-//        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
-//        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
-//        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
-//        this.sistemaController.cadastraAposta(1,"Maria da Sorte", 1000, "VAI ACONTECER");
-//        this.sistemaController.finalizaCenario(1, true);
-//        Assert.assertEquals(200, this.sistemaController.calculaCaixaCenario(1));
-//    }
-//
-//    /**
-//     * Testa se gera uma exceção caso numeração do cenário seja negativo.
-//     */
-//    @Test (expected = IllegalArgumentException.class)
-//    public void testCalculaCaixaCenarioCenarioNegativo(){
-//        this.sistemaController.calculaCaixaCenario(-1);
-//    }
-//
-//    /**
-//     * Testa se gera uma exceção caso o número do cenário não foi cadastrado ainda.
-//     */
-//    @Test (expected = IndexOutOfBoundsException.class)
-//    public void testCalculaCaixaCenarioCenarioInexistente(){
-//        this.sistemaController.calculaCaixaCenario(1);
-//    }
-//
-//    /**
-//     * Testa se gera uma exceção caso o número do cenário acima do tamanho da coleção.
-//     */
-//    @Test (expected = IndexOutOfBoundsException.class)
-//    public void testCalculaCaixaCenarioCenarioForaDoLimite(){
-//        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
-//        this.sistemaController.calculaCaixaCenario(2);
-//    }
+
+    /**
+     * Testa o calculo das apostas perdedoras destinadas ao caixa.
+     * @todo adicionar apostas seguras.
+     */
+    @Test
+    public void testCalculaCaixaCenario(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,"Maria da Sorte", 1000, "VAI ACONTECER");
+        this.sistemaController.finalizaCenario(1, true);
+        Assert.assertEquals(200, this.sistemaController.calculaCaixaCenario(1));
+    }
+
+    /**
+     * Testa se gera uma exceção caso numeração do cenário seja negativo.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCalculaCaixaCenarioCenarioNegativo(){
+        this.sistemaController.calculaCaixaCenario(-1);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o número do cenário acima do tamanho da coleção.
+     */
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testCalculaCaixaCenarioCenarioInexistente(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.calculaCaixaCenario(2);
+    }
 //
 //    /**
 //     * Testa o calculo das apostas perdedoras destinadas ao caixa.
