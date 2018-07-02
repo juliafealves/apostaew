@@ -9,11 +9,26 @@ import java.util.Objects;
  * Classe responsável por representar uma aposta.
  */
 public class Aposta {
+
+    /**
+     * Identificador único.
+     */
     private int id;
+
+    /**
+     * Valor da aposta.
+     */
     private int valor;
+
+    /**
+     * Nome do apostador
+     */
     private String apostador;
+
+    /**
+     * Previsão da aposta: N VAI ACONTECER ou VAI ACONTECER
+     */
     private PrevisaoEnum previsao;
-    private Seguro seguro;
 
     /**
      * Inicializa uma aposta.
@@ -23,55 +38,54 @@ public class Aposta {
      * @param previsao Previsão da Aposta: N VAI ACONTECER ou VAI ACONTECER
      */
     public Aposta(int id, String apostador, int valor, String previsao) {
-        this.validaAposta(id, apostador, valor, previsao);
+        this.valida(id, apostador, valor, previsao);
         this.id = id;
         this.apostador = apostador;
         this.valor = valor;
         this.previsao = previsao.equalsIgnoreCase(PrevisaoEnum.VAI_ACONTECER.toString()) ? PrevisaoEnum.VAI_ACONTECER : PrevisaoEnum.NAO_VAI_ACONTECER;
-        this.seguro = new SemSeguro();
     }
 
-    /**
-     * Inicializa uma aposta segura tipo valor.
-     *
-     * @param apostador Nome do apostador.
-     * @param valor     Valor da aposta.
-     * @param previsao  Previsão da Aposta: N VAI ACONTECER ou VAI ACONTECER
-     */
-    public Aposta(int id, String apostador, int valor, String previsao, int valorAssegurado) {
-        this(id, apostador, valor, previsao);
-        this.seguro = new SeguroValor(valorAssegurado);
-    }
-
-    /**
-     * Cria uma aposta segura tipo taxa.
-     * @param id Identificador único.
-     * @param apostador Nome do apostador.
-     * @param valor Valor da aposta.
-     * @param previsao Previsão da aposta
-     * @param taxa Taxa do seguro.
-     */
-    public Aposta(int id, String apostador, int valor, String previsao, double taxa) {
-        this(id, apostador, valor, previsao);
-        this.seguro = new SeguroTaxa(valor, taxa);
-    }
-
-
-    /**
-     * Modifica o tipo de seguro para valor.
-     * @param valorAssegurado Valor do seguro.
-     */
-    public void modificaSeguro(int valorAssegurado) {
-        this.seguro = new SeguroValor(valorAssegurado);
-    }
-
-    /**
-     * Modifica o tipo de seguro para taxa.
-     * @param taxa Taxa do seguro.
-     */
-    public void modificaSeguro(double taxa) {
-        this.seguro = new SeguroTaxa(this.valor,taxa);
-    }
+//    /**
+//     * Inicializa uma aposta segura tipo valor.
+//     *
+//     * @param apostador Nome do apostador.
+//     * @param valor     Valor da aposta.
+//     * @param previsao  Previsão da Aposta: N VAI ACONTECER ou VAI ACONTECER
+//     */
+//    public Aposta(int id, String apostador, int valor, String previsao, int valorAssegurado) {
+//        this(id, apostador, valor, previsao);
+//        this.seguro = new SeguroValor(valorAssegurado);
+//    }
+//
+//    /**
+//     * Cria uma aposta segura tipo taxa.
+//     * @param id Identificador único.
+//     * @param apostador Nome do apostador.
+//     * @param valor Valor da aposta.
+//     * @param previsao Previsão da aposta
+//     * @param taxa Taxa do seguro.
+//     */
+//    public Aposta(int id, String apostador, int valor, String previsao, double taxa) {
+//        this(id, apostador, valor, previsao);
+//        this.seguro = new SeguroTaxa(valor, taxa);
+//    }
+//
+//
+//    /**
+//     * Modifica o tipo de seguro para valor.
+//     * @param valorAssegurado Valor do seguro.
+//     */
+//    public void modificaSeguro(int valorAssegurado) {
+//        this.seguro = new SeguroValor(valorAssegurado);
+//    }
+//
+//    /**
+//     * Modifica o tipo de seguro para taxa.
+//     * @param taxa Taxa do seguro.
+//     */
+//    public void modificaSeguro(double taxa) {
+//        this.seguro = new SeguroTaxa(this.valor,taxa);
+//    }
 
     /**
      * Retorna o valor da aposta.
@@ -82,29 +96,29 @@ public class Aposta {
         return valor;
     }
 
-    /**
-     * Retorna o valor assegurado na aposta.
-     * @return Valor em centavos segurado.
-     */
-    public int getValorAssegurado(){
-        return this.seguro.calculaValor();
-    }
-
-    /**
-     * Retorna a previsão da aposta.
-     * @return
-     */
-    public PrevisaoEnum getPrevisao() {
-        return previsao;
-    }
-
+//    /**
+//     * Retorna o valor assegurado na aposta.
+//     * @return Valor em centavos segurado.
+//     */
+//    public int getValorAssegurado(){
+//        return this.seguro.calculaValor();
+//    }
+//
+//    /**
+//     * Retorna a previsão da aposta.
+//     * @return
+//     */
+//    public PrevisaoEnum getPrevisao() {
+//        return previsao;
+//    }
+//
     /**
      * Retorna a representação textual das informações de Aposta.
      * @return Formatação textual: Apostador - R$ Valor em reais - Previsão.
      */
     @Override
     public String toString() {
-        return this.apostador + " - R$" + String.format("%.2f", this.valor / 100.0) + " - " + this.previsao + this.seguro;
+        return this.apostador + " - R$" + String.format("%.2f", this.valor / 100.0) + " - " + this.previsao;
     }
 
     /**
@@ -118,11 +132,12 @@ public class Aposta {
         if (this == objeto) return true;
         if (objeto == null || getClass() != objeto.getClass()) return false;
         Aposta aposta = (Aposta) objeto;
-        return id == aposta.id;
+        return this.id == aposta.id;
     }
 
     /**
      * Gera o hash através do atributo id.
+     *
      * @return Hash referente o id.
      */
     @Override
@@ -133,11 +148,12 @@ public class Aposta {
     /**
      * Realiza as validações de aposta.
      *
-     * @param apostador Nome do apostador.
-     * @param valor Valor da aposta.
-     * @param previsao Previsão da Aposta: N VAI ACONTECER ou VAI ACONTECER
+     * @param id Identificador não poderá ser menor ou igual a 0.
+     * @param apostador Nome do apostador não poderá ser nulo ou vazio.
+     * @param valor Valor da aposta não poderá ser menor ou igual a 0.
+     * @param previsao Previsão da Aposta só poderá ser N VAI ACONTECER ou VAI ACONTECER, não podendo ser nula ou vazia.
      */
-    private void validaAposta(int id, String apostador, int valor, String previsao){
+    private void valida(int id, String apostador, int valor, String previsao){
         Validador.validaNumeroPositivo(id, "Id nao pode ser menor ou igual a zero", false);
         Validador.validaNaoNulo(apostador, "Apostador nao pode ser vazio ou nulo");
         Validador.validaStringNaoVazia(apostador, "Apostador nao pode ser vazio ou nulo");

@@ -4,7 +4,10 @@ import entities.Aposta;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
+/**
+ * Classe de teste de Aposta.
+ * @author Júlia Fernandes Alves (julia.alves@ccc.ufcg.edu.br)
+ */
 public class ApostaTest {
     private Aposta aposta;
 

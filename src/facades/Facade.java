@@ -14,8 +14,8 @@ public class Facade {
         args = new String[]{
                 "facades.Facade",
                 "tests/acceptance/us1_test.txt",
-//                "tests/acceptance/us2_test.txt",
-//                "tests/acceptance/us3_test.txt",
+                "tests/acceptance/us2_test.txt",
+                "tests/acceptance/us3_test.txt",
 //                "tests/acceptance/us4_test.txt",
 //                "tests/acceptance/us5_test.txt",
 //                "tests/acceptance/us6_test.txt",
@@ -84,35 +84,38 @@ public class Facade {
     /**
      * Cadastra uma aposta em um determinado cenário existente no sistema.
      *
+     * @param cenario Identificador do cenário de aposta.
+     * @param apostador Nome do apostador.
+     * @param valor Valor da aposta.
+     * @param previsao Previsão da aposta.
      */
     public void cadastrarAposta(int cenario, String apostador, int valor, String previsao){
         this.sistemaController.cadastraAposta(cenario, apostador, valor, previsao);
     }
 
-    /**
-     * Cadastra uma aposta em um determinado cenário existente no sistema.
-     *
-     */
-    public int cadastrarApostaSeguraValor(int cenario, String apostador, int valor, String previsao, int valorAssegurado, int custo){
-        return this.sistemaController.cadastraAposta(cenario, apostador, valor, previsao, valorAssegurado, custo);
-    }
-
-    public int cadastrarApostaSeguraTaxa(int cenario, String apostador, int valor, String previsao, double taxa, int custo){
-        return this.sistemaController.cadastraAposta(cenario, apostador, valor, previsao, taxa, custo);
-    }
-
-    public int alterarSeguroValor(int cenario, int apostaAssegurada, int valor){
-        return this.sistemaController.modificaAposta(cenario, apostaAssegurada, valor);
-    }
-
-    public int alterarSeguroTaxa(int cenario, int apostaAssegurada, double taxa){
-        return this.sistemaController.modificaAposta(cenario, apostaAssegurada, taxa);
-    }
-
+//    /**
+//     * Cadastra uma aposta em um determinado cenário existente no sistema.
+//     */
+//    public int cadastrarApostaSeguraValor(int cenario, String apostador, int valor, String previsao, int valorAssegurado, int custo){
+//        return this.sistemaController.cadastraAposta(cenario, apostador, valor, previsao, valorAssegurado, custo);
+//    }
+//
+//    public int cadastrarApostaSeguraTaxa(int cenario, String apostador, int valor, String previsao, double taxa, int custo){
+//        return this.sistemaController.cadastraAposta(cenario, apostador, valor, previsao, taxa, custo);
+//    }
+//
+//    public int alterarSeguroValor(int cenario, int apostaAssegurada, int valor){
+//        return this.sistemaController.modificaAposta(cenario, apostaAssegurada, valor);
+//    }
+//
+//    public int alterarSeguroTaxa(int cenario, int apostaAssegurada, double taxa){
+//        return this.sistemaController.modificaAposta(cenario, apostaAssegurada, taxa);
+//    }
+//
     /**
      * Retorna o valor total de apostas realizadas em um cenário.
      *
-     * @param cenario Numeração do cenário de Aposta.
+     * @param cenario Identificador do cenário de Aposta.
      * @return Quantitativo em centavos de apostas realizadas em um cenário.
      */
     public int valorTotalDeApostas(int cenario){
@@ -122,47 +125,47 @@ public class Facade {
     /**
      * Retorna o número total de apostas feitas em um cenário.
      *
-     * @param cenario Numeração do cenário de Aposta.
-     * @return Quantitativo total de apostas realizadas.
+     * @param cenario Identificador do cenário de aposta.
+     * @return Total de apostas realizadas.
      */
     public int totalDeApostas(int cenario){
         return this.sistemaController.obtemTotalApostas(cenario);
     }
-
-    /**
-     * Exibe todas as apostas cadastradas em um cenário.
-     * @return Retorna formatação textual: Apostador - Valor - Previsão
-     */
-    public String exibeApostas(int cenario){
-        return this.sistemaController.listaApostas(cenario);
-    }
-
-    /**
-     * Fecha as apostas do cenário.
-     *
-     * @param cenario Numeração do cenário de aposta.
-     * @param ocorreu Indica se ocorreu (true) ou não ocorreu (false) o cenário.
-     */
-    public void fecharAposta(int cenario, boolean ocorreu){
-        this.sistemaController.finalizaCenario(cenario, ocorreu);
-    }
-
-    /**
-     * Retorna o valor total de um cenário encerrado que será destinado ao caixa.
-     *
-     * @param cenario Numeração do cenário de aposta.
-     * @return Valor total do cenário encerrado destinado ao caixa.
-     */
-    public int getCaixaCenario(int cenario){
-        return this.sistemaController.calculaCaixaCenario(cenario);
-    }
-
-    /**
-     * Retorna o valor total de um cenário encerrado que será destinado a distribuição entre as apostas vencedoras
-     * @param cenario Numeração do cenário de aposta.
-     * @return Valor a ser rateado com os vencedores.
-     */
-    public int getTotalRateioCenario(int cenario){
-        return this.sistemaController.calculaCaixaRateioCenario(cenario);
-    }
+//
+//    /**
+//     * Exibe todas as apostas cadastradas em um cenário.
+//     * @return Retorna formatação textual: Apostador - Valor - Previsão
+//     */
+//    public String exibeApostas(int cenario){
+//        return this.sistemaController.listaApostas(cenario);
+//    }
+//
+//    /**
+//     * Fecha as apostas do cenário.
+//     *
+//     * @param cenario Numeração do cenário de aposta.
+//     * @param ocorreu Indica se ocorreu (true) ou não ocorreu (false) o cenário.
+//     */
+//    public void fecharAposta(int cenario, boolean ocorreu){
+//        this.sistemaController.finalizaCenario(cenario, ocorreu);
+//    }
+//
+//    /**
+//     * Retorna o valor total de um cenário encerrado que será destinado ao caixa.
+//     *
+//     * @param cenario Numeração do cenário de aposta.
+//     * @return Valor total do cenário encerrado destinado ao caixa.
+//     */
+//    public int getCaixaCenario(int cenario){
+//        return this.sistemaController.calculaCaixaCenario(cenario);
+//    }
+//
+//    /**
+//     * Retorna o valor total de um cenário encerrado que será destinado a distribuição entre as apostas vencedoras
+//     * @param cenario Numeração do cenário de aposta.
+//     * @return Valor a ser rateado com os vencedores.
+//     */
+//    public int getTotalRateioCenario(int cenario){
+//        return this.sistemaController.calculaCaixaRateioCenario(cenario);
+//    }
 }

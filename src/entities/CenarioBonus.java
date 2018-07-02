@@ -17,7 +17,7 @@ public class CenarioBonus extends Cenario {
      * @param bonus Valor do bônus da aposta.
      */
     public CenarioBonus(String descricao, int numeracao, int bonus) {
-        super(descricao, numeracao);
+        super(numeracao, descricao);
         Validador.validaNumeroPositivo(bonus, "Bonus nao pode ser inferior ou igual a 0", false);
 
         this.bonus = bonus;
@@ -37,8 +37,8 @@ public class CenarioBonus extends Cenario {
      * @param taxa Taxa do caixa.
      * @return
      */
-    @Override
-    public int calculaRateio(double taxa) {
-        return super.calculaRateio(taxa) + this.bonus;
-    }
+//    @Override
+//    public int calculaRateio(double taxa) {
+//        return super.calculaRateio(taxa) + this.bonus;
+//    }
 }
