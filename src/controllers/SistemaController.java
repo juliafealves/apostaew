@@ -154,18 +154,18 @@ public class SistemaController {
 //        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro no exibe apostas");
 //        return this.cenarios.get(cenario - 1).modificaTipoAposta(apostaAssegurada, taxa);
 //    }
-//
-//    /**
-//     * Lista as apostas de um cenário.
-//     *
-//     * @param cenario Numeração do cenário.
-//     * @return Representação textual: Nome - Valor - Previsão.
-//     */
-//    public String listaApostas(int cenario) {
-//        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro no exibe apostas");
-//        return this.cenarios.get(cenario - 1).listaApostas();
-//    }
-//
+
+    /**
+     * Lista as apostas de um cenário.
+     *
+     * @param cenario Identificador do cenário.
+     * @return Representação textual: Nome - Valor - Previsão.
+     */
+    public String listaApostas(int cenario) {
+        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro no exibe apostas");
+        return this.cenarios.get(cenario - 1).listaApostas();
+    }
+
     /**
      * Retorna o total de apostas cadastradas em um cenário.
      *

@@ -193,20 +193,26 @@ public class Cenario {
 
         return total;
     }
-//
-//    /**
-//     * Listas as apostas de um cenário.
-//     *
-//     * @return Representação textual: Apostador - Valor - Previsão.
-//     */
-//    public String listaApostas(){
-//        StringBuilder apostas = new StringBuilder();
-//
-//        for(Aposta aposta : this.apostas)
-//            apostas.append(aposta).append(System.lineSeparator());
-//
-//        return apostas.toString();
-//    }
+
+    /**
+     * Listas as apostas de um cenário.
+     *
+     * @return Representação textual: Apostador - Valor - Previsão.
+     */
+    public String listaApostas(){
+        StringBuilder apostas = new StringBuilder();
+        int total = this.obtemTotalApostas();
+
+        for(int i = 1; i <= total; i++){
+            if(this.apostas.containsKey(i)) {
+                apostas.append(this.apostas.get(i).toString()).append(System.lineSeparator());
+            } else if(this.apostasSeguras.containsKey(i)) {
+                apostas.append(this.apostasSeguras.get(i).toString()).append(System.lineSeparator());
+            }
+        }
+
+        return apostas.toString();
+    }
 //
 //    /**
 //     * Modifica os tipos de apostas.

@@ -113,7 +113,8 @@ public class Aposta {
 //    }
 //
     /**
-     * Retorna a representação textual das informações de Aposta.
+     * Retorna a representação textual das informações de aposta.
+     *
      * @return Formatação textual: Apostador - R$ Valor em reais - Previsão.
      */
     @Override

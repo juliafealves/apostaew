@@ -131,14 +131,15 @@ public class Facade {
     public int totalDeApostas(int cenario){
         return this.sistemaController.obtemTotalApostas(cenario);
     }
-//
-//    /**
-//     * Exibe todas as apostas cadastradas em um cenário.
-//     * @return Retorna formatação textual: Apostador - Valor - Previsão
-//     */
-//    public String exibeApostas(int cenario){
-//        return this.sistemaController.listaApostas(cenario);
-//    }
+
+    /**
+     * Exibe todas as apostas cadastradas em um cenário.
+     *
+     * @return Retorna formatação textual: Apostador - Valor - Previsão
+     */
+    public String exibeApostas(int cenario){
+        return this.sistemaController.listaApostas(cenario);
+    }
 //
 //    /**
 //     * Fecha as apostas do cenário.

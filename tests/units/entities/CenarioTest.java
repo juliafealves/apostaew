@@ -214,19 +214,20 @@ public class CenarioTest {
         this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
         Assert.assertEquals(2, this.cenario.obtemTotalApostas());
     }
-//
-//    /**
-//     * Testa a listagem de apostas do cenário. Formato: Apostador - Valor (em reais) - Previsão
-//     */
-//    @Test
-//    public void testListaApostas(){
-//        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
-//        this.cenario.adicionaAposta("Maria da Sorte", 199, "VAI ACONTECER");
-//        String apostas = "Jose da Sorte - R$10,00 - N VAI ACONTECER" + System.lineSeparator() +
-//                "Maria da Sorte - R$1,99 - VAI ACONTECER" + System.lineSeparator();
-//        Assert.assertEquals(apostas, this.cenario.listaApostas());
-//    }
-//
+
+    /**
+     * Testa a listagem de apostas do cenário. Formato: Apostador - Valor (em reais) - Previsão
+     * @todo adicionar aposta segura.
+     */
+    @Test
+    public void testListaApostas(){
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.cenario.adicionaAposta("Maria da Sorte", 199, "VAI ACONTECER");
+        String apostas = "Jose da Sorte - R$10,00 - N VAI ACONTECER" + System.lineSeparator() +
+                "Maria da Sorte - R$1,99 - VAI ACONTECER" + System.lineSeparator();
+        Assert.assertEquals(apostas, this.cenario.listaApostas());
+    }
+
 //    /**
 //     * Testa a verificação se um cenário de aposta foi finalizado com ocorreu.
 //     */

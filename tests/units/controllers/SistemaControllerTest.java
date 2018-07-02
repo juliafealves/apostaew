@@ -315,44 +315,36 @@ public class SistemaControllerTest {
         this.sistemaController.obtemValorTotalApostas(2);
     }
 
-//    /**
-//     * Testa o lista apostas. Formato: Apostador - Valor (em reais) - Previsão
-//     */
-//    @Test
-//    public void testListaApostas(){
-//        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
-//        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
-//        this.sistemaController.cadastraAposta(1,"Maria da Sorte", 199, "VAI ACONTECER");
-//        String apostas = "Jose da Sorte - R$10,00 - N VAI ACONTECER" + System.lineSeparator() +
-//                "Maria da Sorte - R$1,99 - VAI ACONTECER" + System.lineSeparator();
-//        Assert.assertEquals(apostas, this.sistemaController.listaApostas(1));
-//    }
-//
-//    /**
-//     * Testa se gera uma exceção caso numeração do cenário seja negativo.
-//     */
-//    @Test (expected = IllegalArgumentException.class)
-//    public void testListaApostasCenarioNegativo(){
-//        this.sistemaController.listaApostas(-1);
-//    }
-//
-//    /**
-//     * Testa se gera uma exceção caso o número do Cenário não foi cadastrado ainda.
-//     */
-//    @Test (expected = IndexOutOfBoundsException.class)
-//    public void testListaApostasCenarioInexistente(){
-//        this.sistemaController.listaApostas(1);
-//    }
-//
-//    /**
-//     * Testa se gera uma exceção caso o número do Cenário acima do tamanho da coleção.
-//     */
-//    @Test (expected = IndexOutOfBoundsException.class)
-//    public void testListaApostasCenarioForaDoLimite(){
-//        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
-//        this.sistemaController.listaApostas(2);
-//    }
-//
+    /**
+     * Testa o lista apostas. Formato: Apostador - Valor (em reais) - Previsão
+     */
+    @Test
+    public void testListaApostas(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,"Maria da Sorte", 199, "VAI ACONTECER");
+        String apostas = "Jose da Sorte - R$10,00 - N VAI ACONTECER" + System.lineSeparator() +
+                "Maria da Sorte - R$1,99 - VAI ACONTECER" + System.lineSeparator();
+        Assert.assertEquals(apostas, this.sistemaController.listaApostas(1));
+    }
+
+    /**
+     * Testa se gera uma exceção caso numeração do cenário seja negativo.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testListaApostasCenarioNegativo(){
+        this.sistemaController.listaApostas(-1);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o número do cenário não foi cadastrado ainda.
+     */
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testListaApostasCenarioInexistente(){
+        this.sistemaController.cadastraCenario("Cenario teste");
+        this.sistemaController.listaApostas(2);
+    }
+
 //    /**
 //     * Testa a finalização do cenário quando ocorre.
 //     */
