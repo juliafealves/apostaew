@@ -14,11 +14,12 @@ public class Facade {
         args = new String[]{
                 "facades.Facade",
                 "tests/acceptance/us1_test.txt",
-                "tests/acceptance/us2_test.txt",
-                "tests/acceptance/us3_test.txt",
-                "tests/acceptance/us4_test.txt",
-                "tests/acceptance/us5_test.txt",
-                "tests/acceptance/us6_test.txt"
+//                "tests/acceptance/us2_test.txt",
+//                "tests/acceptance/us3_test.txt",
+//                "tests/acceptance/us4_test.txt",
+//                "tests/acceptance/us5_test.txt",
+//                "tests/acceptance/us6_test.txt",
+//                "tests/acceptance/us7_test.txt"
         };
 
         EasyAccept.main(args);
@@ -62,9 +63,9 @@ public class Facade {
     }
 
     /**
-     * Exibe um cenário de aposta correspondente a numeração informada.
+     * Exibe um cenário de aposta correspondente o identificador informado.
      *
-     * @param cenario Numeração única do cenário de aposta.
+     * @param cenario Identificador único do cenário de aposta.
      * @return Retorna formatação textual: Numeracao - Descricao - Estado
      */
     public String exibirCenario(int cenario){

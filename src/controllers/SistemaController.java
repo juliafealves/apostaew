@@ -72,11 +72,11 @@ public class SistemaController {
     /**
      * Consulta as informações básicas de um cenário de aposta.
      *
-     * @param cenario Localiza um Cenario pelo número.
-     * @return Retorna a String formatada DESCRICAO - ESTADO.
+     * @param cenario Localiza um cenário de aposta pelo número.
+     * @return Retorna a string formatada NUMERACAO - DESCRICAO - ESTADO.
      */
     public String consultaCenario(int cenario) {
-        this.validaCenario(cenario, "Erro na consulta de cenario");
+        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro na consulta de cenario");
         return this.cenarios.get(cenario - 1).toString();
     }
 
@@ -112,14 +112,14 @@ public class SistemaController {
      * @param previsao Previsão da Aposta: N VAI ACONTECER ou VAI ACONTECER
      */
     public void cadastraAposta(int cenario, String apostador, int valor, String previsao) {
-        this.validaCenario(cenario, "Erro no cadastro de aposta");
+        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro no cadastro de aposta");
         this.validaAposta(apostador, valor, previsao, "Erro no cadastro de aposta");
 
         this.cenarios.get(cenario - 1).adicionaAposta(apostador, valor, previsao);
     }
 
     public int cadastraAposta(int cenario, String apostador, int valor, String previsao, int valorAssegurado, int custo) {
-        this.validaCenario(cenario, "Erro no cadastro de aposta assegurada por valor");
+        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro no cadastro de aposta assegurada por valor");
         this.validaAposta(apostador, valor, previsao, "Erro no cadastro de aposta assegurada por valor");
         this.caixa += custo;
 
@@ -127,7 +127,7 @@ public class SistemaController {
     }
 
     public int cadastraAposta(int cenario, String apostador, int valor, String previsao, double taxa, int custo) {
-        this.validaCenario(cenario, "Erro no cadastro de aposta assegurada por taxa");
+        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro no cadastro de aposta assegurada por taxa");
         this.validaAposta(apostador, valor, previsao, "Erro no cadastro de aposta assegurada por taxa");
         this.caixa += custo;
 
@@ -142,7 +142,7 @@ public class SistemaController {
      * @return
      */
     public int modificaAposta(int cenario, int apostaAssegurada, int valor) {
-        this.validaCenario(cenario, "Erro no exibe apostas");
+        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro no exibe apostas");
         return this.cenarios.get(cenario - 1).modificaTipoAposta(apostaAssegurada, valor);
     }
 
@@ -154,7 +154,7 @@ public class SistemaController {
      * @return
      */
     public int modificaAposta(int cenario, int apostaAssegurada, double taxa) {
-        this.validaCenario(cenario, "Erro no exibe apostas");
+        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro no exibe apostas");
         return this.cenarios.get(cenario - 1).modificaTipoAposta(apostaAssegurada, taxa);
     }
 
@@ -165,7 +165,7 @@ public class SistemaController {
      * @return Representação textual: Nome - Valor - Previsão.
      */
     public String listaApostas(int cenario) {
-        this.validaCenario(cenario, "Erro no exibe apostas");
+        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro no exibe apostas");
         return this.cenarios.get(cenario - 1).listaApostas();
     }
 
@@ -176,7 +176,7 @@ public class SistemaController {
      * @return Total de apostas realizadas.
      */
     public int obtemTotalApostas(int cenario) {
-        this.validaCenario(cenario, "Erro na consulta do total de apostas");
+        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro na consulta do total de apostas");
         return this.cenarios.get(cenario - 1).obtemTotalApostas();
     }
 
@@ -187,7 +187,7 @@ public class SistemaController {
      * @return Valor total de apostas realizadas.
      */
     public int obtemValorTotalApostas(int cenario) {
-        this.validaCenario(cenario, "Erro na consulta do valor total de apostas");
+        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro na consulta do valor total de apostas");
         return this.cenarios.get(cenario - 1).obtemValorTotalApostas();
     }
 
@@ -198,7 +198,7 @@ public class SistemaController {
      * @param ocorreu Retorna se ocorreu ou não o cenário.
      */
     public void finalizaCenario(int cenario, boolean ocorreu) {
-        this.validaCenario(cenario, "Erro ao fechar aposta");
+        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro na consulta do valor total de apostas");
         Cenario cenarioAtual = this.cenarios.get(cenario - 1);
 
         if(cenarioAtual.finalizado())
@@ -216,7 +216,7 @@ public class SistemaController {
      * @return Valor total do cenário encerrado destinado ao caixa.
      */
     public int calculaCaixaCenario(int cenario){
-        this.validaCenario(cenario, "Erro na consulta do caixa do cenario");
+        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro na consulta do valor total de apostas");
         Cenario cenarioAtual = this.cenarios.get(cenario - 1);
 
         if(!cenarioAtual.finalizado())
@@ -232,7 +232,7 @@ public class SistemaController {
      * @return Valor a ser rateado com os vencedores.
      */
     public int calculaCaixaRateioCenario(int cenario){
-        this.validaCenario(cenario, "Erro na consulta do total de rateio do cenario");
+        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro na consulta do valor total de apostas");
         Cenario cenarioAtual = this.cenarios.get(cenario - 1);
 
         if(!cenarioAtual.finalizado())
@@ -265,16 +265,5 @@ public class SistemaController {
         Validador.validaStringNaoVazia(previsao, localErro + ": Previsao nao pode ser vazia ou nula");
         String[] previsoes = {PrevisaoEnum.NAO_VAI_ACONTECER.toString(), PrevisaoEnum.VAI_ACONTECER.toString()};
         Validador.validaStringIguais(previsao, previsoes, localErro + ": Previsao invalida");
-    }
-
-    /**
-     * Valida a numeração do cenário de aposta.
-     *
-     * @param cenario Numeração do cenário de aposta.
-     * @param localErro Localização onde ocorreu o erro. Ex.: "Erro no cadastro de aposta".
-     */
-    private void validaCenario(int cenario, String localErro){
-        Validador.validaNumeroPositivo(cenario, localErro + ": Cenario invalido", false);
-        Validador.validaIndiceColecao(cenario - 1, this.cenarios.size(),  localErro + ": Cenario nao cadastrado");
     }
 }

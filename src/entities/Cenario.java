@@ -62,8 +62,9 @@ public class Cenario {
     }
 
     /**
-     * Formatação textual do cenário.
-     * @return String formatada: DESCRICAO - ESTADO
+     * Formatação textual do cenário de aposta.
+     *
+     * @return String formatada: NUMERACAO - DESCRICAO - ESTADO
      */
     public String toString(){
         return this.id + " - " + this.descricao + " - " + this.estado;
