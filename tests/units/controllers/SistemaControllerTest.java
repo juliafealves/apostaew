@@ -345,82 +345,78 @@ public class SistemaControllerTest {
         this.sistemaController.listaApostas(2);
     }
 
-//    /**
-//     * Testa a finalização do cenário quando ocorre.
-//     */
-//    @Test
-//    public void testFinalizaCenarioOcorreu(){
-//        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
-//        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
-//        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
-//        this.sistemaController.cadastraAposta(1,"Maria da Sorte", 1000, "VAI ACONTECER");
-//        this.sistemaController.finalizaCenario(1, true);
-//        Assert.assertEquals("1 - O Brasil vai ser hexa - Finalizado (ocorreu)", this.sistemaController.consultaCenario(1));
-//    }
-//
-//    /**
-//     * Testa se gera uma exceção caso numeração do cenário seja negativo.
-//     */
-//    @Test (expected = IllegalArgumentException.class)
-//    public void testFinalizaCenarioCenarioNegativo(){
-//        this.sistemaController.finalizaCenario(-1, true);
-//    }
-//
-//    /**
-//     * Testa se gera uma exceção caso o número do cenário não foi cadastrado ainda.
-//     */
-//    @Test (expected = IndexOutOfBoundsException.class)
-//    public void testFinalizaCenarioCenarioInexistente(){
-//        this.sistemaController.finalizaCenario(1, true);
-//    }
-//
-//    /**
-//     * Testa se gera uma exceção caso o número do cenário acima do tamanho da coleção.
-//     */
-//    @Test (expected = IndexOutOfBoundsException.class)
-//    public void testFinalizaCenarioCenarioForaDoLimite(){
-//        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
-//        this.sistemaController.finalizaCenario(2, true);
-//    }
-//
-//    /**
-//     * Testa a finalização do cenário quando ocorre.
-//     */
-//    @Test
-//    public void testFinalizaCenarioCaixaQuandoOcorreu(){
-//        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
-//        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
-//        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
-//        this.sistemaController.cadastraAposta(1,"Maria da Sorte", 1000, "VAI ACONTECER");
-//        this.sistemaController.finalizaCenario(1, true);
-//        Assert.assertEquals(1200, this.sistemaController.getCaixa());
-//    }
-//
-//    /**
-//     * Testa a finalização do cenário quando ocorre.
-//     */
-//    @Test
-//    public void testFinalizaCenarioNaoOcorreu(){
-//        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
-//        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
-//        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
-//        this.sistemaController.cadastraAposta(1,"Maria da Sorte", 1000, "VAI ACONTECER");
-//        this.sistemaController.finalizaCenario(1, false);
-//        Assert.assertEquals("1 - O Brasil vai ser hexa - Finalizado (nao ocorreu)", this.sistemaController.consultaCenario(1));
-//    }
-//
-//    /**
-//     * Testa a finalização do cenário quando ocorre.
-//     */
-//    @Test
-//    public void testFinalizaCenarioCaixaQuandoNaoOcorreu(){
-//        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
-//        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
-//        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
-//        this.sistemaController.cadastraAposta(1,"Maria da Sorte", 1000, "VAI ACONTECER");
-//        this.sistemaController.finalizaCenario(1, false);
-//        Assert.assertEquals(1100, this.sistemaController.getCaixa());
-//    }
+    /**
+     * Testa a finalização do cenário quando ocorre.
+     * @todo cadastra aposta segura.
+     */
+    @Test
+    public void testFinalizaCenarioOcorreu(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,"Maria da Sorte", 1000, "VAI ACONTECER");
+        this.sistemaController.finalizaCenario(1, true);
+        Assert.assertEquals("1 - O Brasil vai ser hexa - Finalizado (ocorreu)", this.sistemaController.consultaCenario(1));
+    }
+
+    /**
+     * Testa a finalização do cenário quando ocorre.
+     * @todo cadastra aposta segura.
+     */
+    @Test
+    public void testFinalizaCenarioNaoOcorreu(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,"Maria da Sorte", 1000, "VAI ACONTECER");
+        this.sistemaController.finalizaCenario(1, false);
+        Assert.assertEquals("1 - O Brasil vai ser hexa - Finalizado (nao ocorreu)", this.sistemaController.consultaCenario(1));
+    }
+
+    /**
+     * Testa se gera uma exceção caso numeração do cenário seja negativo.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testFinalizaCenarioCenarioNegativo(){
+        this.sistemaController.finalizaCenario(-1, true);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o número do cenário não foi cadastrado ainda.
+     */
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testFinalizaCenarioCenarioInexistente(){
+        this.sistemaController.cadastraCenario("Cenario teste");
+        this.sistemaController.finalizaCenario(2, true);
+    }
+
+    /**
+     * Testa a finalização do cenário quando ocorre.
+     * @todo cadastra aposta segura.
+     */
+    @Test
+    public void testFinalizaCenarioCaixaQuandoOcorreu(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,"Maria da Sorte", 1000, "VAI ACONTECER");
+        this.sistemaController.finalizaCenario(1, true);
+        Assert.assertEquals(1200, this.sistemaController.getCaixa());
+    }
+
+    /**
+     * Testa a finalização do cenário quando ocorre.
+     * @todo cadastra aposta segura.
+     */
+    @Test
+    public void testFinalizaCenarioCaixaQuandoNaoOcorreu(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,"Maria da Sorte", 1000, "VAI ACONTECER");
+        this.sistemaController.finalizaCenario(1, false);
+        Assert.assertEquals(1100, this.sistemaController.getCaixa());
+    }
 //
 //    /**
 //     * Testa o calculo das apostas perdedoras destinadas ao caixa.

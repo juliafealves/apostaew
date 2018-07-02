@@ -104,14 +104,14 @@ public class Aposta {
 //        return this.seguro.calculaValor();
 //    }
 //
-//    /**
-//     * Retorna a previsão da aposta.
-//     * @return
-//     */
-//    public PrevisaoEnum getPrevisao() {
-//        return previsao;
-//    }
-//
+    /**
+     * Retorna a previsão da aposta.
+     * @return Retorna a previsão da aposta.
+     */
+    public PrevisaoEnum getPrevisao() {
+        return previsao;
+    }
+
     /**
      * Retorna a representação textual das informações de aposta.
      *

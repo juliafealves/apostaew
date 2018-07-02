@@ -1,6 +1,7 @@
 package entities;
 
 import enums.EstadoEnum;
+import enums.PrevisaoEnum;
 import utils.Validador;
 
 import java.util.*;
@@ -72,15 +73,6 @@ public class Cenario {
     }
 
     /**
-     * Formatação textual do cenário de aposta.
-     *
-     * @return String formatada: NUMERACAO - DESCRICAO - ESTADO
-     */
-    public String toString(){
-        return this.id + " - " + this.descricao + " - " + this.estado;
-    }
-
-    /**
      * Adiciona uma aposta no cenário.
      *
      * @param apostador Nome do apostador
@@ -88,7 +80,7 @@ public class Cenario {
      * @param previsao Previsão da aposta.
      */
     public int adicionaAposta(String apostador, int valor, String previsao) {
-        int id = this.apostas.size() + 1;
+        int id = this.obtemTotalApostas() + 1;
         this.apostas.put(id, new Aposta(id, apostador, valor, previsao));
 
         return id;
@@ -107,48 +99,50 @@ public class Cenario {
 //
 //        return id;
 //    }
-//
-//    /**
-//     * Finaliza um cenário de aposta e calcula os valores das apostas.
-//     * @param ocorreu Valor booleano onde diz se ocorreu ou não o cenário de aposta.
-//     */
-//    public void finaliza(boolean ocorreu) {
-//        if(!this.finalizado()) {
-//            this.estado = ocorreu ? EstadoEnum.FINALIZADO_OCORREU : EstadoEnum.FINALIZADO_NAO_OCORREU;
-//        }
-//    }
-//
-//    /**
-//     * Verifica se um cenário de aposta foi finalizado.
-//     * @return Retorna true caso um cenário foi finalizado.
-//     */
-//    public boolean finalizado(){
-//        return this.estado.equals(EstadoEnum.FINALIZADO_OCORREU) || this.estado.equals(EstadoEnum.FINALIZADO_NAO_OCORREU);
-//    }
-//
-//    /**
-//     * Calcula os valores das apostas de acordo com o resultado da previsão.
-//     *
-//     * @param apostasVencedoras "Flag" para calcular aposta de acordo com aposta vencedora ou não.
-//     * @return Retorna o valor total das apostas caso vencedora ou perdedora.
-//     */
-//    public int calculaApostas(boolean apostasVencedoras) {
-//        int valor = 0;
-//
-//        if(this.finalizado()) {
-//            PrevisaoEnum previsao = this.estado.equals(EstadoEnum.FINALIZADO_OCORREU) ? PrevisaoEnum.VAI_ACONTECER : PrevisaoEnum.NAO_VAI_ACONTECER;
-//
-//            if(!apostasVencedoras)
-//                previsao = this.estado.equals(EstadoEnum.FINALIZADO_OCORREU) ? PrevisaoEnum.NAO_VAI_ACONTECER : PrevisaoEnum.VAI_ACONTECER;
-//
-//            for(Aposta aposta : this.apostas)
-//                if(aposta.getPrevisao().equals(previsao))
-//                    valor += aposta.getValor();
-//        }
-//
-//        return valor;
-//    }
-//
+
+    /**
+     * Calcula os valores das apostas de acordo com o resultado da previsão.
+     *
+     * @return Retorna o valor total das apostas perdedoras.
+     */
+    public int calculaApostas() {
+        int valor = 0;
+
+        if(this.finalizado()) {
+            PrevisaoEnum previsao = this.estado.equals(EstadoEnum.FINALIZADO_OCORREU) ? PrevisaoEnum.NAO_VAI_ACONTECER : PrevisaoEnum.VAI_ACONTECER;
+
+            for(Aposta aposta : this.apostas.values())
+                if(aposta.getPrevisao().equals(previsao))
+                    valor += aposta.getValor();
+
+            for(Aposta aposta : this.apostasSeguras.values())
+                if(aposta.getPrevisao().equals(previsao))
+                    valor += aposta.getValor();
+        }
+
+        return valor;
+    }
+
+    /**
+     * Finaliza um cenário de aposta e calcula os valores das apostas.
+     *
+     * @param ocorreu Valor booleano onde diz se ocorreu ou não o cenário de aposta.
+     */
+    public void finaliza(boolean ocorreu) {
+        if(!this.finalizado()) {
+            this.estado = ocorreu ? EstadoEnum.FINALIZADO_OCORREU : EstadoEnum.FINALIZADO_NAO_OCORREU;
+        }
+    }
+
+    /**
+     * Verifica se um cenário de aposta foi finalizado.
+     * @return Retorna true caso um cenário foi finalizado.
+     */
+    public boolean finalizado(){
+        return this.estado.equals(EstadoEnum.FINALIZADO_OCORREU) || this.estado.equals(EstadoEnum.FINALIZADO_NAO_OCORREU);
+    }
+
+
 //    /**
 //     * Retorna os valores assegurados pelas apostas.
 //     * @return Valor em centavos das apostas asseguradas.
@@ -180,7 +174,6 @@ public class Cenario {
     public int obtemTotalApostas() {
         return this.apostas.size() + this.apostasSeguras.size();
     }
-
     /**
      * Retorna a soma do valor total das apostas.
      *
@@ -192,6 +185,15 @@ public class Cenario {
         total += this.apostasSeguras.values().stream().mapToInt(ApostaSegura::getValor).sum();
 
         return total;
+    }
+
+    /**
+     * Formatação textual do cenário de aposta.
+     *
+     * @return String formatada: NUMERACAO - DESCRICAO - ESTADO
+     */
+    public String toString(){
+        return this.id + " - " + this.descricao + " - " + this.estado;
     }
 
     /**

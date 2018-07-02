@@ -1,6 +1,7 @@
 package units.entities;
 
 import entities.Aposta;
+import enums.PrevisaoEnum;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,6 +34,14 @@ public class ApostaTest {
     @Test
     public void testGetValor(){
         Assert.assertEquals(1000, this.aposta.getValor());
+    }
+
+    /**
+     * Testa o método que retorna a previsão da aposta.
+     */
+    @Test
+    public void testGetPrevisao(){
+        Assert.assertEquals(PrevisaoEnum.NAO_VAI_ACONTECER, this.aposta.getPrevisao());
     }
 
     /**

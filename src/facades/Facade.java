@@ -16,7 +16,7 @@ public class Facade {
                 "tests/acceptance/us1_test.txt",
                 "tests/acceptance/us2_test.txt",
                 "tests/acceptance/us3_test.txt",
-//                "tests/acceptance/us4_test.txt",
+                "tests/acceptance/us4_test.txt",
 //                "tests/acceptance/us5_test.txt",
 //                "tests/acceptance/us6_test.txt",
 //                "tests/acceptance/us7_test.txt"
@@ -140,17 +140,17 @@ public class Facade {
     public String exibeApostas(int cenario){
         return this.sistemaController.listaApostas(cenario);
     }
-//
-//    /**
-//     * Fecha as apostas do cenário.
-//     *
-//     * @param cenario Numeração do cenário de aposta.
-//     * @param ocorreu Indica se ocorreu (true) ou não ocorreu (false) o cenário.
-//     */
-//    public void fecharAposta(int cenario, boolean ocorreu){
-//        this.sistemaController.finalizaCenario(cenario, ocorreu);
-//    }
-//
+
+    /**
+     * Fecha as apostas do cenário.
+     *
+     * @param cenario Numeração do cenário de aposta.
+     * @param ocorreu Indica se ocorreu (true) ou não ocorreu (false) o cenário.
+     */
+    public void fecharAposta(int cenario, boolean ocorreu){
+        this.sistemaController.finalizaCenario(cenario, ocorreu);
+    }
+
 //    /**
 //     * Retorna o valor total de um cenário encerrado que será destinado ao caixa.
 //     *

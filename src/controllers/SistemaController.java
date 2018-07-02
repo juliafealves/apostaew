@@ -187,24 +187,24 @@ public class SistemaController {
         ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro na consulta do valor total de apostas");
         return this.cenarios.get(cenario - 1).obtemValorTotalApostas();
     }
-//
-//    /**
-//     * Finaliza um cenário e calcula o valor a ser destinado ao caixa.
-//     *
-//     * @param cenario Numeracão do cenário.
-//     * @param ocorreu Retorna se ocorreu ou não o cenário.
-//     */
-//    public void finalizaCenario(int cenario, boolean ocorreu) {
-//        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro na consulta do valor total de apostas");
-//        Cenario cenarioAtual = this.cenarios.get(cenario - 1);
-//
-//        if(cenarioAtual.finalizado())
-//            throw new IllegalArgumentException("Erro ao fechar aposta: Cenario ja esta fechado");
-//
-//        cenarioAtual.finaliza(ocorreu);
-//        this.caixa += this.calculaTaxa(cenarioAtual.calculaApostas(false));
+
+    /**
+     * Finaliza um cenário e calcula o valor a ser destinado ao caixa.
+     *
+     * @param cenario Numeracão do cenário.
+     * @param ocorreu Retorna se ocorreu ou não o cenário.
+     */
+    public void finalizaCenario(int cenario, boolean ocorreu) {
+        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro ao fechar aposta");
+        Cenario cenarioAtual = this.cenarios.get(cenario - 1);
+
+        if(cenarioAtual.finalizado())
+            throw new IllegalArgumentException("Erro ao fechar aposta: Cenario ja esta fechado");
+
+        cenarioAtual.finaliza(ocorreu);
+        this.caixa += this.calculaTaxa(cenarioAtual.calculaApostas());
 //        this.caixa -= cenarioAtual.calcularValorAssegurado();
-//    }
+    }
 //
 //    /**
 //     * Calcula o valor total a ser destinado ao caixa das apostas perdedoras.
@@ -240,6 +240,7 @@ public class SistemaController {
 
     /**
      * Calcula os valores das apostas de um cenário para o caixa.
+     *
      * @param valor Valor a ser destinado ao caixa.
      */
     private int calculaTaxa(int valor){
