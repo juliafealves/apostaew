@@ -147,7 +147,7 @@ public class SistemaControllerTest {
         this.sistemaController.cadastraCenario("O Google vai contratar todos os alunos da UFCG.");
         this.sistemaController.cadastraCenario("O Facebook vai ser comprado pelo Google.");
         String cenarios = "1 - O Google vai contratar todos os alunos da UFCG. - Nao finalizado" + System.lineSeparator() +
-                "2 - O Facebook vai ser comprado pelo Google. - Nao finalizado" + System.lineSeparator();
+                "2 - O Facebook vai ser comprado pelo Google. - Nao finalizado";
         Assert.assertEquals(cenarios, this.sistemaController.listaCenarios());
     }
 

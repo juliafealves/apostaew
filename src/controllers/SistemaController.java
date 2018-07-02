@@ -8,6 +8,7 @@ import utils.ValidadorSistema;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Classe responsável por gerenciar o sistema de apostas.
@@ -86,12 +87,10 @@ public class SistemaController {
      * @return String com todos os cenários cadastrados.
      */
     public String listaCenarios() {
-        StringBuilder cenarios = new StringBuilder();
-
-        for(Cenario cenario : this.cenarios)
-            cenarios.append(cenario).append(System.lineSeparator());
-
-        return cenarios.toString();
+        return this.cenarios
+                .stream()
+                .map(Cenario::toString)
+                .collect(Collectors.joining(System.lineSeparator()));
     }
 
     /**
