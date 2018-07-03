@@ -1,8 +1,6 @@
 package units.entities;
 
-import entities.Aposta;
 import entities.ApostaSegura;
-import enums.PrevisaoEnum;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +11,7 @@ import org.junit.Test;
  */
 public class ApostaSeguraTest {
     private ApostaSegura apostaSeguraValor;
+    private ApostaSegura apostaSeguraTaxa;
 
     /**
      * Cria um objeto ApostaSegura para servir de base para os testes unitários.
@@ -20,6 +19,7 @@ public class ApostaSeguraTest {
     @Before
     public void criaAposta(){
         this.apostaSeguraValor = new ApostaSegura(1,"José da Sorte", 1000, "N VAI ACONTECER", 100);
+        this.apostaSeguraTaxa = new ApostaSegura(1,"José da Sorte", 1000, "N VAI ACONTECER", 0.1);
     }
 
     /**
@@ -28,6 +28,7 @@ public class ApostaSeguraTest {
     @Test
     public void testApostaSeguraSeguraValor(){
         new ApostaSegura(1, "José da Sorte", 1000, "N VAI ACONTECER", 100);
+        new ApostaSegura(1, "José da Sorte", 1000, "N VAI ACONTECER", 0.1);
     }
 
     /**
@@ -36,6 +37,7 @@ public class ApostaSeguraTest {
     @Test (expected = IllegalArgumentException.class)
     public void testApostaSeguraApostadorVazio(){
         new ApostaSegura(1, "", 1000, "N VAI ACONTECER", 1000);
+        new ApostaSegura(1, "", 1000, "N VAI ACONTECER", 0.1);
     }
 
     /**
@@ -44,6 +46,7 @@ public class ApostaSeguraTest {
     @Test (expected = IllegalArgumentException.class)
     public void testApostaSeguraApostadorEspacoEmBranco(){
         new ApostaSegura(1, " ", 1000, "N VAI ACONTECER", 100);
+        new ApostaSegura(1, " ", 1000, "N VAI ACONTECER", 0.1);
     }
 
     /**
@@ -52,6 +55,7 @@ public class ApostaSeguraTest {
     @Test (expected = NullPointerException.class)
     public void testApostaSeguraApostadorNulo(){
         new ApostaSegura(1,null, 1000, "N VAI ACONTECER", 100);
+        new ApostaSegura(1,null, 1000, "N VAI ACONTECER", 0.1);
     }
 
     /**
@@ -60,6 +64,7 @@ public class ApostaSeguraTest {
     @Test (expected = IllegalArgumentException.class)
     public void testApostaSeguraValorNegativo(){
         new ApostaSegura(1,"Jose da Sorte", -1, "N VAI ACONTECER", 1000);
+        new ApostaSegura(1,"Jose da Sorte", -1, "N VAI ACONTECER", 0.1);
     }
 
     /**
@@ -68,6 +73,7 @@ public class ApostaSeguraTest {
     @Test (expected = IllegalArgumentException.class)
     public void testApostaSeguraValorZero(){
         new ApostaSegura(1,"Jose da Sorte", 0, "N VAI ACONTECER", 1000);
+        new ApostaSegura(1,"Jose da Sorte", 0, "N VAI ACONTECER", 0.1);
     }
 
     /**
@@ -76,6 +82,7 @@ public class ApostaSeguraTest {
     @Test (expected = IllegalArgumentException.class)
     public void testApostaSeguraPrevisaoVazio(){
         new ApostaSegura(1,"Jose da Sorte", 1000, "", 1000);
+        new ApostaSegura(1,"Jose da Sorte", 1000, "", 0.1);
     }
 
     /**
@@ -84,6 +91,7 @@ public class ApostaSeguraTest {
     @Test (expected = IllegalArgumentException.class)
     public void testApostaSeguraPrevisaoEmBranco(){
         new ApostaSegura(1,"Jose da Sorte", 1000, "  ", 1000);
+        new ApostaSegura(1,"Jose da Sorte", 1000, "  ", 0.1);
     }
 
     /**
@@ -92,6 +100,7 @@ public class ApostaSeguraTest {
     @Test (expected = NullPointerException.class)
     public void testApostaSeguraPrevisaoNulo(){
         new ApostaSegura(1,"Jose da Sorte", 1000, null, 100);
+        new ApostaSegura(1,"Jose da Sorte", 1000, null, 0.1);
     }
 
     /**
@@ -100,6 +109,7 @@ public class ApostaSeguraTest {
     @Test (expected = IllegalArgumentException.class)
     public void testApostaSeguraPrevisaoInvalida(){
         new ApostaSegura(1,"Jose da Sorte", 1000, "NAO EXISTE ESSA PREVISAO", 100);
+        new ApostaSegura(1,"Jose da Sorte", 1000, "NAO EXISTE ESSA PREVISAO", 0.1);
     }
 
     /**
@@ -119,10 +129,27 @@ public class ApostaSeguraTest {
     }
 
     /**
+     * Testa se gera uma exceção caso a taxa seja negativo.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testApostaSeguraTaxaNegativo(){
+        new ApostaSegura(1,"Jose da Sorte", 1000, "N VAI ACONTECER", -1.0);
+    }
+
+    /**
+     * Testa se gera uma exceção caso a taxa seja igual 0.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testApostaSeguraTaxaZero(){
+        new ApostaSegura(1,"Jose da Sorte", 1000, "N VAI ACONTECER", 0.0);
+    }
+
+    /**
      * Testa o método toString da Aposta. Formato: Apostador - Valor (em reais) - Previsão
      */
     @Test
     public void testToString(){
         Assert.assertEquals("José da Sorte - R$10,00 - N VAI ACONTECER - ASSEGURADA (VALOR) - R$ 1,00", this.apostaSeguraValor.toString());
+        Assert.assertEquals("José da Sorte - R$10,00 - N VAI ACONTECER - ASSEGURADA (TAXA) - 10%", this.apostaSeguraTaxa.toString());
     }
 }

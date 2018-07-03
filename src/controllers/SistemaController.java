@@ -135,14 +135,14 @@ public class SistemaController {
 
         return this.cenarios.get(cenario - 1).adicionaAposta(apostador, valor, previsao, valorAssegurado);
     }
-//
-//    public int cadastraAposta(int cenario, String apostador, int valor, String previsao, double taxa, int custo) {
-//        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro no cadastro de aposta assegurada por taxa");
-//        ValidadorSistema.validaCadastroAposta(apostador, valor, previsao, "Erro no cadastro de aposta assegurada por taxa");
-//        this.caixa += custo;
-//
-//        return  this.cenarios.get(cenario - 1).adicionaAposta(apostador, valor, previsao, taxa);
-//    }
+
+    public int cadastraAposta(int cenario, String apostador, int valor, String previsao, double taxa, int custo) {
+        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro no cadastro de aposta assegurada por taxa");
+        ValidadorSistema.validaCadastroAposta(apostador, valor, previsao, taxa, custo, "Erro no cadastro de aposta assegurada por taxa");
+        this.caixa += custo;
+
+        return  this.cenarios.get(cenario - 1).adicionaAposta(apostador, valor, previsao, taxa);
+    }
 //
 //    /**
 //     * Modifica o tipo de aposta.

@@ -132,12 +132,22 @@ public class CenarioTest {
     }
 
     /**
+     * Testa o adiciona aposta segura por taxa.
+     */
+    @Test
+    public void testAdicionaApostaSeguraTaxa(){
+        int id = this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER", 0.1);
+        Assert.assertEquals(1, id);
+    }
+
+    /**
      * Testa se gera uma exceção caso o nome do apostador seja vazio.
      */
     @Test (expected = IllegalArgumentException.class)
     public void testAdicionaApostaApostadorVazio(){
         this.cenario.adicionaAposta("", 1000, "N VAI ACONTECER");
         this.cenario.adicionaAposta("", 1000, "N VAI ACONTECER", 1000);
+        this.cenario.adicionaAposta("", 1000, "N VAI ACONTECER", 0.1);
     }
 
     /**
@@ -147,6 +157,7 @@ public class CenarioTest {
     public void testAdicionaApostaApostadorEmBranco(){
         this.cenario.adicionaAposta(" ", 1000, "N VAI ACONTECER");
         this.cenario.adicionaAposta(" ", 1000, "N VAI ACONTECER", 1000);
+        this.cenario.adicionaAposta(" ", 1000, "N VAI ACONTECER", 0.1);
     }
 
     /**
@@ -156,6 +167,7 @@ public class CenarioTest {
     public void testAdicionaApostaApostadorNulo(){
         this.cenario.adicionaAposta(null, 1000, "N VAI ACONTECER");
         this.cenario.adicionaAposta(null, 1000, "N VAI ACONTECER", 1000);
+        this.cenario.adicionaAposta(null, 1000, "N VAI ACONTECER", 0.1);
     }
 
     /**
@@ -165,6 +177,7 @@ public class CenarioTest {
     public void testAdicionaApostaValorNegativo(){
         this.cenario.adicionaAposta("Jose da Sorte", -1, "N VAI ACONTECER");
         this.cenario.adicionaAposta("Jose da Sorte", -1, "N VAI ACONTECER", 1000);
+        this.cenario.adicionaAposta("Jose da Sorte", -1, "N VAI ACONTECER", 0.1);
     }
 
     /**
@@ -174,6 +187,7 @@ public class CenarioTest {
     public void testAdicionaApostaValorZero(){
         this.cenario.adicionaAposta("Jose da Sorte", 0, "N VAI ACONTECER");
         this.cenario.adicionaAposta("Jose da Sorte", 0, "N VAI ACONTECER", 1000);
+        this.cenario.adicionaAposta("Jose da Sorte", 0, "N VAI ACONTECER", 0.1);
     }
 
     /**
@@ -183,6 +197,7 @@ public class CenarioTest {
     public void testAdicionaApostaPrevisaoVazio(){
         this.cenario.adicionaAposta("Jose da Sorte", 1000, "");
         this.cenario.adicionaAposta("Jose da Sorte", 1000, "", 1000);
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "", 0.1);
     }
 
     /**
@@ -192,6 +207,7 @@ public class CenarioTest {
     public void testAdicionaApostaPrevisaoEmBranco(){
         this.cenario.adicionaAposta("Jose da Sorte", 1000, "  ");
         this.cenario.adicionaAposta("Jose da Sorte", 1000, "  ", 1000);
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "  ", 0.1);
     }
 
     /**
@@ -201,6 +217,7 @@ public class CenarioTest {
     public void testAdicionaApostaPrevisaoNulo(){
         this.cenario.adicionaAposta("Jose da Sorte", 1000, null);
         this.cenario.adicionaAposta("Jose da Sorte", 1000, null, 1000);
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, null, 0.1);
     }
 
     /**
@@ -210,6 +227,7 @@ public class CenarioTest {
     public void testAdicionaApostaPrevisaoInvalida(){
         this.cenario.adicionaAposta("Jose da Sorte", 1000, "NAO EXISTE ESSA PREVISAO");
         this.cenario.adicionaAposta("Jose da Sorte", 1000, "NAO EXISTE ESSA PREVISAO", 1000);
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "NAO EXISTE ESSA PREVISAO", 0.1);
     }
 
     /**
@@ -229,16 +247,30 @@ public class CenarioTest {
     }
 
     /**
+     * Testa se gera uma exceção caso a taxa seja negativo.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testAdicionaApostaTaxaNegativo(){
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER", -1.0);
+    }
+
+    /**
+     * Testa se gera uma exceção caso a taxa seja igual 0.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testAdicionaApostaTaxaZero(){
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER", 0.0);
+    }
+
+    /**
      * Testa o retorno do valor total de apostas feitas.
-     * @todo calcular quando adiciona aposta segura.
      */
     @Test
     public void testObtemValorTotalApostas(){
         this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
-        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
         this.cenario.adicionaAposta("Maria da Sorte", 2000, "N VAI ACONTECER", 1000);
-        this.cenario.adicionaAposta("Maria da Sorte", 2000, "N VAI ACONTECER", 1000);
-        Assert.assertEquals(6000, this.cenario.obtemValorTotalApostas());
+        this.cenario.adicionaAposta("Maria da Sorte", 1000, "N VAI ACONTECER", 0.1);
+        Assert.assertEquals(4000, this.cenario.obtemValorTotalApostas());
     }
 
     /**
@@ -247,23 +279,21 @@ public class CenarioTest {
     @Test
     public void testObtemTotalApostas(){
         this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
-        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
         this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER", 1000);
-        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER", 1000);
-        Assert.assertEquals(4, this.cenario.obtemTotalApostas());
+        this.cenario.adicionaAposta("Jose da Sorte", 2000, "N VAI ACONTECER", 0.1);
+        Assert.assertEquals(3, this.cenario.obtemTotalApostas());
     }
 
     /**
      * Testa a listagem de apostas do cenário. Formato: Apostador - Valor (em reais) - Previsão
-     * @todo adicionar aposta segura.
      */
     @Test
     public void testListaApostas(){
         this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
-        this.cenario.adicionaAposta("Maria da Sorte", 199, "VAI ACONTECER");
+        this.cenario.adicionaAposta("Maria da Sorte", 1000, "VAI ACONTECER", 0.2);
         this.cenario.adicionaAposta("Ana da Sorte", 2000, "VAI ACONTECER", 1000);
         String apostas = "Jose da Sorte - R$10,00 - N VAI ACONTECER" + System.lineSeparator() +
-                "Maria da Sorte - R$1,99 - VAI ACONTECER" + System.lineSeparator() +
+                "Maria da Sorte - R$10,00 - VAI ACONTECER - ASSEGURADA (TAXA) - 20%" + System.lineSeparator() +
                 "Ana da Sorte - R$20,00 - VAI ACONTECER - ASSEGURADA (VALOR) - R$ 10,00" + System.lineSeparator();
         Assert.assertEquals(apostas, this.cenario.listaApostas());
     }

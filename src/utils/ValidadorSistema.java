@@ -73,7 +73,7 @@ public class ValidadorSistema {
     }
 
     /**
-     * Valida os dados da aposta.
+     * Valida os dados da aposta segura por valor.
      *
      * @param apostador Nome do apostador não poderá ser nulo ou vazio.
      * @param valor Valor da aposta não poderá ser menor ou igual a 0.
@@ -85,6 +85,22 @@ public class ValidadorSistema {
     public static void validaCadastroAposta(String apostador, int valor, String previsao, int valorAssegurado, int custo, String localErro) {
         ValidadorSistema.validaCadastroAposta(apostador, valor, previsao, localErro);
         Validador.validaNumeroPositivo(valorAssegurado, localErro + ": Valor assegurado nao pode ser menor ou igual a zero", false);
+        Validador.validaNumeroPositivo(custo, localErro + ": Custo nao pode ser menor ou igual a zero", false);
+    }
+
+    /**
+     * Valida os dados da aposta segura por taxa.
+     *
+     * @param apostador Nome do apostador não poderá ser nulo ou vazio.
+     * @param valor Valor da aposta não poderá ser menor ou igual a 0.
+     * @param previsao Previsão da Aposta só poderá ser N VAI ACONTECER ou VAI ACONTECER, não podendo ser nula ou vazia.
+     * @param taxa Taxa da aposta não poderá ser menor ou igual a 0.
+     * @param custo Custo da aposta não poderá ser menor ou igual a 0.
+     * @param localErro Localização onde ocorreu o erro. Ex.: "Erro no cadastro de aposta".
+     */
+    public static void validaCadastroAposta(String apostador, int valor, String previsao, double taxa, int custo, String localErro) {
+        ValidadorSistema.validaCadastroAposta(apostador, valor, previsao, localErro);
+        Validador.validaNumeroPositivo(taxa, localErro + ": Taxa nao pode ser menor ou igual a zero", false);
         Validador.validaNumeroPositivo(custo, localErro + ": Custo nao pode ser menor ou igual a zero", false);
     }
 }

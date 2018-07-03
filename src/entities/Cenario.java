@@ -101,14 +101,14 @@ public class Cenario {
 
         return id;
     }
-//
-//    public int adicionaAposta(String apostador, int valor, String previsao, double taxa) {
-//        int id = this.apostas.size() + 1;
-//        this.apostas.add(new Aposta(id, apostador, valor, previsao, taxa));
-//
-//        return id;
 
-//    }
+    public int adicionaAposta(String apostador, int valor, String previsao, double taxa) {
+        int id = this.obtemTotalApostas() + 1;
+        this.apostasSeguras.put(id, new ApostaSegura(id, apostador, valor, previsao, taxa));
+
+        return id;
+    }
+
     /**
      * Calcula os valores das apostas de acordo com o resultado da previsão.
      *

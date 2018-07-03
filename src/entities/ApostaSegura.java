@@ -13,18 +13,33 @@ public class ApostaSegura extends Aposta {
     Seguro seguro;
 
     /**
-     * Inicializa uma aposta segura.
+     * Inicializa uma aposta segura por valor.
      *
      * @param id Identificador da aposta segura.
      * @param apostador Nome do apostador.
-     * @param valor     Valor da aposta.
-     * @param previsao  Previsão da Aposta: N VAI ACONTECER ou VAI ACONTECER
+     * @param valor Valor da aposta.
+     * @param previsao Previsão da Aposta: N VAI ACONTECER ou VAI ACONTECER
      * @param valorAssegurado Valor assegurado da aposta.
      */
     public ApostaSegura(int id, String apostador, int valor, String previsao, int valorAssegurado) {
         super(id, apostador, valor, previsao);
         this.valida(valorAssegurado);
         this.seguro = new SeguroValor(valorAssegurado);
+    }
+
+    /**
+     * Inicializa uma aposta segura por taxa.
+     *
+     * @param id Identificador da aposta segura.
+     * @param apostador Nome do apostador.
+     * @param valor Valor da aposta.
+     * @param previsao Previsão da Aposta: N VAI ACONTECER ou VAI ACONTECER
+     * @param taxa Taxa da aposta.
+     */
+    public ApostaSegura(int id, String apostador, int valor, String previsao, double taxa) {
+        super(id, apostador, valor, previsao);
+        this.valida(taxa);
+        this.seguro = new SeguroTaxa(valor, taxa);
     }
 
     /**
@@ -44,5 +59,14 @@ public class ApostaSegura extends Aposta {
      */
     private void valida(int valorAssegurado) {
         Validador.validaNumeroPositivo(valorAssegurado, "Valor assegurado nao pode ser inferior ou igual a 0", false);
+    }
+
+    /**
+     * Valida os dados específicos da aposta assegurada por taxa.
+     *
+     * @param taxa Taxa não poderá ser menor ou igual a 0.
+     */
+    private void valida(double taxa) {
+        Validador.validaNumeroPositivo(taxa, "Taxa nao pode ser inferior ou igual a 0", false);
     }
 }
