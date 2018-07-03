@@ -95,31 +95,6 @@ public class Cenario {
     }
 
     /**
-     * Verifica se dois objetos Cenários são iguais, através do atributo id.
-     *
-     * @param objeto Objeto a ser analizado.
-     * @return Retorna true caso possuam o mesmo identificador.
-     */
-    @Override
-    public boolean equals(Object objeto) {
-        if (this == objeto) return true;
-        if (objeto == null || getClass() != objeto.getClass()) return false;
-        Cenario cenario = (Cenario) objeto;
-
-        return id == cenario.id;
-    }
-
-    /**
-     * Gera o hash através do atributo id.
-     *
-     * @return Hash referente a id.
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    /**
      * Calcula os valores das apostas de acordo com o resultado da previsão.
      *
      * @return Retorna o valor total das apostas perdedoras.
@@ -143,6 +118,21 @@ public class Cenario {
     }
 
     /**
+     * Verifica se dois objetos Cenários são iguais, através do atributo id.
+     *
+     * @param objeto Objeto a ser analizado.
+     * @return Retorna true caso possuam o mesmo identificador.
+     */
+    @Override
+    public boolean equals(Object objeto) {
+        if (this == objeto) return true;
+        if (objeto == null || getClass() != objeto.getClass()) return false;
+        Cenario cenario = (Cenario) objeto;
+
+        return id == cenario.id;
+    }
+
+    /**
      * Calcula o rateio do cenário.
      *
      * @param taxa Taxa do caixa.
@@ -152,6 +142,16 @@ public class Cenario {
         int valor = this.calculaApostas();
 
         return valor - (int) (valor * taxa);
+    }
+
+    /**
+     * Gera o hash através do atributo id.
+     *
+     * @return Hash referente a id.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     /**
@@ -228,7 +228,7 @@ public class Cenario {
     }
 
     /**
-     * Modifica os tipos de apostas.
+     * Modifica os tipos de seguro para valor.
      *
      * @param id Identificador de aposta.
      * @param valorAssegurado Valor assegurada da aposta.
@@ -238,10 +238,31 @@ public class Cenario {
         if(this.finalizado())
             throw new IllegalArgumentException("Cenario ja esta fechado.");
 
-            ValidadorSistema.validaIdentificadorAposta(id, this.apostasSeguras.size(), "Erro no alterar seguro");
-            this.apostasSeguras.get(id).modificaSeguro(valorAssegurado);
+        if(!this.apostasSeguras.containsKey(id))
+            throw new IndexOutOfBoundsException("Aposta nao cadastrada.");
 
-            return id;
+        this.apostasSeguras.get(id).modificaSeguro(valorAssegurado);
+
+        return id;
+    }
+
+    /**
+     * Modifica o tipo de seguro para taxa.
+     *
+     * @param id Identificador de aposta.
+     * @param taxa Taxa da aposta.
+     * @return Retorna o identificador de aposta.
+     */
+    public int modificaTipoAposta(int id, double taxa) {
+        if(this.finalizado())
+            throw new IllegalArgumentException("Cenario ja esta fechado.");
+
+        if(!this.apostasSeguras.containsKey(id))
+            throw new IndexOutOfBoundsException("Aposta nao cadastrada.");
+
+        this.apostasSeguras.get(id).modificaSeguro(taxa);
+
+        return id;
     }
 
     /**
@@ -253,18 +274,6 @@ public class Cenario {
         return this.id + " - " + this.descricao + " - " + this.estado;
     }
 
-//    /**
-//     * Modifica o tipo de aposta.
-//     * @param id
-//     * @param taxa
-//     * @return
-//     */
-//    public int modificaTipoAposta(int id, double taxa) {
-//        this.apostas.get(id - 1).modificaSeguro(taxa);
-//
-//        return id;
-//    }
-//
     /**
      * Valida os dados de cenário.
      *

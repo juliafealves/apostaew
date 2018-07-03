@@ -2,6 +2,8 @@ package utils;
 
 import enums.PrevisaoEnum;
 
+import java.util.Map;
+
 /**
  * Validação específica do sistema de apostas.
  */
@@ -41,17 +43,6 @@ public class ValidadorSistema {
         Validador.validaNaoNulo(descricao, localErro + ": Descricao nao pode ser nula");
         Validador.validaStringNaoVazia(descricao, localErro + ": Descricao nao pode ser vazia");
         Validador.validaNumeroPositivo(bonus, localErro + ": Bonus invalido", false);
-    }
-
-    /**
-     * Valida o identificador da aposta.
-     *
-     * @param aposta Identificador não poderá ser menor ou igual a 0.
-     * @param localErro Localização onde ocorreu o erro.
-     */
-    public static void validaIdentificadorAposta(int aposta, int totalApostas, String localErro){
-        Validador.validaNumeroPositivo(aposta, localErro + ": Aposta invalida", false);
-        Validador.validaIndiceColecao(aposta - 1, totalApostas,  localErro + ": Aposta nao cadastrada");
     }
 
     /**

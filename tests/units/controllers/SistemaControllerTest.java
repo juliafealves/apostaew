@@ -594,58 +594,78 @@ public class SistemaControllerTest {
     }
 
     /**
+     * Testa a modificação do seguro de valor para taxa.
+     */
+    @Test
+    public void testModificaSeguroTaxa(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        int id = this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER", 1000, 100);
+        Assert.assertEquals(1, this.sistemaController.modificaAposta(1, id, 0.1));
+    }
+
+    /**
      * Testa se gera uma exceção caso numeração do cenário seja negativo.
      */
     @Test (expected = IllegalArgumentException.class)
-    public void testModificaSeguroValorCenarioNegativo(){
+    public void testModificaSeguroCenarioNegativo(){
         this.sistemaController.modificaAposta(-1,1, 1000);
+        this.sistemaController.modificaAposta(-1,1, 0.1);
     }
 
     /**
      * Testa se gera uma exceção caso o número do cenário acima do tamanho da coleção.
      */
     @Test (expected = IndexOutOfBoundsException.class)
-    public void testModificaSeguroValorCenarioInexistente(){
+    public void testModificaSeguroCenarioInexistente(){
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         this.sistemaController.modificaAposta(2, 1, 1000);
+        this.sistemaController.modificaAposta(2, 1, 0.1);
     }
 
     /**
      * Testa se gera uma exceção caso identificador da aposta seja negativo.
      */
-    @Test (expected = IllegalArgumentException.class)
-    public void testModificaSeguroValorIdentificadorApostaNegativo(){
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testModificaSeguroIdentificadorApostaNegativo(){
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         this.sistemaController.modificaAposta(1,-1, 1000);
+        this.sistemaController.modificaAposta(1,-1, 0.1);
     }
 
     /**
      * Testa se gera uma exceção caso o identificador da aposta acima do tamanho da coleção.
      */
     @Test (expected = IndexOutOfBoundsException.class)
-    public void testModificaSeguroValorIdentificadorApostaInexistente(){
+    public void testModificaSeguroIdentificadorApostaInexistente(){
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         this.sistemaController.modificaAposta(1, 2, 1000);
+        this.sistemaController.modificaAposta(1, 2, 0.2);
     }
 
     /**
      * Testa se gera uma exceção caso identificador da aposta seja negativo.
      */
     @Test (expected = IllegalArgumentException.class)
-    public void testModificaSeguroValorNegativo(){
+    public void testModificaSeguroNegativo(){
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         int id = this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER", 0.1, 100);
         this.sistemaController.modificaAposta(1, id, -100);
+
+        int id2 = this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER", 1000, 100);
+        this.sistemaController.modificaAposta(1, id2, -0.4);
     }
 
     /**
      * Testa se gera uma exceção caso o identificador da aposta acima do tamanho da coleção.
      */
     @Test (expected = IllegalArgumentException.class)
-    public void testModificaSeguroValorZero(){
+    public void testModificaSeguroZero(){
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         int id = this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER", 0.1, 100);
         this.sistemaController.modificaAposta(1, id, 0);
+
+        int id2 = this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER", 1000, 100);
+        this.sistemaController.modificaAposta(1, id2, 0);
     }
 
     /**
@@ -657,6 +677,17 @@ public class SistemaControllerTest {
         int id = this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER", 0.1, 100);
         this.sistemaController.finalizaCenario(1, true);
         this.sistemaController.modificaAposta(1, id, 1000);
+    }
+
+    /**
+     * Testa se gera uma exceção caso tente modificar o tipo de seguro já finalizado.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testModificaSeguroTaxaFinalizado(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        int id = this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER", 1000, 100);
+        this.sistemaController.finalizaCenario(1, true);
+        this.sistemaController.modificaAposta(1, id, 0.1);
     }
 
     /**

@@ -151,6 +151,16 @@ public class CenarioTest {
     }
 
     /**
+     * Testa o modificar o tipo de seguro para taxa.
+     */
+    @Test
+    public void testModificaTipoSeguroTaxa(){
+        int id = this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER", 100);
+        this.cenario.modificaTipoAposta(id, 0.1);
+        Assert.assertEquals(1, id);
+    }
+
+    /**
      * Testa se gera uma exceção o cenário já esteja finalizado.
      */
     @Test (expected = IllegalArgumentException.class)
@@ -161,19 +171,31 @@ public class CenarioTest {
     }
 
     /**
-     * Testa se gera uma exceção caso o identificador da aposta seja negativo.
+     * Testa se gera uma exceção o cenário já esteja finalizado.
      */
     @Test (expected = IllegalArgumentException.class)
-    public void testModificaTipoSeguroValorIdentificadorNegativo(){
+    public void testModificaTipoSeguroTaxaFinalizado(){
+        int id = this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER", 1000);
+        this.cenario.finaliza(true);
+        this.cenario.modificaTipoAposta(id, 0.1);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o identificador da aposta seja negativo.
+     */
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testModificaTipoSeguroIdentificadorNegativo(){
         this.cenario.modificaTipoAposta(-1, 1000);
+        this.cenario.modificaTipoAposta(-1, 0.1);
     }
 
     /**
      * Testa se gera uma exceção caso o identificador da aposta seja zero.
      */
-    @Test (expected = IllegalArgumentException.class)
-    public void testModificaTipoSeguroValorIdentificadorZero(){
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testModificaTipoSeguroIdentificadorZero(){
         this.cenario.modificaTipoAposta(0, 1000);
+        this.cenario.modificaTipoAposta(0, 0.1);
     }
 
     /**
