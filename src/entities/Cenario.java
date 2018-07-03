@@ -98,8 +98,8 @@ public class Cenario {
 //        this.apostas.add(new Aposta(id, apostador, valor, previsao, taxa));
 //
 //        return id;
-//    }
 
+//    }
     /**
      * Calcula os valores das apostas de acordo com o resultado da previsão.
      *
@@ -124,6 +124,18 @@ public class Cenario {
     }
 
     /**
+     * Calcula o rateio do cenário.
+     *
+     * @param taxa Taxa do caixa.
+     * @return Valor das apostas a serem destinadas aos ganhadores.
+     */
+    public int calculaRateio(double taxa){
+        int valor = this.calculaApostas();
+
+        return valor - (int) (valor * taxa);
+    }
+
+    /**
      * Finaliza um cenário de aposta e calcula os valores das apostas.
      *
      * @param ocorreu Valor booleano onde diz se ocorreu ou não o cenário de aposta.
@@ -142,7 +154,6 @@ public class Cenario {
         return this.estado.equals(EstadoEnum.FINALIZADO_OCORREU) || this.estado.equals(EstadoEnum.FINALIZADO_NAO_OCORREU);
     }
 
-
 //    /**
 //     * Retorna os valores assegurados pelas apostas.
 //     * @return Valor em centavos das apostas asseguradas.
@@ -154,18 +165,7 @@ public class Cenario {
 //                .sum();
 //    }
 //
-//    /**
-//     * Calcula o rateio do cenário.
-//     *
-//     * @param taxa Taxa do caixa.
-//     * @return Valor das apostas a serem destinadas aos ganhadores.
-//     */
-//    public int calculaRateio(double taxa){
-//        int valor = this.calculaApostas(false);
-//
-//        return valor - (int) (valor * taxa);
-//    }
-//
+
     /**
      * Retorna o total de apostas cadastradas em um cenário.
      *
@@ -174,6 +174,7 @@ public class Cenario {
     public int obtemTotalApostas() {
         return this.apostas.size() + this.apostasSeguras.size();
     }
+
     /**
      * Retorna a soma do valor total das apostas.
      *

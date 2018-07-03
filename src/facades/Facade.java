@@ -17,7 +17,7 @@ public class Facade {
                 "tests/acceptance/us2_test.txt",
                 "tests/acceptance/us3_test.txt",
                 "tests/acceptance/us4_test.txt",
-//                "tests/acceptance/us5_test.txt",
+                "tests/acceptance/us5_test.txt",
 //                "tests/acceptance/us6_test.txt",
 //                "tests/acceptance/us7_test.txt"
         };
@@ -53,7 +53,8 @@ public class Facade {
     }
 
     /**
-     * Cadastra um cenário com bônus a ser destinado para os vencedores.
+     * Cadastra um cenário de aposta com bônus a ser destinado para os vencedores.
+     *
      * @param descricao Descrição do cenário.
      * @param bonus Valor do bônus em centavos.
      * @return Retorna a numeração única do cenário.
@@ -144,7 +145,7 @@ public class Facade {
     /**
      * Fecha as apostas do cenário.
      *
-     * @param cenario Numeração do cenário de aposta.
+     * @param cenario Identificador do cenário de aposta.
      * @param ocorreu Indica se ocorreu (true) ou não ocorreu (false) o cenário.
      */
     public void fecharAposta(int cenario, boolean ocorreu){
@@ -154,19 +155,20 @@ public class Facade {
     /**
      * Retorna o valor total de um cenário encerrado que será destinado ao caixa.
      *
-     * @param cenario Numeração do cenário de aposta.
+     * @param cenario Identificador do cenário de aposta.
      * @return Valor total do cenário encerrado destinado ao caixa.
      */
     public int getCaixaCenario(int cenario){
         return this.sistemaController.calculaCaixaCenario(cenario);
     }
-//
-//    /**
-//     * Retorna o valor total de um cenário encerrado que será destinado a distribuição entre as apostas vencedoras
-//     * @param cenario Numeração do cenário de aposta.
-//     * @return Valor a ser rateado com os vencedores.
-//     */
-//    public int getTotalRateioCenario(int cenario){
-//        return this.sistemaController.calculaCaixaRateioCenario(cenario);
-//    }
+
+    /**
+     * Retorna o valor total de um cenário encerrado que será destinado a distribuição entre as apostas vencedoras.
+     *
+     * @param cenario Identificador do cenário de aposta.
+     * @return Valor a ser rateado com os vencedores.
+     */
+    public int getTotalRateioCenario(int cenario){
+        return this.sistemaController.calculaCaixaRateioCenario(cenario);
+    }
 }

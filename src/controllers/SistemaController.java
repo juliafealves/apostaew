@@ -2,7 +2,6 @@ package controllers;
 
 import entities.Cenario;
 import entities.CenarioBonus;
-import utils.Validador;
 import utils.ValidadorSistema;
 
 import java.util.ArrayList;
@@ -57,16 +56,20 @@ public class SistemaController {
         return id;
     }
 
+    /**
+     * Cadastra o cenário de aposta com bônus no sistema.
+     *
+     * @param descricao Descrição do cenário de aposta.
+     * @param bonus Valor do bônus do cenário de aposta.
+     * @return Retorna o identificador do cenário.
+     */
     public int cadastraCenario(String descricao, int bonus){
-        Validador.validaNaoNulo(descricao, "Erro no cadastro de cenario: Descricao nao pode ser nula");
-        Validador.validaStringNaoVazia(descricao, "Erro no cadastro de cenario: Descricao nao pode ser vazia");
-        Validador.validaNumeroPositivo(bonus, "Erro no cadastro de cenario: Bonus invalido", false);
-
-        int numeracao = this.cenarios.size() + 1;
-        this.cenarios.add(new CenarioBonus(descricao, numeracao, bonus));
+        ValidadorSistema.validaCadastroCenario(descricao, bonus, "Erro no cadastro de cenario");
+        int id = this.cenarios.size() + 1;
+        this.cenarios.add(new CenarioBonus(id, descricao, bonus));
         this.caixa -= bonus;
 
-        return numeracao;
+        return id;
     }
 
     /**
@@ -221,22 +224,22 @@ public class SistemaController {
 
         return this.calculaTaxa(cenarioAtual.calculaApostas());
     }
-//
-//    /**
-//     * Calcula o valor a ser rateado para os ganhadoras das apostas, é retirado o valor destinado ao caixa.
-//     *
-//     * @param cenario Numeração do cenário.
-//     * @return Valor a ser rateado com os vencedores.
-//     */
-//    public int calculaCaixaRateioCenario(int cenario){
-//        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro na consulta do valor total de apostas");
-//        Cenario cenarioAtual = this.cenarios.get(cenario - 1);
-//
-//        if(!cenarioAtual.finalizado())
-//            throw new IllegalArgumentException("Erro na consulta do total de rateio do cenario: Cenario ainda esta aberto");
-//
-//        return cenarioAtual.calculaRateio(taxa);
-//    }
+
+    /**
+     * Calcula o valor a ser rateado para os ganhadoras das apostas, é retirado o valor destinado ao caixa.
+     *
+     * @param cenario Identificador do cenário.
+     * @return Valor a ser rateado com os vencedores.
+     */
+    public int calculaCaixaRateioCenario(int cenario){
+        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro na consulta do total de rateio do cenario");
+        Cenario cenarioAtual = this.cenarios.get(cenario - 1);
+
+        if(!cenarioAtual.finalizado())
+            throw new IllegalArgumentException("Erro na consulta do total de rateio do cenario: Cenario ainda esta aberto");
+
+        return cenarioAtual.calculaRateio(taxa);
+    }
 
     /**
      * Calcula os valores das apostas de um cenário para o caixa.

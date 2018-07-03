@@ -66,11 +66,27 @@ public class SistemaControllerTest {
     }
 
     /**
+     * Testa o cadastra cenario bônus, deve retorna um valor númerico único.
+     */
+    @Test
+    public void testCadastraCenarioBonus(){
+        Assert.assertEquals(1, this.sistemaController.cadastraCenario("O Brasil vai ser hexa!", 100));
+    }
+
+    /**
      * Testa se gera uma exceção caso descrição seja vazia.
      */
     @Test (expected = IllegalArgumentException.class)
     public void testCadastraCenarioDescricaoVazia(){
         this.sistemaController.cadastraCenario("");
+    }
+
+    /**
+     * Testa se gera uma exceção caso descrição seja vazia.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCadastraCenarioBonusDescricaoVazia(){
+        this.sistemaController.cadastraCenario("", 100);
     }
 
     /**
@@ -82,6 +98,14 @@ public class SistemaControllerTest {
     }
 
     /**
+     * Testa se gera uma exceção caso descrição seja apenas constituída de espaços vazios.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCadastraCenarioBonusDescricaoComEspacoEmBranco(){
+        this.sistemaController.cadastraCenario("   ", 100);
+    }
+
+    /**
      * Testa se gera uma exceção caso descrição seja nula.
      */
     @Test (expected = NullPointerException.class)
@@ -90,10 +114,18 @@ public class SistemaControllerTest {
     }
 
     /**
+     * Testa se gera uma exceção caso descrição seja nula.
+     */
+    @Test (expected = NullPointerException.class)
+    public void testCadastraCenarioBonusDescricaoNula(){
+        this.sistemaController.cadastraCenario(null, 100);
+    }
+
+    /**
      * Testa se gera uma exceção caso bônus seja negativo.
      */
     @Test (expected = IllegalArgumentException.class)
-    public void testCadastraBonusNegativo(){
+    public void testCadastraCenarioBonusNegativo(){
         this.sistemaController.cadastraCenario("O dado vai dar par", -100);
     }
 
@@ -101,7 +133,7 @@ public class SistemaControllerTest {
      * Testa se gera uma exceção caso bônus seja igual a zero.
      */
     @Test (expected = IllegalArgumentException.class)
-    public void testCadastraBonusIgualZero(){
+    public void testCadastraCenarioBonusIgualZero(){
         this.sistemaController.cadastraCenario("O dado vai dar par", 0);
     }
 
@@ -448,20 +480,21 @@ public class SistemaControllerTest {
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         this.sistemaController.calculaCaixaCenario(2);
     }
-//
-//    /**
-//     * Testa o calculo das apostas perdedoras destinadas ao caixa.
-//     */
-//    @Test
-//    public void testCalculaRateioCenario(){
-//        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
-//        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
-//        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
-//        this.sistemaController.cadastraAposta(1,"Maria da Sorte", 1000, "VAI ACONTECER");
-//        this.sistemaController.finalizaCenario(1, true);
-//        Assert.assertEquals(1800, this.sistemaController.calculaCaixaRateioCenario(1));
-//    }
-//
+
+    /**
+     * Testa o calculo das apostas perdedoras a ser destinada para rateio dos ganhadores.
+     *  @todo adicionar apostas seguras.
+     */
+    @Test
+    public void testCalculaRateioCenario(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,"Maria da Sorte", 1000, "VAI ACONTECER");
+        this.sistemaController.finalizaCenario(1, true);
+        Assert.assertEquals(1800, this.sistemaController.calculaCaixaRateioCenario(1));
+    }
+
 //    /**
 //     * Testa o calculo das apostas perdedoras destinadas ao caixa do cenário bônus.
 //     */
@@ -474,29 +507,21 @@ public class SistemaControllerTest {
 //        this.sistemaController.finalizaCenario(1, true);
 //        Assert.assertEquals(1900, this.sistemaController.calculaCaixaRateioCenario(1));
 //    }
-//
-//    /**
-//     * Testa se gera uma exceção caso numeração do cenário seja negativo.
-//     */
-//    @Test (expected = IllegalArgumentException.class)
-//    public void testCalculaRateioCenarioCenarioNegativo(){
-//        this.sistemaController.calculaCaixaRateioCenario(-1);
-//    }
-//
-//    /**
-//     * Testa se gera uma exceção caso o número do cenário não foi cadastrado ainda.
-//     */
-//    @Test (expected = IndexOutOfBoundsException.class)
-//    public void testCalculaRateioCenarioCenarioInexistente(){
-//        this.sistemaController.calculaCaixaRateioCenario(1);
-//    }
-//
-//    /**
-//     * Testa se gera uma exceção caso o número do cenário acima do tamanho da coleção.
-//     */
-//    @Test (expected = IndexOutOfBoundsException.class)
-//    public void testCalculaRateioCenarioCenarioForaDoLimite(){
-//        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
-//        this.sistemaController.calculaCaixaRateioCenario(2);
-//    }
+
+    /**
+     * Testa se gera uma exceção caso numeração do cenário seja negativo.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCalculaRateioCenarioCenarioNegativo(){
+        this.sistemaController.calculaCaixaRateioCenario(-1);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o número do cenário acima do tamanho da coleção.
+     */
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testCalculaRateioCenarioCenarioInexistente(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.calculaCaixaRateioCenario(2);
+    }
 }

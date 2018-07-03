@@ -1,5 +1,6 @@
 package units.entities;
 
+import entities.Cenario;
 import entities.CenarioBonus;
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,7 +18,7 @@ public class CenarioBonusTest {
      */
     @Before
     public void criaCenario(){
-        this.cenario = new CenarioBonus("O resultado do dado será maior que três", 1, 1000);
+        this.cenario = new CenarioBonus(1, "O resultado do dado será maior que três", 1000);
     }
 
     /**
@@ -25,7 +26,47 @@ public class CenarioBonusTest {
      */
     @Test
     public void testCriaCenario(){
-        new CenarioBonus("A Alemanha vai ser goleada pelo Brasil.", 1, 100);
+        new CenarioBonus(1, "A Alemanha vai ser goleada pelo Brasil.", 100);
+    }
+
+    /**
+     * Testa se gera uma exceção caso descrição seja nula.
+     */
+    @Test (expected = NullPointerException.class)
+    public void testCenarioDescricaoNula(){
+        new CenarioBonus(1, null, 100);
+    }
+
+    /**
+     * Testa se gera uma exceção caso descrição seja vazia.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCenarioDescricaoVazia(){
+        new CenarioBonus(1, "", 100);
+    }
+
+    /**
+     * Testa se gera uma exceção caso descrição tenha somente espaços em brancos.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCenarioDescricaoComEspacoEmBranco(){
+        new CenarioBonus(1, "     ", 100);
+    }
+
+    /**
+     * Testa se gera uma exceção caso a identificador seja um número negativo.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCenarioIdNegativo(){
+        new CenarioBonus(-1, "Popoyer vai salvar a Olívia Palito.", 100);
+    }
+
+    /**
+     * Testa se gera uma exceção caso a identificador seja igual a zero.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCenarioIdentificadorIgualAZero(){
+        new CenarioBonus(0, "Maurício será promovido.", 100);
     }
 
     /**
@@ -33,7 +74,7 @@ public class CenarioBonusTest {
      */
     @Test (expected = IllegalArgumentException.class)
     public void testCenarioBonusNegativo(){
-        new CenarioBonus("Popoyer vai salvar a Olívia Palito.", 1, -100);
+        new CenarioBonus(1, "Popoyer vai salvar a Olívia Palito.", -100);
     }
 
     /**
@@ -41,7 +82,7 @@ public class CenarioBonusTest {
      */
     @Test (expected = IllegalArgumentException.class)
     public void testCenarioBonusIgualAZero(){
-        new CenarioBonus("Maurício será promovido.", 1, 0);
+        new CenarioBonus(1, "Maurício será promovido.", 0);
     }
 
     /**

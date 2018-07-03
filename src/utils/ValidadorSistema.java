@@ -31,6 +31,19 @@ public class ValidadorSistema {
     }
 
     /**
+     * Valida o cadastro do cenário.
+     *
+     * @param descricao Descrição não poderá ser nula e vazia.
+     * @param bonus Valor do bônus não poderá ser menor ou igual 0.
+     * @param localErro Localização onde ocorreu o erro.
+     */
+    public static void validaCadastroCenario(String descricao, int bonus, String localErro){
+        Validador.validaNaoNulo(descricao, localErro + ": Descricao nao pode ser nula");
+        Validador.validaStringNaoVazia(descricao, localErro + ": Descricao nao pode ser vazia");
+        Validador.validaNumeroPositivo(bonus, localErro + ": Bonus invalido", false);
+    }
+
+    /**
      * Valida o identificador do cenário de aposta.
      *
      * @param cenario Identificador não poderá ser menor ou igual a 0.

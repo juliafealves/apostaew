@@ -7,19 +7,21 @@ import utils.Validador;
  */
 public class CenarioBonus extends Cenario {
 
+    /**
+     * Valor do bônus do cenário.
+     */
     private int bonus;
 
     /**
      * Cria um objeto Cenario.
      *
+     *  @param id Numeração do cenário de aposta.
      * @param descricao A descrição não pode ser vazia ou nula.
-     * @param numeracao Numeração do cenário de aposta.
      * @param bonus Valor do bônus da aposta.
      */
-    public CenarioBonus(String descricao, int numeracao, int bonus) {
-        super(numeracao, descricao);
-        Validador.validaNumeroPositivo(bonus, "Bonus nao pode ser inferior ou igual a 0", false);
-
+    public CenarioBonus(int id, String descricao, int bonus) {
+        super(id, descricao);
+        this.valida(bonus);
         this.bonus = bonus;
     }
 
@@ -41,4 +43,12 @@ public class CenarioBonus extends Cenario {
 //    public int calculaRateio(double taxa) {
 //        return super.calculaRateio(taxa) + this.bonus;
 //    }
+
+    /**
+     * Valida os dados específicos do cenário com bônus.
+     * @param bonus Valor do bônus não poderá ser menor ou igual a 0.
+     */
+    private void valida(int bonus) {
+        Validador.validaNumeroPositivo(bonus, "Bonus nao pode ser inferior ou igual a 0", false);
+    }
 }
