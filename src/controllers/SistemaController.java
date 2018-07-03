@@ -226,7 +226,7 @@ public class SistemaController {
 
         cenarioAtual.finaliza(ocorreu);
         this.caixa += this.calculaTaxa(cenarioAtual.calculaApostas());
-//        this.caixa -= cenarioAtual.calcularValorAssegurado();
+        this.caixa -= cenarioAtual.calcularValorAssegurado();
     }
 
     /**

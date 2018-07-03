@@ -1,9 +1,7 @@
 package entities;
 
 import enums.EstadoEnum;
-import enums.PrevisaoEnum;
 import utils.Validador;
-import utils.ValidadorSistema;
 
 import java.util.*;
 
@@ -103,15 +101,46 @@ public class Cenario {
         int valor = 0;
 
         if(this.finalizado()) {
-            PrevisaoEnum previsao = this.estado.equals(EstadoEnum.FINALIZADO_OCORREU) ? PrevisaoEnum.NAO_VAI_ACONTECER : PrevisaoEnum.VAI_ACONTECER;
+            boolean ocorreu = this.estado.equals(EstadoEnum.FINALIZADO_OCORREU);
 
             for(Aposta aposta : this.apostas.values())
-                if(aposta.getPrevisao().equals(previsao))
+                if(aposta.getPrevisao().equals(Aposta.getPrevisaoPerdedora(ocorreu)))
                     valor += aposta.getValor();
 
             for(Aposta aposta : this.apostasSeguras.values())
-                if(aposta.getPrevisao().equals(previsao))
+                if(aposta.getPrevisao().equals(Aposta.getPrevisaoPerdedora(ocorreu)))
                     valor += aposta.getValor();
+        }
+
+        return valor;
+    }
+
+    /**
+     * Calcula o rateio do cenário.
+     *
+     * @param taxa Taxa do caixa.
+     * @return Valor das apostas a serem destinadas aos ganhadores.
+     */
+    public int calculaRateio(double taxa){
+        int valor = this.calculaApostas();
+
+        return valor - (int) (valor * taxa);
+    }
+
+    /**
+     * Retorna os valores assegurados pelas apostas.
+     *
+     * @return Valor em centavos das apostas asseguradas.
+     */
+    public int calcularValorAssegurado() {
+        int valor = 0;
+
+        if(this.finalizado()) {
+            boolean ocorreu = this.estado.equals(EstadoEnum.FINALIZADO_OCORREU);
+
+            for(ApostaSegura aposta : this.apostasSeguras.values())
+                if(aposta.getPrevisao().equals(Aposta.getPrevisaoPerdedora(ocorreu)))
+                    valor += aposta.getValorAssegurado();
         }
 
         return valor;
@@ -130,18 +159,6 @@ public class Cenario {
         Cenario cenario = (Cenario) objeto;
 
         return id == cenario.id;
-    }
-
-    /**
-     * Calcula o rateio do cenário.
-     *
-     * @param taxa Taxa do caixa.
-     * @return Valor das apostas a serem destinadas aos ganhadores.
-     */
-    public int calculaRateio(double taxa){
-        int valor = this.calculaApostas();
-
-        return valor - (int) (valor * taxa);
     }
 
     /**
@@ -172,18 +189,6 @@ public class Cenario {
     public boolean finalizado(){
         return this.estado.equals(EstadoEnum.FINALIZADO_OCORREU) || this.estado.equals(EstadoEnum.FINALIZADO_NAO_OCORREU);
     }
-
-//    /**
-//     * Retorna os valores assegurados pelas apostas.
-//     * @return Valor em centavos das apostas asseguradas.
-//     */
-//    public int calcularValorAssegurado() {
-//        return this.apostas
-//                .stream()
-//                .mapToInt(Aposta::getValorAssegurado)
-//                .sum();
-//    }
-//
 
     /**
      * Retorna o total de apostas cadastradas em um cenário.

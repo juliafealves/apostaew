@@ -37,6 +37,22 @@ public class ApostaTest {
     }
 
     /**
+     * Testa o método que retorna a previsão da aposta perdedora.
+     */
+    @Test
+    public void testGetPrevisaoPerdedoraOcorreu(){
+        Assert.assertEquals(PrevisaoEnum.NAO_VAI_ACONTECER, Aposta.getPrevisaoPerdedora(true));
+    }
+
+    /**
+     * Testa o método que retorna a previsão da aposta perdedora.
+     */
+    @Test
+    public void testGetPrevisaoPerdedoraNaoOcorreu(){
+        Assert.assertEquals(PrevisaoEnum.VAI_ACONTECER, Aposta.getPrevisaoPerdedora(false));
+    }
+
+    /**
      * Testa o método que retorna a previsão da aposta.
      */
     @Test

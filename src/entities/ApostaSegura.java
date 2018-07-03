@@ -43,6 +43,15 @@ public class ApostaSegura extends Aposta {
     }
 
     /**
+     * Retorna o valor assegurado na aposta.
+     *
+     * @return Valor em centavos segurado.
+     */
+    public int getValorAssegurado(){
+        return this.seguro.calculaValor();
+    }
+
+    /**
      * Modifica o tipo de seguro para valor.
      *
      * @param valorAssegurado Valor assegurado do seguro.

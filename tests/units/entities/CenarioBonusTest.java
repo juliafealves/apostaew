@@ -99,10 +99,10 @@ public class CenarioBonusTest {
      */
     @Test
     public void testCalculaRateio(){
-        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
-        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
         this.cenario.adicionaAposta("Jose da Sorte", 1000, "VAI ACONTECER");
-        this.cenario.finaliza(true);
-        Assert.assertEquals(2800, this.cenario.calculaRateio(0.1));
+        this.cenario.adicionaAposta("Maria da Sorte", 1000, "VAI ACONTECER", 100);
+        this.cenario.adicionaAposta("Ana da Sorte", 2000, "VAI ACONTECER", 0.1);
+        this.cenario.finaliza(false);
+        Assert.assertEquals(4600, this.cenario.calculaRateio(0.1));
     }
 }

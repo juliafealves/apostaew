@@ -45,14 +45,6 @@ public class Aposta {
         this.previsao = previsao.equalsIgnoreCase(PrevisaoEnum.VAI_ACONTECER.toString()) ? PrevisaoEnum.VAI_ACONTECER : PrevisaoEnum.NAO_VAI_ACONTECER;
     }
 
-//    /**
-//     * Retorna o valor assegurado na aposta.
-//     * @return Valor em centavos segurado.
-//     */
-//    public int getValorAssegurado(){
-//        return this.seguro.calculaValor();
-//    }
-//
     /**
      * Verifica se dois objetos Apostas são iguais, através do atributo id.
      *
@@ -72,6 +64,19 @@ public class Aposta {
      */
     public PrevisaoEnum getPrevisao() {
         return previsao;
+    }
+
+    /**
+     * Retorna a previsão perdedora do cenário.
+     *
+     * @param ocorreu Ocorreu o evento do cenário da aposta.
+     * @return Retorna o tipo de previsão perdedora.
+     */
+    public static PrevisaoEnum getPrevisaoPerdedora(boolean ocorreu){
+        if(ocorreu)
+            return PrevisaoEnum.NAO_VAI_ACONTECER;
+
+        return PrevisaoEnum.VAI_ACONTECER;
     }
 
     /**
