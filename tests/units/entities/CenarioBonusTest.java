@@ -94,15 +94,15 @@ public class CenarioBonusTest {
         Assert.assertEquals("1 - O resultado do dado será maior que três - Nao finalizado - R$ 10,00", this.cenario.toString());
     }
 
-//    /**
-//     * Testa o calculo do rateio do cenário de bônus para as apostas ganhadoras. O valor do rateio remove o valor destinado ao caixa.
-//     */
-//    @Test
-//    public void testCalculaRateio(){
-//        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
-//        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
-//        this.cenario.adicionaAposta("Jose da Sorte", 1000, "VAI ACONTECER");
-//        this.cenario.finaliza(true);
-//        Assert.assertEquals(2800, this.cenario.calculaRateio(0.1));
-//    }
+    /**
+     * Testa o calculo do rateio do cenário de bônus para as apostas ganhadoras. O valor do rateio remove o valor destinado ao caixa.
+     */
+    @Test
+    public void testCalculaRateio(){
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.cenario.adicionaAposta("Jose da Sorte", 1000, "VAI ACONTECER");
+        this.cenario.finaliza(true);
+        Assert.assertEquals(2800, this.cenario.calculaRateio(0.1));
+    }
 }

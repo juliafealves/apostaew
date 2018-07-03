@@ -26,23 +26,23 @@ public class CenarioBonus extends Cenario {
     }
 
     /**
+     * Calcula o rateio do bônus.
+     *
+     * @param taxa Taxa do caixa.
+     * @return Retorna o calculo do rateio com bônus.
+     */
+    @Override
+    public int calculaRateio(double taxa) {
+        return super.calculaRateio(taxa) + this.bonus;
+    }
+
+    /**
      * Formatação textual do cenário bônus.
      * @return String formatada: DESCRICAO - ESTADO - BONUS
      */
     public String toString(){
         return this.id + " - " + this.descricao + " - " + this.estado + " - R$ " + String.format("%.2f", this.bonus / 100.0);
     }
-
-    /**
-     * Calcula o rateio do bônus.
-     *
-     * @param taxa Taxa do caixa.
-     * @return
-     */
-//    @Override
-//    public int calculaRateio(double taxa) {
-//        return super.calculaRateio(taxa) + this.bonus;
-//    }
 
     /**
      * Valida os dados específicos do cenário com bônus.
