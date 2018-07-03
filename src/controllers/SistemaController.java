@@ -143,19 +143,24 @@ public class SistemaController {
 
         return  this.cenarios.get(cenario - 1).adicionaAposta(apostador, valor, previsao, taxa);
     }
-//
-//    /**
-//     * Modifica o tipo de aposta.
-//     * @param cenario Identificação do cenário.
-//     * @param apostaAssegurada Identificador de aposta.
-//     * @param valor Valor do seguro.
-//     * @return
-//     */
-//    public int modificaAposta(int cenario, int apostaAssegurada, int valor) {
-//        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro no exibe apostas");
-//        return this.cenarios.get(cenario - 1).modificaTipoAposta(apostaAssegurada, valor);
-//    }
-//
+
+    /**
+     * Modifica o tipo de aposta.
+     * @param cenario Identificação do cenário.
+     * @param apostaAssegurada Identificador de aposta.
+     * @param valor Valor do seguro.
+     * @return Retorna o identificador da aposta.
+     */
+    public int modificaAposta(int cenario, int apostaAssegurada, int valor) {
+        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro no altera aposta");
+        Cenario cenarioAtual = this.cenarios.get(cenario - 1);
+
+        if(cenarioAtual.finalizado())
+            throw new IllegalArgumentException("Erro no alterar seguro: Cenario esta fechado");
+
+        return cenarioAtual.modificaTipoAposta(apostaAssegurada, valor);
+    }
+
 //    /**
 //     * Modifica o tipo de aposta.
 //     * @param cenario Identificação do cenário.

@@ -44,6 +44,17 @@ public class ValidadorSistema {
     }
 
     /**
+     * Valida o identificador da aposta.
+     *
+     * @param aposta Identificador não poderá ser menor ou igual a 0.
+     * @param localErro Localização onde ocorreu o erro.
+     */
+    public static void validaIdentificadorAposta(int aposta, int totalApostas, String localErro){
+        Validador.validaNumeroPositivo(aposta, localErro + ": Aposta invalida", false);
+        Validador.validaIndiceColecao(aposta - 1, totalApostas,  localErro + ": Aposta nao cadastrada");
+    }
+
+    /**
      * Valida o identificador do cenário de aposta.
      *
      * @param cenario Identificador não poderá ser menor ou igual a 0.

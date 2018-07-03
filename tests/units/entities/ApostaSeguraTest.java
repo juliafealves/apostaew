@@ -32,6 +32,31 @@ public class ApostaSeguraTest {
     }
 
     /**
+     * Testa a modificação do tipo de seguro.
+     */
+    @Test
+    public void testModificaSeguroValor(){
+        this.apostaSeguraTaxa.modificaSeguro(1000);
+        Assert.assertEquals("José da Sorte - R$10,00 - N VAI ACONTECER - ASSEGURADA (VALOR) - R$ 10,00", this.apostaSeguraTaxa.toString());
+    }
+
+    /**
+     * Testa se gera uma exceção caso o valor assegurado seja negativo ao alterar o tipo de seguro.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testModificaSeguroValorNegativo(){
+        this.apostaSeguraTaxa.modificaSeguro(-1000);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o valor assegurado seja zero ao alterar o tipo de seguro.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testModificaSeguroValorZero(){
+        this.apostaSeguraTaxa.modificaSeguro(0);
+    }
+
+    /**
      * Testa se gera uma exceção caso o nome do apostador seja vazio.
      */
     @Test (expected = IllegalArgumentException.class)

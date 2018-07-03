@@ -3,6 +3,7 @@ package entities;
 import enums.EstadoEnum;
 import enums.PrevisaoEnum;
 import utils.Validador;
+import utils.ValidadorSistema;
 
 import java.util.*;
 
@@ -48,31 +49,6 @@ public class Cenario {
     }
 
     /**
-     * Verifica se dois objetos Cenários são iguais, através do atributo id.
-     *
-     * @param objeto Objeto a ser analizado.
-     * @return Retorna true caso possuam o mesmo identificador.
-     */
-    @Override
-    public boolean equals(Object objeto) {
-        if (this == objeto) return true;
-        if (objeto == null || getClass() != objeto.getClass()) return false;
-        Cenario cenario = (Cenario) objeto;
-
-        return id == cenario.id;
-    }
-
-    /**
-     * Gera o hash através do atributo id.
-     *
-     * @return Hash referente a id.
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    /**
      * Adiciona uma aposta no cenário.
      *
      * @param apostador Nome do apostador
@@ -102,11 +78,45 @@ public class Cenario {
         return id;
     }
 
+    /**
+     * Adiciona uma aposta segurada do tipo taxa no cenário.
+     *
+     * @param apostador Nome do apostador.
+     * @param valor Valor da aposta
+     * @param previsao Previsão da aposta.
+     * @param taxa Taxa da aposta.
+     * @return Retorna o identificador da aposta assegurada.
+     */
     public int adicionaAposta(String apostador, int valor, String previsao, double taxa) {
         int id = this.obtemTotalApostas() + 1;
         this.apostasSeguras.put(id, new ApostaSegura(id, apostador, valor, previsao, taxa));
 
         return id;
+    }
+
+    /**
+     * Verifica se dois objetos Cenários são iguais, através do atributo id.
+     *
+     * @param objeto Objeto a ser analizado.
+     * @return Retorna true caso possuam o mesmo identificador.
+     */
+    @Override
+    public boolean equals(Object objeto) {
+        if (this == objeto) return true;
+        if (objeto == null || getClass() != objeto.getClass()) return false;
+        Cenario cenario = (Cenario) objeto;
+
+        return id == cenario.id;
+    }
+
+    /**
+     * Gera o hash através do atributo id.
+     *
+     * @return Hash referente a id.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     /**
@@ -198,15 +208,6 @@ public class Cenario {
     }
 
     /**
-     * Formatação textual do cenário de aposta.
-     *
-     * @return String formatada: NUMERACAO - DESCRICAO - ESTADO
-     */
-    public String toString(){
-        return this.id + " - " + this.descricao + " - " + this.estado;
-    }
-
-    /**
      * Listas as apostas de um cenário.
      *
      * @return Representação textual: Apostador - Valor - Previsão.
@@ -225,19 +226,33 @@ public class Cenario {
 
         return apostas.toString();
     }
-//
-//    /**
-//     * Modifica os tipos de apostas.
-//     * @param id
-//     * @param valorAssegurado
-//     * @return
-//     */
-//    public int modificaTipoAposta(int id, int valorAssegurado) {
-//        this.apostas.get(id - 1).modificaSeguro(valorAssegurado);
-//
-//        return id;
-//    }
-//
+
+    /**
+     * Modifica os tipos de apostas.
+     *
+     * @param id Identificador de aposta.
+     * @param valorAssegurado Valor assegurada da aposta.
+     * @return Retorna o identificador de aposta.
+     */
+    public int modificaTipoAposta(int id, int valorAssegurado) {
+        if(this.finalizado())
+            throw new IllegalArgumentException("Cenario ja esta fechado.");
+
+            ValidadorSistema.validaIdentificadorAposta(id, this.apostasSeguras.size(), "Erro no alterar seguro");
+            this.apostasSeguras.get(id).modificaSeguro(valorAssegurado);
+
+            return id;
+    }
+
+    /**
+     * Formatação textual do cenário de aposta.
+     *
+     * @return String formatada: NUMERACAO - DESCRICAO - ESTADO
+     */
+    public String toString(){
+        return this.id + " - " + this.descricao + " - " + this.estado;
+    }
+
 //    /**
 //     * Modifica o tipo de aposta.
 //     * @param id

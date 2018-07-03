@@ -141,6 +141,42 @@ public class CenarioTest {
     }
 
     /**
+     * Testa o modificar o tipo de seguro para valor.
+     */
+    @Test
+    public void testModificaTipoSeguroValor(){
+        int id = this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER", 0.1);
+        this.cenario.modificaTipoAposta(id, 1000);
+        Assert.assertEquals(1, id);
+    }
+
+    /**
+     * Testa se gera uma exceção o cenário já esteja finalizado.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testModificaTipoSeguroValorFinalizado(){
+        int id = this.cenario.adicionaAposta("Jose da Sorte", 1000, "N VAI ACONTECER", 0.1);
+        this.cenario.finaliza(true);
+        this.cenario.modificaTipoAposta(id, 1000);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o identificador da aposta seja negativo.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testModificaTipoSeguroValorIdentificadorNegativo(){
+        this.cenario.modificaTipoAposta(-1, 1000);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o identificador da aposta seja zero.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testModificaTipoSeguroValorIdentificadorZero(){
+        this.cenario.modificaTipoAposta(0, 1000);
+    }
+
+    /**
      * Testa se gera uma exceção caso o nome do apostador seja vazio.
      */
     @Test (expected = IllegalArgumentException.class)

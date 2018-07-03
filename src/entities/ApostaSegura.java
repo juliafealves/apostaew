@@ -43,6 +43,25 @@ public class ApostaSegura extends Aposta {
     }
 
     /**
+     * Modifica o tipo de seguro para valor.
+     *
+     * @param valorAssegurado Valor assegurado do seguro.
+     */
+    public void modificaSeguro(int valorAssegurado) {
+        this.valida(valorAssegurado);
+        this.seguro = new SeguroValor(valorAssegurado);
+    }
+
+    /**
+     * Modifica o tipo de seguro para taxa.
+     *
+     * @param taxa Taxa do seguro.
+     */
+    public void modificaSeguro(double taxa) {
+        this.seguro = new SeguroTaxa(this.valor, taxa);
+    }
+
+    /**
      * Retorna a representação textual das informações de aposta assegurada.
      *
      * @return Formatação textual: Apostador - R$ Valor em reais - Previsão - Tipo do Seguro.
