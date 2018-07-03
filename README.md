@@ -132,3 +132,49 @@ Cadastrar cenários com bônus
 ```
 int cadastrarCenario(String descricao, int bonus)
 ```
+
+### 6. Cadastrar Aposta Assegurada
+
+Um seguro é uma proteção dada ao apostador para cobrir parte de suas perdas. Existem 2 tipos de seguro: por valor e por taxa. Sendo assim, é possível existir:
+```
+Aposta sem seguro
+Aposta assegurada por valor (com seguro por valor)
+Aposta assegurada por taxa (com seguro por taxa)
+```
+
+Todo seguro possui um custo e o que difere nos dois tipos existentes é a representação do montante assegurado. No seguro por valor, é guardado o valor assegurado, e no seguro por taxa, é guardado a taxa assegurada. Ao criar uma aposta assegurada, além dos atributos padrões da aposta, deve ser passado o tipo do seguro (VALOR ou TAXA), o próprio valor ou taxa a ser assegurado e o custo do seguro. Todos os seguros são bancados e recebidos pelo caixa do sistema. Assim, ao criar um aposta assegurada, o custo do seguro é repassado ao caixa do sistema.
+
+
+Na finalização da aposta, se a mesma for decretada vencedora nada de diferente acontece. Se, no entanto, a aposta é considerada perdedora, a parte que cabe ao sistema é retirada (taxa definida na inicialização vezes o valor da aposta) e colocada em caixa. Em seguida, o valor assegurado (ou a taxa assegurada vezes o valor da aposta) é retirado do caixa. Este dinheiro será utilizado para pagar o seguro.
+
+
+Num sistema de taxa 1% onde é feita uma aposta no valor de R$ 1000,00, com seguro por valor (valor assegurado de R$ 200,00 e de custo de seguro de R$ 50,00), as seguintes ações acontecerão:
+
+Na criação da aposta, o caixa do sistema receberá R$ 50,00
+No final da aposta...
+...se a mesma for vencedora, nada é alterado no sistema
+...se a mesma tiver perdido:
+R$ 10,00 são colocados no caixa (0.01 * R$ 1000,00)
+R$ 200,00 são retirados do caixa
+(ou seja, no final o caixa sofre um decréscimo de R$ 190,00)
+
+Na seguro por taxa, o valor assegurado é o valor da aposta vezes a taxa assegurada. Por exemplo, em uma aposta de R$1000,00, e com seguro de 30%, o valor assegurado nesse seguro é de R$300,00.
+
+Uma aposta com seguro apresenta uma representação única no formato: `NOME - VALOR - PREVISÃO - ASSEGURADA (TIPO) - VALOR`. São exemplos de apostas asseguradas:
+```
+“Matheus Gaudencio - R$100,00 - VAI ACONTECER - ASSEGURADA (VALOR) - R$ 200,00”
+“Matheus Gaudencio - R$100,00 - VAI ACONTECER - ASSEGURADA (TAXA) - 5%”
+```
+
+A qualquer momento antes da finalização de um cenário, uma aposta assegurada por valor pode virar uma aposta assegurada por taxa e vice-versa. Não há custo para realizar a conversão. Toda aposta assegurada é identificada unicamente no cenário por um número inteiro. Você é livre para gerar essa identificação.
+
+
+A Facade deve ter métodos para:
+
+Cadastrar apostas assegurados
+```
+int cadastrarApostaSeguraValor(int cenario, String apostador, int valor, String previsao, int valor, int custo)
+int cadastrarApostaSeguraTaxa(int cenario, String apostador, int valor, String previsao, double taxa, int custo)
+int alterarSeguroValor(int cenario, int apostaAssegurada, int valor)
+int alterarSeguroTaxa(int cenario, int apostaAssegurada, double taxa)
+```
