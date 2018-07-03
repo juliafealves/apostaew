@@ -207,3 +207,7 @@ Retornar a representação textual de um cenário na ordenação definida anteri
 ```
 String exibirCenarioOrdenado(int cenario)
 ```
+
+## Diagrama de Classe
+
+![Diagrama de Classe](docs/apostaew_dc.svg)
