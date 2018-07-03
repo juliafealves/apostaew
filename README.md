@@ -151,12 +151,16 @@ Na finalização da aposta, se a mesma for decretada vencedora nada de diferente
 Num sistema de taxa 1% onde é feita uma aposta no valor de R$ 1000,00, com seguro por valor (valor assegurado de R$ 200,00 e de custo de seguro de R$ 50,00), as seguintes ações acontecerão:
 
 Na criação da aposta, o caixa do sistema receberá R$ 50,00
+
 No final da aposta...
+
 ...se a mesma for vencedora, nada é alterado no sistema
+
 ...se a mesma tiver perdido:
 R$ 10,00 são colocados no caixa (0.01 * R$ 1000,00)
 R$ 200,00 são retirados do caixa
 (ou seja, no final o caixa sofre um decréscimo de R$ 190,00)
+
 
 Na seguro por taxa, o valor assegurado é o valor da aposta vezes a taxa assegurada. Por exemplo, em uma aposta de R$1000,00, e com seguro de 30%, o valor assegurado nesse seguro é de R$300,00.
 
