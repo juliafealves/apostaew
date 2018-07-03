@@ -194,11 +194,22 @@ public class SistemaControllerTest {
     }
 
     /**
+     * Testa a criação do objeto ApostaSegura por valor.
+     */
+    @Test
+    public void testCadastraApostaSeguraValor(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER", 1000, 100);
+        Assert.assertEquals(1, this.sistemaController.obtemTotalApostas(1));
+    }
+
+    /**
      * Testa se gera uma exceção caso numeração do cenário seja negativo.
      */
     @Test (expected = IllegalArgumentException.class)
     public void testCadastraApostaCenarioNegativo(){
-        this.sistemaController.cadastraAposta(-1,"", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(-1,"Maria da Sorte", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(-1,"Maria da Sorte", 1000, "N VAI ACONTECER", 1000, 100);
     }
 
     /**
@@ -208,6 +219,7 @@ public class SistemaControllerTest {
     public void testCadastraApostaCenarioInexistente(){
         this.sistemaController.cadastraCenario("Cenario Teste");
         this.sistemaController.cadastraAposta(2,"Jose da Sorte", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(2,"Jose da Sorte", 1000, "N VAI ACONTECER", 100, 100);
     }
 
     /**
@@ -217,6 +229,7 @@ public class SistemaControllerTest {
     public void testCadastraApostaApostadorVazio(){
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         this.sistemaController.cadastraAposta(1,"", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,"", 1000, "N VAI ACONTECER", 100, 100);
     }
 
     /**
@@ -226,6 +239,7 @@ public class SistemaControllerTest {
     public void testCadastraApostaApostadorEmBranco(){
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         this.sistemaController.cadastraAposta(1," ", 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1," ", 1000, "N VAI ACONTECER", 100, 100);
     }
 
     /**
@@ -235,6 +249,7 @@ public class SistemaControllerTest {
     public void testCadastraApostaApostadorNulo(){
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         this.sistemaController.cadastraAposta(1,null, 1000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,null, 1000, "N VAI ACONTECER", 100, 100);
     }
 
     /**
@@ -244,6 +259,7 @@ public class SistemaControllerTest {
     public void testCadastraApostaValorNegativo(){
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         this.sistemaController.cadastraAposta(1,"Jose da Sorte", -1, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", -1, "N VAI ACONTECER", 100, 100);
     }
 
     /**
@@ -253,6 +269,7 @@ public class SistemaControllerTest {
     public void testCadastraApostaValorZero(){
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         this.sistemaController.cadastraAposta(1,"Jose da Sorte", 0, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 0, "N VAI ACONTECER", 100, 100);
     }
 
     /**
@@ -262,6 +279,7 @@ public class SistemaControllerTest {
     public void testCadastraApostaPrevisaoVazio(){
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "", 100, 100);
     }
 
     /**
@@ -271,6 +289,7 @@ public class SistemaControllerTest {
     public void testCadastraApostaPrevisaoEmBranco(){
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "  ");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "  ", 100, 100);
     }
 
     /**
@@ -280,6 +299,7 @@ public class SistemaControllerTest {
     public void testCadastraApostaPrevisaoNulo(){
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, null);
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, null, 100, 100);
     }
 
     /**
@@ -289,6 +309,43 @@ public class SistemaControllerTest {
     public void testCadastraApostaPrevisaoInvalida(){
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "NAO EXISTE ESSA PREVISAO");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "NAO EXISTE ESSA PREVISAO", 100, 100);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o valor assegurado seja negativo.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCadastraApostaValorAsseguradoNegativo(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER", -1, 100);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o valor assegurado seja igual 0.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCadastraApostaValorAsseguradoZero(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER", 0, 100);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o custo seja negativo.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCadastraApostaCustoNegativo(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER", 1000, -1);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o custo seja igual 0.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCadastraApostaCustoZero(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER", 1000, 0);
     }
 
     /**
@@ -299,7 +356,8 @@ public class SistemaControllerTest {
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         this.sistemaController.cadastraAposta(1, "Jose da Sorte", 1000, "N VAI ACONTECER");
         this.sistemaController.cadastraAposta(1, "Jose da Sorte", 1000, "N VAI ACONTECER");
-        Assert.assertEquals(2, this.sistemaController.obtemTotalApostas(1));
+        this.sistemaController.cadastraAposta(1, "Jose da Sorte", 1000, "N VAI ACONTECER", 100, 100);
+        Assert.assertEquals(3, this.sistemaController.obtemTotalApostas(1));
     }
 //
     /**
@@ -327,7 +385,9 @@ public class SistemaControllerTest {
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
         this.sistemaController.cadastraAposta(1, "Jose da Sorte", 1000, "N VAI ACONTECER");
-        Assert.assertEquals(2000, this.sistemaController.obtemValorTotalApostas(1));
+        this.sistemaController.cadastraAposta(1, "Maria da Sorte", 2000, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1, "Maria da Sorte", 2000, "N VAI ACONTECER");
+        Assert.assertEquals(6000, this.sistemaController.obtemValorTotalApostas(1));
     }
 
     /**
@@ -355,8 +415,10 @@ public class SistemaControllerTest {
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         this.sistemaController.cadastraAposta(1,"Jose da Sorte", 1000, "N VAI ACONTECER");
         this.sistemaController.cadastraAposta(1,"Maria da Sorte", 199, "VAI ACONTECER");
+        this.sistemaController.cadastraAposta(1,"Ana da Sorte", 2000, "VAI ACONTECER", 1000, 100);
         String apostas = "Jose da Sorte - R$10,00 - N VAI ACONTECER" + System.lineSeparator() +
-                "Maria da Sorte - R$1,99 - VAI ACONTECER" + System.lineSeparator();
+                "Maria da Sorte - R$1,99 - VAI ACONTECER" + System.lineSeparator() +
+                "Ana da Sorte - R$20,00 - VAI ACONTECER - ASSEGURADA (VALOR) - R$ 10,00" + System.lineSeparator();
         Assert.assertEquals(apostas, this.sistemaController.listaApostas(1));
     }
 

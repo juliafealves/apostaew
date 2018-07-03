@@ -45,18 +45,7 @@ public class Aposta {
         this.previsao = previsao.equalsIgnoreCase(PrevisaoEnum.VAI_ACONTECER.toString()) ? PrevisaoEnum.VAI_ACONTECER : PrevisaoEnum.NAO_VAI_ACONTECER;
     }
 
-//    /**
-//     * Inicializa uma aposta segura tipo valor.
-//     *
-//     * @param apostador Nome do apostador.
-//     * @param valor     Valor da aposta.
-//     * @param previsao  Previsão da Aposta: N VAI ACONTECER ou VAI ACONTECER
-//     */
-//    public Aposta(int id, String apostador, int valor, String previsao, int valorAssegurado) {
-//        this(id, apostador, valor, previsao);
-//        this.seguro = new SeguroValor(valorAssegurado);
-//    }
-//
+
 //    /**
 //     * Cria uma aposta segura tipo taxa.
 //     * @param id Identificador único.

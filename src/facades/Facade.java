@@ -18,7 +18,7 @@ public class Facade {
                 "tests/acceptance/us3_test.txt",
                 "tests/acceptance/us4_test.txt",
                 "tests/acceptance/us5_test.txt",
-//                "tests/acceptance/us6_test.txt",
+                "tests/acceptance/us6_test.txt",
 //                "tests/acceptance/us7_test.txt"
         };
 
@@ -94,12 +94,20 @@ public class Facade {
         this.sistemaController.cadastraAposta(cenario, apostador, valor, previsao);
     }
 
-//    /**
-//     * Cadastra uma aposta em um determinado cenário existente no sistema.
-//     */
-//    public int cadastrarApostaSeguraValor(int cenario, String apostador, int valor, String previsao, int valorAssegurado, int custo){
-//        return this.sistemaController.cadastraAposta(cenario, apostador, valor, previsao, valorAssegurado, custo);
-//    }
+    /**
+     * Cadastra uma aposta segura do tipo valor em um determinado cenário existente no sistema.
+     *
+     * @param cenario Identificador do cenário de aposta.
+     * @param apostador Nome do apostador.
+     * @param valor Valor da aposta.
+     * @param previsao Previsão da aposta.
+     * @param valorAssegurado Valor do seguro.
+     * @param custo Custo da aposta.
+     * @return Retorna o identificador da aposta.
+     */
+    public int cadastrarApostaSeguraValor(int cenario, String apostador, int valor, String previsao, int valorAssegurado, int custo){
+        return this.sistemaController.cadastraAposta(cenario, apostador, valor, previsao, valorAssegurado, custo);
+    }
 //
 //    public int cadastrarApostaSeguraTaxa(int cenario, String apostador, int valor, String previsao, double taxa, int custo){
 //        return this.sistemaController.cadastraAposta(cenario, apostador, valor, previsao, taxa, custo);

@@ -86,12 +86,21 @@ public class Cenario {
         return id;
     }
 
-//    public int adicionaAposta(String apostador, int valor, String previsao, int valorAssegurado) {
-//        int id = this.apostas.size() + 1;
-//        this.apostas.add(new Aposta(id, apostador, valor, previsao, valorAssegurado));
-//
-//        return id;
-//    }
+    /**
+     * Adiciona uma aposta segurada do tipo valor no cenário.
+     *
+     * @param apostador Nome do apostador.
+     * @param valor Valor da aposta
+     * @param previsao Previsão da aposta.
+     * @param valorAssegurado Valor assegurada da aposta.
+     * @return Retorna o identificador da aposta assegurada.
+     */
+    public int adicionaAposta(String apostador, int valor, String previsao, int valorAssegurado) {
+        int id = this.obtemTotalApostas() + 1;
+        this.apostasSeguras.put(id, new ApostaSegura(id, apostador, valor, previsao, valorAssegurado));
+
+        return id;
+    }
 //
 //    public int adicionaAposta(String apostador, int valor, String previsao, double taxa) {
 //        int id = this.apostas.size() + 1;

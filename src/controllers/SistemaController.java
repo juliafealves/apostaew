@@ -118,13 +118,23 @@ public class SistemaController {
         this.cenarios.get(cenario - 1).adicionaAposta(apostador, valor, previsao);
     }
 
-//    public int cadastraAposta(int cenario, String apostador, int valor, String previsao, int valorAssegurado, int custo) {
-//        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro no cadastro de aposta assegurada por valor");
-//        ValidadorSistema.validaCadastroAposta(apostador, valor, previsao, "Erro no cadastro de aposta assegurada por valor");
-//        this.caixa += custo;
-//
-//        return  this.cenarios.get(cenario - 1).adicionaAposta(apostador, valor, previsao, valorAssegurado);
-//    }
+    /**
+     * Cadastra uma aposta segura por valor em um cenário.
+     *
+     * @param cenario Identificador do cenário
+     * @param apostador Nome do apostador.
+     * @param valor Valor da aposta.
+     * @param previsao Previsão da Aposta: N VAI ACONTECER ou VAI ACONTECER
+     * @param valorAssegurado Valor assegurado da aposta.
+     * @param custo Custo da aposta.
+     */
+    public int cadastraAposta(int cenario, String apostador, int valor, String previsao, int valorAssegurado, int custo) {
+        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro no cadastro de aposta assegurada por valor");
+        ValidadorSistema.validaCadastroAposta(apostador, valor, previsao, valorAssegurado, custo, "Erro no cadastro de aposta assegurada por valor");
+        this.caixa += custo;
+
+        return this.cenarios.get(cenario - 1).adicionaAposta(apostador, valor, previsao, valorAssegurado);
+    }
 //
 //    public int cadastraAposta(int cenario, String apostador, int valor, String previsao, double taxa, int custo) {
 //        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro no cadastro de aposta assegurada por taxa");

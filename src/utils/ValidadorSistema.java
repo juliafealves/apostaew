@@ -71,4 +71,20 @@ public class ValidadorSistema {
         String[] previsoes = { PrevisaoEnum.NAO_VAI_ACONTECER.toString(), PrevisaoEnum.VAI_ACONTECER.toString() };
         Validador.validaStringIguais(previsao, previsoes, localErro + ": Previsao invalida");
     }
+
+    /**
+     * Valida os dados da aposta.
+     *
+     * @param apostador Nome do apostador não poderá ser nulo ou vazio.
+     * @param valor Valor da aposta não poderá ser menor ou igual a 0.
+     * @param previsao Previsão da Aposta só poderá ser N VAI ACONTECER ou VAI ACONTECER, não podendo ser nula ou vazia.
+     * @param valorAssegurado Valor assegurado da aposta não poderá ser menor ou igual a 0.
+     * @param custo Custo da aposta não poderá ser menor ou igual a 0.
+     * @param localErro Localização onde ocorreu o erro. Ex.: "Erro no cadastro de aposta".
+     */
+    public static void validaCadastroAposta(String apostador, int valor, String previsao, int valorAssegurado, int custo, String localErro) {
+        ValidadorSistema.validaCadastroAposta(apostador, valor, previsao, localErro);
+        Validador.validaNumeroPositivo(valorAssegurado, localErro + ": Valor assegurado nao pode ser menor ou igual a zero", false);
+        Validador.validaNumeroPositivo(custo, localErro + ": Custo nao pode ser menor ou igual a zero", false);
+    }
 }

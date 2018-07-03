@@ -46,6 +46,7 @@ public class CenarioBonus extends Cenario {
 
     /**
      * Valida os dados específicos do cenário com bônus.
+     *
      * @param bonus Valor do bônus não poderá ser menor ou igual a 0.
      */
     private void valida(int bonus) {
