@@ -19,7 +19,7 @@ public class Facade {
                 "tests/acceptance/us4_test.txt",
                 "tests/acceptance/us5_test.txt",
                 "tests/acceptance/us6_test.txt",
-//                "tests/acceptance/us7_test.txt"
+                "tests/acceptance/us7_test.txt"
         };
 
         EasyAccept.main(args);
@@ -125,6 +125,19 @@ public class Facade {
     }
 
     /**
+     * Configura a ordenação do cenário.
+     *
+     * Cadastro: A ordem natural de cadastro dos cenários (ordenados pela identificação)
+     * Nome: Ordenação baseando-se na descrição do cenário ( A < Z )
+     * Apostas: Ordenação baseando-se no número total de apostas (mais apostas primeiro)
+     *
+     * @param ordem Tipo de ordenação "cadastro", "nome", "apostas".
+     */
+    public void alterarOrdem(String ordem){
+        this.sistemaController.configuraOrdenacao(ordem);
+    }
+
+    /**
      * Altera o tipo de seguro de uma aposta para aposta segurada por valor.
      * @param cenario Identificador do cenário de aposta.
      * @param apostaAssegurada Identificador da aposta.
@@ -133,6 +146,17 @@ public class Facade {
      */
     public int alterarSeguroValor(int cenario, int apostaAssegurada, int valor){
         return this.sistemaController.modificaAposta(cenario, apostaAssegurada, valor);
+    }
+
+    /**
+     * Exibe um cenário ordenado de acordo com a configuração de ordenação configura.
+     * Por padrão, a ordenação utilizada é a ordem pelo identificador do cenário.
+     * @param cenario Identificador do cenário.
+     *
+     * @return
+     */
+    public String exibirCenarioOrdenado(int cenario){
+        return this.sistemaController.consultaCenarioOrdenado(cenario);
     }
 
     /**

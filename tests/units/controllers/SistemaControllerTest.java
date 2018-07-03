@@ -507,7 +507,7 @@ public class SistemaControllerTest {
         this.sistemaController.cadastraAposta(1,"Ana da Sorte", 1000, "N VAI ACONTECER", 0.1, 100);
         this.sistemaController.cadastraAposta(1,"Maria da Sorte", 1000, "N VAI ACONTECER", 1000, 100);
         this.sistemaController.finalizaCenario(1, false);
-        Assert.assertEquals("1 - O Brasil vai ser hexa - Finalizado (nao ocorreu)", this.sistemaController.consultaCenario(1));
+        Assert.assertEquals("1 - O Brasil vai ser hexa - Finalizado (n ocorreu)", this.sistemaController.consultaCenario(1));
     }
 
     /**
@@ -731,5 +731,123 @@ public class SistemaControllerTest {
     public void testCalculaRateioCenarioCenarioInexistente(){
         this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
         this.sistemaController.calculaCaixaRateioCenario(2);
+    }
+
+    /**
+     * Testa a ordenação por identificador do consulta cenário.
+     */
+    @Test
+    public void testConsultaCenarioOrdenadoPorId(){
+        this.sistemaController.cadastraCenario("Primeiro cenário", 100);
+        this.sistemaController.cadastraCenario("Segundo cenário");
+        this.sistemaController.cadastraCenario("Terceiro cenário");
+        Assert.assertEquals("1 - Primeiro cenário - Nao finalizado - R$ 1,00", this.sistemaController.consultaCenarioOrdenado(1));
+    }
+
+    /**
+     * Testa a ordenação por descrição do consulta cenário.
+     */
+    @Test
+    public void testConsultaCenarioOrdenadoPorDescricao(){
+        this.sistemaController.cadastraCenario("C cenário", 100);
+        this.sistemaController.cadastraCenario("A cenário");
+        this.sistemaController.cadastraCenario("B cenário");
+        this.sistemaController.configuraOrdenacao("nome");
+        Assert.assertEquals("2 - A cenário - Nao finalizado", this.sistemaController.consultaCenarioOrdenado(1));
+    }
+
+    /**
+     * Testa a ordenação por descrição do consulta cenário em caso de empate.
+     */
+    @Test
+    public void testConsultaCenarioOrdenadoPorDescricaoEmpate(){
+        this.sistemaController.cadastraCenario("A cenário", 100);
+        this.sistemaController.cadastraCenario("A cenário");
+        this.sistemaController.cadastraCenario("A cenário");
+        this.sistemaController.configuraOrdenacao("nome");
+        Assert.assertEquals("1 - A cenário - Nao finalizado - R$ 1,00", this.sistemaController.consultaCenarioOrdenado(1));
+    }
+
+    /**
+     * Testa a ordenação por total de apostas do consulta cenário.
+     */
+    @Test
+    public void testConsultaCenarioOrdenadoPorApostas(){
+        this.sistemaController.cadastraCenario("Primeiro cenário", 100);
+        this.sistemaController.cadastraAposta(1, "Clara da Sorte", 100, "N VAI ACONTECER", 100, 100);
+        this.sistemaController.cadastraCenario("Segundo cenário");
+        this.sistemaController.cadastraAposta(2, "Joao da Sorte", 100, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(2, "Maria da Sorte", 100, "N VAI ACONTECER");
+        this.sistemaController.cadastraCenario("Terceiro cenário");
+        this.sistemaController.cadastraAposta(3, "Ana da Sorte", 100, "N VAI ACONTECER", 0.1, 100);
+        this.sistemaController.configuraOrdenacao("apostas");
+        Assert.assertEquals("2 - Segundo cenário - Nao finalizado", this.sistemaController.consultaCenarioOrdenado(1));
+    }
+
+    /**
+     * Testa a ordenação por total de apostas do consulta cenário com empate.
+     */
+    @Test
+    public void testConsultaCenarioOrdenadoPorApostasEmpate(){
+        this.sistemaController.cadastraCenario("Primeiro cenário", 1000);
+        this.sistemaController.cadastraAposta(1, "Clara da Sorte", 100, "N VAI ACONTECER", 100, 100);
+        this.sistemaController.cadastraAposta(1, "Clara da Sorte", 100, "N VAI ACONTECER", 100, 100);
+        this.sistemaController.cadastraCenario("Segundo cenário");
+        this.sistemaController.cadastraAposta(2, "Joao da Sorte", 100, "N VAI ACONTECER");
+        this.sistemaController.cadastraAposta(2, "Maria da Sorte", 100, "N VAI ACONTECER");
+        this.sistemaController.cadastraCenario("Terceiro cenário");
+        this.sistemaController.cadastraAposta(3, "Ana da Sorte", 100, "N VAI ACONTECER", 0.1, 100);
+        this.sistemaController.cadastraAposta(3, "Ana da Sorte", 100, "N VAI ACONTECER", 0.1, 100);
+        this.sistemaController.configuraOrdenacao("apostas");
+        Assert.assertEquals("1 - Primeiro cenário - Nao finalizado - R$ 10,00", this.sistemaController.consultaCenarioOrdenado(1));
+    }
+
+    /**
+     * Testa se gera uma exceção caso numeração do cenário seja negativo.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testConsultaCenarioOrdenadoCenarioNegativo(){
+        this.sistemaController.consultaCenarioOrdenado(-1);
+    }
+
+    /**
+     * Testa se gera uma exceção caso o número do cenário acima do tamanho da coleção.
+     */
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testConsultaCenarioOrdenadoCenarioInexistente(){
+        this.sistemaController.cadastraCenario("O Brasil vai ser hexa");
+        this.sistemaController.consultaCenarioOrdenado(2);
+    }
+
+    /**
+     * Testa se gera uma exceção caso a ordem seja vazia.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testConfiguraOrdenacaoOrdemVazia(){
+        this.sistemaController.configuraOrdenacao("");
+    }
+
+    /**
+     * Testa se gera uma exceção caso a ordem esteja preenchido com caracteres em branco.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testConfiguraOrdenacaoOrdemEmBranco(){
+        this.sistemaController.configuraOrdenacao(" ");
+    }
+
+    /**
+     * Testa se gera uma exceção caso a ordem seja nula.
+     */
+    @Test (expected = NullPointerException.class)
+    public void testConfiguraOrdenacaoOrdemNulo(){
+        this.sistemaController.configuraOrdenacao(null);
+    }
+
+    /**
+     * Testa se gera uma exceção caso a ordem seja inválida.
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testConfiguraOrdenacaoOrdemInvalida(){
+        this.sistemaController.configuraOrdenacao("valor");
     }
 }

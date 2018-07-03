@@ -182,3 +182,28 @@ int cadastrarApostaSeguraTaxa(int cenario, String apostador, int valor, String p
 int alterarSeguroValor(int cenario, int apostaAssegurada, int valor)
 int alterarSeguroTaxa(int cenario, int apostaAssegurada, double taxa)
 ```
+
+### 7. Listar Cenários Ordenados
+
+É importante que sistemas de cadastro de entidades sejam capazes de retornar seus elementos em determinada ordem. Para o sistema de apostas, não seria diferente. Por exemplo, a ordem alfabética permite que o usuário rapidamente ache um cenário ao lembrar do começo da descrição. A ordem de número de apostas ajuda a identificar quais os cenários de maior interesse por parte dos apostadores. Por fim, a própria ordem em que os elementos foram cadastrados permite recuperar, rapidamente, qual cenário está associado com qual identificação.
+
+
+Seu sistema deve agora permitir trabalhar com elementos ordenados por essas três características:
+
+- **Cadastro** A ordem natural de cadastro dos cenários (ordenados pela identificação)
+- **Nome** Ordenação baseando-se na descrição do cenário ( A < Z )
+- **Apostas** Ordenação baseando-se no número total de apostas (mais apostas primeiro)
+
+Tanto a ordenação por nome ou por apostas podem fazer com que cenários ocupem a mesma posição (nos casos em que os nomes são iguais ou que há o mesmo número de apostas). Nessas situações, o critério de desempate é a identificação do cenário - ou seja - cenários com menor identificação aparecem primeiro na ordem dos cenários.
+
+
+A Facade deve ter métodos para:
+
+Alterar a ordem em que os cenários serão exibidos.
+```
+void alterarOrdem(String ordem)
+```
+Retornar a representação textual de um cenário na ordenação definida anteriormente.
+```
+String exibirCenarioOrdenado(int cenario)
+```

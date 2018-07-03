@@ -105,6 +105,14 @@ public class CenarioTest {
     }
 
     /**
+     * Testa  o método consultar o identificador do cenário.
+     */
+    @Test
+    public void testGetId(){
+        Assert.assertEquals(1, this.cenario.getId());
+    }
+
+    /**
      * Testa o método toString do Cenario.
      * Formato textual: Numeracao - Descricao - Estado
      */
@@ -400,7 +408,7 @@ public class CenarioTest {
     @Test
     public void testFinalizaNaoOcorreu(){
         this.cenario.finaliza(false);
-        Assert.assertEquals("1 - O Brasil vai ser hexa. - Finalizado (nao ocorreu)", this.cenario.toString());
+        Assert.assertEquals("1 - O Brasil vai ser hexa. - Finalizado (n ocorreu)", this.cenario.toString());
     }
 
     /**

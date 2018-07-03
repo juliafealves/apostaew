@@ -1,6 +1,7 @@
 package entities;
 
 import enums.EstadoEnum;
+import sun.awt.geom.Curve;
 import utils.Validador;
 
 import java.util.*;
@@ -162,16 +163,6 @@ public class Cenario {
     }
 
     /**
-     * Gera o hash através do atributo id.
-     *
-     * @return Hash referente a id.
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    /**
      * Finaliza um cenário de aposta e calcula os valores das apostas.
      *
      * @param ocorreu Valor booleano onde diz se ocorreu ou não o cenário de aposta.
@@ -184,10 +175,38 @@ public class Cenario {
 
     /**
      * Verifica se um cenário de aposta foi finalizado.
+     *
      * @return Retorna true caso um cenário foi finalizado.
      */
     public boolean finalizado(){
         return this.estado.equals(EstadoEnum.FINALIZADO_OCORREU) || this.estado.equals(EstadoEnum.FINALIZADO_NAO_OCORREU);
+    }
+
+    /**
+     * Retorna a descrição do cenário.
+     * @return Descrição da aposta.
+     */
+    public String getDescricao() {
+        return this.descricao;
+    }
+
+    /**
+     * Retorna o identificador do cenário.
+     *
+     * @return Identificador do cenário.
+     */
+    public int getId() {
+        return this.id;
+    }
+
+    /**
+     * Gera o hash através do atributo id.
+     *
+     * @return Hash referente a id.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     /**

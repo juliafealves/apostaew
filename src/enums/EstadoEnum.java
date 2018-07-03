@@ -5,7 +5,7 @@ package enums;
  */
 public enum EstadoEnum {
     NAO_FINALIZADO("Nao finalizado"),
-    FINALIZADO_NAO_OCORREU("Finalizado (nao ocorreu)"),
+    FINALIZADO_NAO_OCORREU("Finalizado (n ocorreu)"),
     FINALIZADO_OCORREU("Finalizado (ocorreu)");
 
     private String estado;

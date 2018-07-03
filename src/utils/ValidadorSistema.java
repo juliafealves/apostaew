@@ -1,5 +1,6 @@
 package utils;
 
+import enums.OrdenacaoEnum;
 import enums.PrevisaoEnum;
 
 import java.util.Map;
@@ -104,5 +105,18 @@ public class ValidadorSistema {
         ValidadorSistema.validaCadastroAposta(apostador, valor, previsao, localErro);
         Validador.validaNumeroPositivo(taxa, localErro + ": Taxa nao pode ser menor ou igual a zero", false);
         Validador.validaNumeroPositivo(custo, localErro + ": Custo nao pode ser menor ou igual a zero", false);
+    }
+
+    /**
+     * Valida os dados dos tipos de ordenação do cenário.
+     *
+     * @param ordem Ordem só poderá ser "apostas", "nome" ou "cadastro", não podendo ser nula ou vazia.
+     * @param localErro Localização onde ocorreu o erro. Ex.: "Erro no cadastro de aposta".
+     */
+    public static void validaOrdenacao(String ordem, String localErro) {
+        Validador.validaNaoNulo(ordem, localErro + ": Ordem nao pode ser vazia ou nula");
+        Validador.validaStringNaoVazia(ordem, localErro + ": Ordem nao pode ser vazia ou nula");
+        String[] ordenacoes = { OrdenacaoEnum.NOME.toString(), OrdenacaoEnum.APOSTAS.toString(), OrdenacaoEnum.CADASTRO.toString() };
+        Validador.validaStringIguais(ordem, ordenacoes, localErro + ": Ordem invalida");
     }
 }

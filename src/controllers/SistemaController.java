@@ -1,10 +1,16 @@
 package controllers;
 
+import comparators.DescricaoComparator;
+import comparators.IdComparator;
+import comparators.TotalApostasComparator;
 import entities.Cenario;
 import entities.CenarioBonus;
+import enums.OrdenacaoEnum;
 import utils.ValidadorSistema;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +36,11 @@ public class SistemaController {
     private List<Cenario> cenarios;
 
     /**
+     * Define a estratégia de ordenação do listar cenários.
+     */
+    private Comparator<Cenario> estrategiaOrdenacao;
+
+    /**
      * Inicializa o sistema, definindo o valor do caixa (em centavos) e a taxa.
      *
      * @param caixa Valor em centavos.
@@ -40,6 +51,7 @@ public class SistemaController {
         this.caixa = caixa;
         this.taxa = taxa;
         this.cenarios = new ArrayList<>();
+        this.estrategiaOrdenacao = new IdComparator();
     }
 
     /**
@@ -81,6 +93,21 @@ public class SistemaController {
     public String consultaCenario(int cenario) {
         ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro na consulta de cenario");
         return this.cenarios.get(cenario - 1).toString();
+    }
+
+    /**
+     * Consulta as informações básicas de um cenário de aposta.
+     *
+     * @param cenario Localiza um cenário de aposta pelo número.
+     * @return Retorna a string formatada NUMERACAO - DESCRICAO - ESTADO.
+     */
+    public String consultaCenarioOrdenado(int cenario) {
+        ValidadorSistema.validaIdentificadorCenario(cenario, this.cenarios.size(), "Erro na consulta de cenario ordenado");
+
+        List<Cenario> cenarios = new ArrayList<>(this.cenarios);
+        Collections.sort(cenarios, this.estrategiaOrdenacao);
+
+        return cenarios.get(cenario - 1).toString();
     }
 
     /**
@@ -268,5 +295,26 @@ public class SistemaController {
      */
     private int calculaTaxa(int valor){
         return (int) (valor * taxa);
+    }
+
+    /**
+     * Configura a ordenação da lista de cenários.
+     *
+     * Cadastro A ordem natural de cadastro dos cenários (ordenados pela identificação)
+     * Nome Ordenação baseando-se na descrição do cenário ( A < Z )
+     * Apostas Ordenação baseando-se no número total de apostas (mais apostas primeiro)
+     *
+     * @param ordenacao Tipo de ordenação: Cadastro, Nome, Apostas.
+     */
+    public void configuraOrdenacao(String ordenacao) {
+        ValidadorSistema.validaOrdenacao(ordenacao, "Erro ao alterar ordem");
+
+        if(ordenacao.equalsIgnoreCase(OrdenacaoEnum.CADASTRO.toString())) {
+            this.estrategiaOrdenacao = new IdComparator();
+        } else if(ordenacao.equalsIgnoreCase(OrdenacaoEnum.NOME.toString())){
+            this.estrategiaOrdenacao = new DescricaoComparator();
+        } else if(ordenacao.equalsIgnoreCase(OrdenacaoEnum.APOSTAS.toString())){
+            this.estrategiaOrdenacao = new TotalApostasComparator();
+        }
     }
 }
